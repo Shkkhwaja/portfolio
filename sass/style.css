@@ -41,7 +41,7 @@ body {
 .container {
   height: 100%;
   width: 100%;
-  background-color: black;
+  background-color: #030200;
 }
 
 .nav-bar {
@@ -149,7 +149,7 @@ body {
 }
 .about .about-container {
   height: 100vh;
-  background-color: rgb(0, 0, 0);
+  background-color: #030200;
 }
 .about .about-heading {
   color: #faf7f7;
@@ -184,29 +184,38 @@ body {
 .pic-img {
   position: absolute;
   bottom: 2em;
-  height: 70%;
+  height: 75%;
   width: 24%;
-  margin-left: 14rem;
-  border: 2px solid cyan;
+  margin-left: 9rem;
+  margin-bottom: 3em;
+  filter: drop-shadow(-15px -10px 35px rgb(44, 95, 95));
 }
 
-.about pre {
+.about p {
+  height: 300px;
+  width: 700px;
   position: absolute;
   font-family: sen;
-  bottom: 4rem;
-  left: 32em;
+  bottom: 11rem;
+  left: 25em;
   color: #fff;
-  font-size: 15px;
-  line-height: 20px;
-  letter-spacing: 2px;
+  font-size: 20px;
+  line-height: 23px;
+  letter-spacing: 1.5px;
+  text-align: start;
+  word-wrap: break-word;
+}
+.about p .span-para {
+  font-weight: 800;
 }
 
 .icons {
   display: flex;
-  margin-left: 16em;
-  gap: 60px;
-  position: relative;
-  bottom: 1em;
+  margin-left: 43em;
+  gap: 100px;
+  position: absolute;
+  bottom: 5em;
+  height: 2.7em;
 }
 
 .skills {
@@ -216,7 +225,7 @@ body {
 .skills .skills-container {
   height: 100vh;
   width: 100%;
-  background-color: rgb(0, 0, 0);
+  background-color: #030200;
 }
 .skills .skills-heading {
   color: #faf7f7;
@@ -266,7 +275,7 @@ body {
 }
 
 .icon-name-1 {
-  color: white;
+  color: #f8f8f8;
   display: flex;
   font-size: 15px;
   text-transform: uppercase;
@@ -293,7 +302,7 @@ body {
 }
 
 .icon-name-2 {
-  color: white;
+  color: #f8f8f8;
   display: flex;
   font-size: 15px;
   text-transform: uppercase;
@@ -319,6 +328,291 @@ body {
   margin-left: 10em;
 }
 
+.project {
+  position: relative;
+  top: 100%;
+}
+.project .project-container {
+  height: 100vh;
+  background-color: rgb(0, 0, 0);
+}
+.project .project-heading {
+  color: #faf7f7;
+  text-align: center;
+  position: relative;
+  top: 8%;
+  font-size: 36px;
+  text-transform: uppercase;
+  font-family: sen;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.project .project-heading::after {
+  content: "";
+  position: absolute;
+  background-color: #ffa818;
+  height: 5.5px;
+  left: 43.5%;
+  right: 43.5%;
+  top: 1.2em;
+}
+
+@media only screen and (max-width: 600px) {
+  .nav-bar {
+    color: white;
+  }
+  .nav-bar nav {
+    text-align: right;
+    display: none;
+  }
+  .nav-bar nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.8em;
+    list-style: none;
+    justify-content: flex-end;
+    position: relative;
+    top: 1.5em;
+    right: 3rem;
+    position: absolute;
+  }
+  .nav-bar nav ul li {
+    font-size: 20px;
+    text-transform: uppercase;
+    font-family: sen;
+    letter-spacing: 3px;
+    position: relative;
+  }
+  .nav-bar nav ul li::after {
+    content: "";
+    height: 3px;
+    position: absolute;
+    background-color: orange;
+    bottom: -5px;
+    left: 0;
+    right: 5px;
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 0.3s ease;
+  }
+  .nav-bar nav ul li:hover::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+    background-color: orange;
+  }
+  .name-section {
+    position: absolute;
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+  .name-section .name {
+    position: relative;
+    top: 8em;
+    left: 2em;
+    font-size: 20px;
+    font-family: sen;
+  }
+  #first-name {
+    position: relative;
+  }
+  #first-name::after {
+    content: "";
+    position: absolute;
+    background-color: #ffa818;
+    height: 5px;
+    left: 0;
+    right: 14px;
+    top: 1.4em;
+  }
+  .name-wrapper {
+    position: relative;
+    font-family: sen;
+    font-size: 32px;
+    line-height: 1.5;
+  }
+  .name {
+    display: inline-block;
+  }
+  #messenger {
+    position: relative;
+  }
+  #messenger::after {
+    content: "";
+    position: absolute;
+    background-color: orange;
+    height: 5px;
+    left: 0;
+    right: 14px;
+    top: 1.4em;
+  }
+  .about {
+    position: relative;
+    top: 100%;
+  }
+  .about .about-container {
+    height: 140vh;
+    background-color: #030200;
+  }
+  .about .about-heading {
+    color: #faf7f7;
+    text-align: center;
+    position: relative;
+    top: 2%;
+    font-size: 36px;
+    text-transform: uppercase;
+    font-family: sen;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .about .about-heading::after {
+    content: "";
+    position: absolute;
+    background-color: rgba(255, 102, 0, 0.89);
+    height: 5.5px;
+    left: 24%;
+    right: 24%;
+    top: 1.2em;
+  }
+  .about .text {
+    color: #fff;
+    font-family: sen;
+    font-size: 19px;
+    text-align: center;
+    margin-top: 2.1em;
+    font-weight: 400;
+    letter-spacing: 2px;
+  }
+  .pic-img {
+    position: absolute;
+    top: 8em;
+    height: 40%;
+    width: 80%;
+    margin-left: 2.5rem;
+  }
+  .about p {
+    height: 500px;
+    width: 322px;
+    position: absolute;
+    font-family: sen;
+    bottom: 8rem;
+    left: 1.5em;
+    color: #fff;
+    font-size: 15px;
+    line-height: 23px;
+    letter-spacing: 1.5px;
+    text-align: center;
+    word-wrap: break-word;
+  }
+  .about p .span-para {
+    font-weight: 800;
+  }
+  .icons {
+    display: flex;
+    margin-left: 5em;
+    gap: 40px;
+    position: absolute;
+    bottom: 4em;
+  }
+  .skills {
+    position: relative;
+    top: 100%;
+  }
+  .skills .skills-container {
+    height: 100vh;
+    width: 100%;
+    background-color: #030200;
+  }
+  .skills .skills-heading {
+    color: #faf7f7;
+    text-align: center;
+    position: relative;
+    top: 8%;
+    font-size: 36px;
+    text-transform: uppercase;
+    font-family: sen;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .skills .skills-heading::after {
+    content: "";
+    position: absolute;
+    background-color: #ffa818;
+    height: 5.5px;
+    left: 33%;
+    right: 33%;
+    top: 1.2em;
+  }
+  .skills-icons {
+    margin-top: 2rem;
+    text-align: center;
+    height: 25em;
+    margin-left: -14em;
+    height: 70px;
+  }
+  #html-icon, #js-icon, #tailwind-icon, #responsive-icon {
+    margin-left: 14em;
+    margin-top: 6em;
+  }
+  #css-icon, #sass-icon, #github-icon, #ubantu-icon {
+    margin-left: 5em;
+  }
+  .icon-name-1 {
+    color: #f8f8f8;
+    display: flex;
+    font-size: 15px;
+    text-transform: uppercase;
+    margin-left: 3rem;
+    position: absolute;
+    top: 17em;
+    font-family: sen;
+  }
+  .icon-name-1 h3:nth-child(1) {
+    margin-left: 15em;
+    margin-top: -6px;
+  }
+  .icon-name-1 h3:nth-child(2) {
+    margin-left: 6em;
+    margin-top: -6px;
+  }
+  .icon-name-1 h3:nth-child(3) {
+    margin-top: 10em;
+    margin-left: -13em;
+    width: 120px;
+    height: 20px;
+    text-align: center;
+    margin-top: 9.2em;
+  }
+  .icon-name-1 h3:nth-child(4) {
+    margin-left: 4em;
+    margin-top: 9.2em;
+  }
+  .icon-name-2 {
+    color: #f8f8f8;
+    display: flex;
+    font-size: 15px;
+    text-transform: uppercase;
+    margin-left: -6rem;
+    position: absolute;
+    top: 34em;
+    font-family: sen;
+  }
+  .icon-name-2 h3:nth-child(1) {
+    margin-left: 22.2em;
+    margin-top: 6.4em;
+  }
+  .icon-name-2 h3:nth-child(2) {
+    margin-left: 4em;
+    margin-top: 6.4em;
+  }
+  .icon-name-2 h3:nth-child(3) {
+    margin-left: -14.8em;
+    margin-top: 17.6em;
+  }
+  .icon-name-2 h3:nth-child(4) {
+    margin-left: 3.7em;
+    margin-top: 17.6em;
+  }
+}
 @media screen and (min-width: 1920px) {
   .pic-img {
     position: absolute;
@@ -377,5 +671,9 @@ body {
   }
   .icon-name-2 {
     margin-left: 18.6rem;
+  }
+  .project .project-heading::after {
+    left: 45.2%;
+    right: 45.2%;
   }
 }/*# sourceMappingURL=style.css.map */
