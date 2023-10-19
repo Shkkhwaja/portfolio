@@ -120,3 +120,45 @@ const app = {
 $(document).ready(function() {
     app.init()
 });
+
+//    add link to about-me icon
+
+let github = document.querySelector('#github-link')
+let linkedin = document.querySelector('#linkedin-link')
+let twitter = document.querySelector('#twitter-link')
+
+
+github.addEventListener('click', function(){
+    window.open('https://github.com/Shkkhwaja')
+})
+
+linkedin.addEventListener('click', function(){
+    window.open('https://www.linkedin.com/in/khwaja-shaikh-960b981b1/')
+})
+
+twitter.addEventListener('click', function(){
+    window.open('https://twitter.com/khwajas81112581')
+})
+
+// add link to project section
+let firstLive = document.querySelector('.live-site p:nth-child(1)');
+let firstGithub = document.querySelector('.live-site p:nth-child(2)');
+
+firstLive.addEventListener('click', function(){
+    window.open('https://shkkhwaja.github.io/Api-Food-App/')
+})
+
+firstGithub.addEventListener('click', function(){
+    window.open('https://github.com/Shkkhwaja/Api-Food-App')
+})
+
+let secondLive = document.querySelector('#second-live p:nth-child(1)');
+let secondGithub = document.querySelector('#second-live p:nth-child(2)');
+
+secondLive.addEventListener('click', function(){
+    window.open('https://shkkhwaja.github.io/university.github.io/')
+})
+
+secondGithub.addEventListener('click', function(){
+    window.open('https://github.com/Shkkhwaja/university.github.io')
+})
