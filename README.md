@@ -2,4 +2,4 @@
 my recent portfolio
 
 ## Deployed Link[
-https://khwaja-shaikh-portfolio-krylm3rvj-shkkhwajas-projects.vercel.app/
+https://khwaja-shaikh-portfolio-baky93otx-shkkhwajas-projects.vercel.app/
