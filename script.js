@@ -1,3 +1,6 @@
+
+
+
 const app = {
     init: function() {
         this.initMessenger();
@@ -162,3 +165,33 @@ secondLive.addEventListener('click', function(){
 secondGithub.addEventListener('click', function(){
     window.open('https://github.com/Shkkhwaja/university.github.io')
 })
+
+let arrow = ()=>{
+    const arr = document.querySelector('.down-arrow')
+    arr.style.display = 'none'
+}
+    setTimeout(arrow, 3000);
+
+
+    ////   Scroll down
+    let home = document.querySelector('nav ul li:nth-child(1)');
+    let about = document.querySelector('nav ul li:nth-child(2)');
+    let skills = document.querySelector('nav ul li:nth-child(3)');
+    let project = document.querySelector('nav ul li:nth-child(4)');
+    let contact = document.querySelector('nav ul li:nth-child(5)');
+
+    home.addEventListener('click',()=>{
+        window.scrollTo(0, 0);
+    })
+    about.addEventListener('click',()=>{
+        window.scrollTo(0, 620);
+    })
+    skills.addEventListener('click',()=>{
+        window.scrollTo(0, 1300);
+    })
+    project.addEventListener('click',()=>{
+        window.scrollTo(0, 2000);
+    })
+    contact.addEventListener('click',()=>{
+        window.scrollTo(0, 5000);
+    })

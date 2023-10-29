@@ -21,6 +21,7 @@ body {
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
+  scroll-behavior: smooth;
 }
 
 /* latin-ext */
@@ -146,6 +147,28 @@ body {
   top: 1.4em;
 }
 
+.down-arrow {
+  height: 5px;
+  width: 20px;
+  position: absolute;
+  top: 32em;
+  left: 78em;
+  animation-name: arrow;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes arrow {
+  0% {
+    top: 32em;
+  }
+  50% {
+    top: 34em;
+  }
+  100% {
+    top: 32em;
+  }
+}
 .about {
   position: relative;
   top: 100%;
@@ -693,6 +716,27 @@ div .first-project {
     right: 14px;
     top: 1.4em;
   }
+  .down-arrow {
+    height: 5px;
+    width: 20px;
+    position: absolute;
+    top: 40em;
+    left: 19em;
+    animation-name: arrow;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+  }
+  @keyframes arrow {
+    0% {
+      top: 39em;
+    }
+    50% {
+      top: 36em;
+    }
+    100% {
+      top: 39em;
+    }
+  }
   .about {
     position: relative;
     top: 100%;
@@ -875,13 +919,8 @@ div .first-project {
     top: 100%;
   }
   .project .project-container {
-<<<<<<< HEAD
     height: 285vh;
     width: 100vw;
-=======
-    height: 280vh;
-  background-color: #030200;
->>>>>>> bfb5dc43e971608fcb0485087d78d2060e029f41
   }
   .project .project-heading {
     color: #faf7f7;
@@ -1005,7 +1044,7 @@ div .first-project {
   .contact .contact-container {
     height: 118vh;
     width: 100%;
-  background-color: #030200;
+    background-color: #030200;
   }
   .contact .contact-heading {
     color: #faf7f7;
@@ -1206,5 +1245,45 @@ div .first-project {
     width: 80em;
     margin-left: 18em;
     margin-top: 5em;
+  }
+  .contact {
+    position: relative;
+    top: 50%;
+  }
+  .contact .contact-container {
+    height: -50vh;
+    width: 100%;
+    background-color: #030200;
+  }
+  .contact .contact-heading {
+    color: #faf7f7;
+    text-align: center;
+    position: relative;
+    top: 1%;
+    font-size: 36px;
+    text-transform: uppercase;
+    font-family: sen;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .contact .contact-heading::after {
+    content: "";
+    position: absolute;
+    background-color: #ffa818;
+    height: 5.5px;
+    left: 44%;
+    right: 44%;
+    top: 1.2em;
+  }
+  .form-container {
+    margin-top: 8em;
+    margin-left: 16em;
+    height: 80vh;
+    width: 75vw;
+  }
+  .form-text .copyright {
+    color: #f8f8f8;
+    margin-top: 20em;
+    margin-left: -14em;
   }
 }/*# sourceMappingURL=style.css.map */
