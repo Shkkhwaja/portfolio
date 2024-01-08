@@ -439,6 +439,13 @@ div .first-project {
 #third-icon {
   width: 180px;
   height: 150px;
+  position: relative;
+  top: -3em;
+}
+
+#third-live {
+  position: relative;
+  top: -17em;
 }
 
 .live-site {
@@ -908,7 +915,7 @@ div .first-project {
     top: 100%;
   }
   .project .project-container {
-    height: 285vh;
+    height: 300vh;
     width: 100vw;
   }
   .project .project-heading {
@@ -938,7 +945,7 @@ div .first-project {
     margin: 0% 0%;
   }
   div .first-project {
-    height: 40em;
+    height: 45em;
     width: 20em;
     margin-top: 3em;
   }
@@ -1031,7 +1038,7 @@ div .first-project {
     top: 100%;
   }
   .contact .contact-container {
-    height: 118vh;
+    height: 120vh;
     width: 100%;
     background-color: #030200;
   }
@@ -1065,7 +1072,7 @@ div .first-project {
   .form-container .form {
     height: 390px;
     width: 330px;
-    margin: 29em 1.5em;
+    margin: 29em 0.6em;
     font-family: sen;
   }
   .form-container .form input[type=text]:nth-child(1) {
