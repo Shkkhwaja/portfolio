@@ -166,6 +166,22 @@ secondGithub.addEventListener('click', function(){
     window.open('https://github.com/Shkkhwaja/university.github.io')
 })
 
+let thirdLive = document.querySelector('#third-live p:nth-child(1)');
+let thirdGithub = document.querySelector('#third-live p:nth-child(2)');
+
+thirdLive.addEventListener('click', function(){
+    window.open('https://fitness-n-go-clone.vercel.app/')
+})
+
+thirdGithub.addEventListener('click', function(){
+    window.open('https://github.com/Shkkhwaja/Fitness-nGo_Clone')
+})
+
+
+
+
+
+//  arrow element
 let arrow = ()=>{
     const arr = document.querySelector('.down-arrow')
     arr.style.display = 'none'
@@ -195,3 +211,5 @@ let arrow = ()=>{
     contact.addEventListener('click',()=>{
         window.scrollTo(0, 5000);
     })
+
+

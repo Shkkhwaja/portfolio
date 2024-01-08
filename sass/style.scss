@@ -22,6 +22,7 @@ body {
     height: 100%;
     user-select: none;
     scroll-behavior: smooth;
+    cursor: url('/image/cursor/icon.png'), auto;
 }
 
 /* latin-ext */
@@ -156,28 +157,10 @@ body {
 }
 
 .down-arrow{
-    height: 5px;
-    width: 20px;
-    position: absolute;
-    top: 32em;
-    left: 78em;
-    animation-name: arrow;
-    animation-duration: 1.5s;
-    animation-iteration-count: infinite;
+    display: none;
 }
-@keyframes arrow {
-    0%{
-        top: 32em;
-    }
-    50%{
-        top: 34em;
 
-    }
-    100%{
-        top: 32em;
-    }
     
-}
 ////    About Section /////
 
 .about {
@@ -498,6 +481,11 @@ div .first-project {
     width: 150px;
     height: 130px;
 
+}
+
+#third-icon{
+    width: 180px;
+    height: 150px;
 }
 
 .live-site {
@@ -829,6 +817,7 @@ div .first-project {
         animation-name: arrow;
         animation-duration: 1.5s;
         animation-iteration-count: infinite;
+        display: block;
     }
 
     @keyframes arrow {
@@ -1280,7 +1269,7 @@ div .first-project {
         .form {
             height: 390px;
             width: 330px;
-            margin: 29em 0em;
+            margin: 29em 1.5em;
             font-family: sen;
 
 
