@@ -196,20 +196,53 @@ let arrow = ()=>{
     let project = document.querySelector('nav ul li:nth-child(4)');
     let contact = document.querySelector('nav ul li:nth-child(5)');
 
-    home.addEventListener('click',()=>{
-        window.scrollTo(0, 0);
-    })
-    about.addEventListener('click',()=>{
-        window.scrollTo(0, 620);
-    })
-    skills.addEventListener('click',()=>{
-        window.scrollTo(0, 1300);
-    })
-    project.addEventListener('click',()=>{
-        window.scrollTo(0, 2000);
-    })
-    contact.addEventListener('click',()=>{
-        window.scrollTo(0, 5000);
-    })
+    
+    
+    function smoothScrollTo(targetPosition, duration) {
+        const startPosition = window.scrollY;
+        const startTime = performance.now();
+      
+        function scrollAnimation(currentTime) {
+          const elapsedTime = currentTime - startTime;
+          const scrollProgress = Math.min(elapsedTime / duration, 1);
+          const ease = easingFunction(scrollProgress);
+          const newPosition = startPosition + (targetPosition - startPosition) * ease;
+      
+          window.scrollTo(0, newPosition);
+      
+          if (scrollProgress < 1) {
+            requestAnimationFrame(scrollAnimation);
+          }
+        }
+      
+        function easingFunction(t) {
+          // You can use different easing functions for the scroll animation.
+          // Here's an example using the easeInOutQuad function.
+          // You can explore other easing functions as well.
+          return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+        }
+      
+        requestAnimationFrame(scrollAnimation);
+      }
+      
+      // Usage example:
+      home.addEventListener('click', () => {
+        smoothScrollTo(0, 1500);
+      });
+      
+      about.addEventListener('click', () => {
+        smoothScrollTo(600, 1000);
+      });
+      
+      skills.addEventListener('click', () => {
+        smoothScrollTo(1300, 1600);
+      });
+      
+      project.addEventListener('click', () => {
+        smoothScrollTo(1950, 2200);
+      });
 
+      contact.addEventListener('click', () => {
+        smoothScrollTo(3800, 4200);
+      });
 
