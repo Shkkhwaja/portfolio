@@ -59,6 +59,19 @@ body {
 .nav-bar nav {
     text-align: right;
 
+    a {
+        color: #fff;
+        text-decoration: none;
+        position: absolute;
+        left: 0;
+        font-size: 20px;
+        text-transform: uppercase;
+        font-family: sen;
+        letter-spacing: 3px;
+        margin: 1em 0.6em;
+        z-index: 1;
+    }
+    
 }
 
 .nav-bar nav ul {
@@ -72,6 +85,7 @@ body {
     right: 3rem;
     position: absolute;
 
+
 }
 
 .nav-bar nav ul li {
@@ -80,6 +94,7 @@ body {
     font-family: sen;
     letter-spacing: 3px;
     position: relative;
+
 }
 
 .nav-bar nav ul li::after {
@@ -248,7 +263,7 @@ body {
     height: 2.7em;
 
     #github-link,#linkedin-link,#twitter-link{
-        cursor: pointer;        
+        // cursor: pointer;        
     }
 }
 
@@ -487,11 +502,11 @@ div .first-project {
     width: 180px;
     height: 150px;
     position: relative;
-    top: -3em;
+    top: -1em;
 }
 #third-live{
     position: relative;
-    top: -17em;
+    top: -13em;
 }
 
 .live-site {
@@ -505,7 +520,7 @@ div .first-project {
 .live-site  {
     p {
         position: relative;
-        cursor: pointer;
+        // cursor: pointer;
 
         &:nth-child(1) {
             &:hover {
@@ -651,7 +666,7 @@ div .first-project {
 
         }
 
-        input[type=button] {
+        input[type=submit] {
             background-color: #f06000;
             height: 50px;
             width: 13em;
@@ -1343,7 +1358,7 @@ div .first-project {
 
             }
 
-            input[type=button] {
+            input[type=submit] {
                 background-color: #f06000;
                 height: 30px;
                 width: 10em;

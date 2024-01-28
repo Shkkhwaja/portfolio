@@ -56,6 +56,18 @@ body {
 .nav-bar nav {
   text-align: right;
 }
+.nav-bar nav a {
+  color: #fff;
+  text-decoration: none;
+  position: absolute;
+  left: 0;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-family: sen;
+  letter-spacing: 3px;
+  margin: 1em 0.6em;
+  z-index: 1;
+}
 
 .nav-bar nav ul {
   display: flex;
@@ -226,10 +238,6 @@ body {
   bottom: 5em;
   height: 2.7em;
 }
-.icons #github-link, .icons #linkedin-link, .icons #twitter-link {
-  cursor: pointer;
-}
-
 .skills {
   position: relative;
   top: 100%;
@@ -440,12 +448,12 @@ div .first-project {
   width: 180px;
   height: 150px;
   position: relative;
-  top: -3em;
+  top: -1em;
 }
 
 #third-live {
   position: relative;
-  top: -17em;
+  top: -13em;
 }
 
 .live-site {
@@ -457,7 +465,6 @@ div .first-project {
 
 .live-site p {
   position: relative;
-  cursor: pointer;
 }
 .live-site p:nth-child(1):hover::after {
   content: "";
@@ -583,7 +590,7 @@ div .first-project {
 .form-container .form #message::placeholder {
   font-size: 1.2rem;
 }
-.form-container .form input[type=button] {
+.form-container .form input[type=submit] {
   background-color: #f06000;
   height: 50px;
   width: 13em;
@@ -1132,7 +1139,7 @@ div .first-project {
   .form-container .form #message::placeholder {
     font-size: 1.2rem;
   }
-  .form-container .form input[type=button] {
+  .form-container .form input[type=submit] {
     background-color: #f06000;
     height: 30px;
     width: 10em;
