@@ -37,7 +37,7 @@ Hi, I'm [Your Name], a passionate front-end developer with a keen interest in cr
 
 ## Projects
 
-### [Api-Food-App] (https://shkkhwaja.github.io/Api-Food-App/)
+### [Api-Food-App] (https://api-food-app-two.vercel.app/)
 
 Description: An online restaurant app made with SCSS (no external libraries!, or Framework used).restaurant food app using API.
 
