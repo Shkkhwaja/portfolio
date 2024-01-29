@@ -19,7 +19,10 @@ Hi, I'm [Your Name], a passionate front-end developer with a keen interest in cr
 
 ### Certifications
 
-- [Certification Name](Certification Link)
+- [Internship](https://drive.google.com/drive/u/0/folders/105QjbwQbhrkRF6OPq5sipLrl7HhCV6RM)
+- [HTML-Front-End_Development](https://drive.google.com/drive/u/0/folders/105QjbwQbhrkRF6OPq5sipLrl7HhCV6RM)
+- [CSS-Front-End_Development](https://drive.google.com/drive/u/0/folders/105QjbwQbhrkRF6OPq5sipLrl7HhCV6RM)
+- [JS-Front-End_Development](https://drive.google.com/drive/u/0/folders/105QjbwQbhrkRF6OPq5sipLrl7HhCV6RM)
 
 ## Skills
 
@@ -30,30 +33,33 @@ Hi, I'm [Your Name], a passionate front-end developer with a keen interest in cr
 - Responsive Web Design
 - Git / GitHub
 - Tailwind
+- GSAP
 
 ## Projects
 
-### [Project Name 1](Project Link)
+### [Api-Food-App] (https://shkkhwaja.github.io/Api-Food-App/)
 
-Description: Brief overview of the project, technologies used, and your role.
+Description: An online restaurant app made with SCSS (no external libraries!, or Framework used).restaurant food app using API.
+
+
+### [fitness-nGo] (https://fitness-n-go-clone.vercel.app/)
+
+Description: my first College project  that made with My Upgrated Skills like GSAP[Animation] etc ...
 
 ![Project Screenshot](Link to Screenshot or Demo)
 
-### [Project Name 2](Project Link)
+### [University-clone] (https://shkkhwaja.github.io/university.github.io/)
 
-Description: Brief overview of the project, technologies used, and your role.
+Description: made with the help of youtube video's the university website clone, My first project.
 
-![Project Screenshot](Link to Screenshot or Demo)
-
-... [Add more projects as needed]
 
 ## Contact
 
-Let's connect! Feel free to reach out to me via email at [khwajashaikh703@gmail.com] or connect with me on [LinkedIn](LinkedIn Profile Link).
+Let's connect! Feel free to reach out to me via email at [khwajashaikh703@gmail.com] or connect with me on [LinkedIn](https://www.linkedin.com/in/khwaja-shaikh-960b981b1/).
 
 ## Acknowledgments
 
-Special thanks to [mention any collaborators, inspirations, or resources].
+Special thanks to [Ansari-Afroz].
 
 ---
 
