@@ -11,7 +11,7 @@ Welcome to my front-end development portfolio! This repository showcases my skil
 
 ## About Me
 
-Hi, I'm [Your Name], a passionate front-end developer with a keen interest in creating interactive and user-friendly web experiences. I specialize in [mention any specific technologies or frameworks you work with].
+Hi, I'm [Khwaja Hussain Shaikh], a passionate front-end developer with a keen interest in creating interactive and user-friendly web experiences. I specialize in [Front-End Web Developer || Worked as a Web Developer in SK Children Foundation].
 
 ### Education
 
