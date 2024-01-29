@@ -19,7 +19,7 @@ Hi, I'm [Your Name], a passionate front-end developer with a keen interest in cr
 
 ### Certifications
 
-- [Internship](https://drive.google.com/drive/u/0/folders/105QjbwQbhrkRF6OPq5sipLrl7HhCV6RM)
+- [Internship]([https://drive.google.com/drive/u/0/folders/105QjbwQbhrkRF6OPq5sipLrl7HhCV6RM](https://drive.google.com/file/d/10EbHxFCHhdYWUm0D5kLRFEtA974hvyka/view?usp=drive_link))
 - [HTML-Front-End_Development](https://drive.google.com/drive/u/0/folders/105QjbwQbhrkRF6OPq5sipLrl7HhCV6RM)
 - [CSS-Front-End_Development](https://drive.google.com/drive/u/0/folders/105QjbwQbhrkRF6OPq5sipLrl7HhCV6RM)
 - [JS-Front-End_Development](https://drive.google.com/drive/u/0/folders/105QjbwQbhrkRF6OPq5sipLrl7HhCV6RM)
