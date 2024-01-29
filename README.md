@@ -11,18 +11,18 @@ Welcome to my front-end development portfolio! This repository showcases my skil
 
 ## About Me
 
-Hi, I'm [Khwaja Hussain Shaikh], a passionate front-end developer with a keen interest in creating interactive and user-friendly web experiences. I specialize in [Front-End Web Developer || Worked as a Web Developer in SK Children Foundation].
+Hi, I'm Khwaja Hussain Shaikh, a passionate front-end developer with a keen interest in creating interactive and user-friendly web experiences. I specialize in Front-End Web Developer || Worked as a Web Developer in SK Children Foundation.
 
 ### Education
 
-- B.S. in Computer Science, University Name (Year Graduated)
+- B.C.A in Computer Science, Tilak Maharashtra Vidyapeeth (2025)
 
 ### Certifications
 
 - [Internship](https://drive.google.com/file/d/10EbHxFCHhdYWUm0D5kLRFEtA974hvyka/view?usp=drive_link)
-- [HTML-Front-End_Development](https://drive.google.com/drive/u/0/folders/105QjbwQbhrkRF6OPq5sipLrl7HhCV6RM)
-- [CSS-Front-End_Development](https://drive.google.com/drive/u/0/folders/105QjbwQbhrkRF6OPq5sipLrl7HhCV6RM)
-- [JS-Front-End_Development](https://drive.google.com/drive/u/0/folders/105QjbwQbhrkRF6OPq5sipLrl7HhCV6RM)
+- [HTML-Front-End_Development](https://drive.google.com/file/d/1Jgtg-OcdqFAM0UvpmYHhSbmJzr__JED7/view?usp=drive_link)
+- [CSS-Front-End_Development](https://drive.google.com/file/d/1MlUBfbCiZrPxm1idBrBk2MpKfqHXiKf4/view)
+- [JS-Front-End_Development](https://drive.google.com/file/d/12B6wvsxam7fP2EGj3uDNegqweEtpgHnl/view?usp=drive_link)
 
 ## Skills
 
