@@ -57,9 +57,5 @@ Description: made with the help of youtube video's the university website clone,
 
 Let's connect! Feel free to reach out to me via email at [khwajashaikh703@gmail.com] or connect with me on [LinkedIn](https://www.linkedin.com/in/khwaja-shaikh-960b981b1/).
 
-## Acknowledgments
-
-Special thanks to [Ansari-Afroz].
-
----
+...
 
