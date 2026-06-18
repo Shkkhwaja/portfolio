@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Color Tokens ─────────────────────────────────── */
+:root {
+  --bg: #F5F5F5;
+  --bg-2: #FFFFFF;
+  --fg: #0A0A0A;
+  --muted: #666666;
+  --border: #E0E0E0;
+  --card: #FFFFFF;
+  --orange: #FF5C39;
+  /* lime in light mode must be dark enough to read on white (4.5:1) */
+  --lime: #4A7C00;
+}
+
+.dark {
+  --bg: #0A0A0A;
+  --bg-2: #111111;
+  --fg: #FFFFFF;
+  --muted: #777777;
+  --border: #1E1E1E;
+  --card: #111111;
+  --orange: #FF5C39;
+  --lime: #D4FF4F;
+}
+
+/* ─── Base ─────────────────────────────────────────── */
+html {
+  scroll-behavior: auto;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-inter), sans-serif;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hide default cursor on non-touch devices */
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
+
+/* ─── Selection ─────────────────────────────────────── */
+::selection {
+  background-color: #FF5C39;
+  color: #FFFFFF;
+}
+
+/* ─── Scrollbar ─────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: #FF5C39;
+  border-radius: 2px;
+}
+
+/* ─── Typography ────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* ─── Focus ─────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #FF5C39;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Smooth scroll section offset ──────────────────── */
+section {
+  scroll-margin-top: 80px;
+}
+
+/* ─── Reduce motion ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Utility ────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #FF5C39 0%, #D4FF4F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.orange-glow {
+  box-shadow: 0 0 30px rgba(255, 92, 57, 0.3);
+}
+
+.lime-glow {
+  box-shadow: 0 0 30px rgba(212, 255, 79, 0.25);
+}
+
+/* ─── Timeline line animation ────────────────────────── */
+.timeline-line {
+  background: linear-gradient(to bottom, #FF5C39, #D4FF4F);
+}
+
+/* ─── Project card tilt ──────────────────────────────── */
+.card-tilt {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* ─── Noise texture overlay ──────────────────────────── */
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+  border-radius: inherit;
+}
