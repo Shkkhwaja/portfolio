@@ -38,7 +38,7 @@ export default function Footer() {
           <div className="space-y-3">
             <div className="flex items-end gap-0.5">
               <span className="text-3xl font-black text-[#FF5C39]">K</span>
-              <span className="text-3xl font-black text-[#D4FF4F]">S</span>
+              <span className="text-3xl font-black text-[var(--lime)]">S</span>
             </div>
             <p className="text-sm text-[var(--muted)] max-w-xs">
               Full Stack Developer building scalable web applications with MERN stack and Next.js.
@@ -87,7 +87,7 @@ export default function Footer() {
             <p className="text-xs text-[var(--muted)] font-mono">
               Built with{' '}
               <span className="text-[#FF5C39]">Next.js</span>,{' '}
-              <span className="text-[#D4FF4F]">Tailwind CSS</span>, &{' '}
+              <span className="text-[var(--lime)]">Tailwind CSS</span>, &{' '}
               <span className="text-[#FF5C39]">Framer Motion</span>
             </p>
           </div>

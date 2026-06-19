@@ -1,27 +1,23 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FiMail, FiPhone, FiGithub, FiLinkedin, FiSend, FiMessageSquare } from 'react-icons/fi'
+import {
+  FiMail, FiGithub, FiLinkedin,
+  FiSend, FiMessageSquare, FiPaperclip, FiX, FiFile,
+} from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa'
-
-type FormState = {
-  name: string
-  email: string
-  subject: string
-  message: string
-}
 
 type SubmitStatus = 'idle' | 'loading' | 'success' | 'error'
 
 const contactLinks = [
-  { icon: FiMail,     label: 'Email',     value: 'khwajashaikh703@gmail.com', href: 'mailto:khwajashaikh703@gmail.com' },
-  { icon: FiPhone,    label: 'Phone',     value: '+91 7039551617', href: 'tel:+917039551617' },
-  { icon: FaWhatsapp, label: 'WhatsApp',  value: '+91 7039551617', href: 'https://wa.me/917039551617' },
-  { icon: FiGithub,   label: 'GitHub',    value: 'github.com/Shkkhwaja', href: 'https://github.com/Shkkhwaja/' },
-  { icon: FiLinkedin, label: 'LinkedIn',  value: 'linkedin.com/in/khwaja-shaikh', href: 'https://linkedin.com/in/khwaja-shaikh-960b981b1/' },
+  { icon: FiMail,     label: 'Email',    value: 'khwajashaikh703@gmail.com',    href: 'mailto:khwajashaikh703@gmail.com' },
+  { icon: FaWhatsapp, label: 'WhatsApp', value: 'Message me on WhatsApp',        href: 'https://wa.me/917039551617' },
+  { icon: FiGithub,   label: 'GitHub',   value: 'github.com/Shkkhwaja',          href: 'https://github.com/Shkkhwaja/' },
+  { icon: FiLinkedin, label: 'LinkedIn', value: 'linkedin.com/in/khwaja-shaikh', href: 'https://linkedin.com/in/khwaja-shaikh-960b981b1/' },
 ]
 
+/* ── Floating label input ─────────────────────────────────── */
 function FloatingInput({
   id, label, type = 'text', value, onChange, required,
 }: {
@@ -61,6 +57,7 @@ function FloatingInput({
   )
 }
 
+/* ── Floating label textarea ──────────────────────────────── */
 function FloatingTextarea({
   id, label, value, onChange, required,
 }: {
@@ -100,33 +97,147 @@ function FloatingTextarea({
   )
 }
 
-export default function Contact() {
-  const [form, setForm] = useState<FormState>({ name: '', email: '', subject: '', message: '' })
-  const [status, setStatus] = useState<SubmitStatus>('idle')
+/* ── Optional attachment picker ───────────────────────────── */
+function AttachmentPicker({
+  file, onChange,
+}: {
+  file: File | null; onChange: (f: File | null) => void
+}) {
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [dragOver, setDragOver] = useState(false)
 
-  const set = (key: keyof FormState) => (v: string) => setForm((p) => ({ ...p, [key]: v }))
+  const fmt = (b: number) =>
+    b < 1024 * 1024 ? `${(b / 1024).toFixed(1)} KB` : `${(b / (1024 * 1024)).toFixed(1)} MB`
+
+  const pick = (f: File | undefined) => {
+    if (!f) return
+    if (f.size > 10 * 1024 * 1024) {
+      alert('File too large — max 10 MB')
+      return
+    }
+    onChange(f)
+  }
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault()
+    setDragOver(false)
+    pick(e.dataTransfer.files[0])
+  }
+
+  const clear = () => {
+    onChange(null)
+    if (inputRef.current) inputRef.current.value = ''
+  }
+
+  return (
+    <>
+      <input
+        ref={inputRef}
+        type="file"
+        accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg"
+        className="hidden"
+        onChange={(e) => pick(e.target.files?.[0])}
+      />
+
+      {!file ? (
+        <motion.div
+          className="flex flex-col items-center justify-center gap-2 px-4 py-5 rounded-xl border-2 border-dashed cursor-pointer transition-colors duration-200"
+          style={{
+            borderColor: dragOver ? '#FF5C39' : 'var(--border)',
+            backgroundColor: dragOver ? 'rgba(255,92,57,0.04)' : 'var(--bg)',
+          }}
+          onClick={() => inputRef.current?.click()}
+          onDragOver={(e) => { e.preventDefault(); setDragOver(true) }}
+          onDragLeave={() => setDragOver(false)}
+          onDrop={handleDrop}
+          whileHover={{ borderColor: '#FF5C39' }}
+          transition={{ duration: 0.15 }}
+        >
+          <FiPaperclip size={18} className="text-[var(--muted)]" />
+          <div className="text-center">
+            <p className="text-sm font-medium text-[var(--muted)]">
+              Attach a file{' '}
+              <span className="text-[#FF5C39] font-semibold">— Optional</span>
+            </p>
+            <p className="text-[11px] font-mono text-[var(--muted)] mt-0.5">
+              PDF · DOC · DOCX · TXT · JPG · PNG &nbsp;·&nbsp; max 10 MB
+            </p>
+          </div>
+          <p className="text-[10px] text-[var(--muted)] opacity-60">
+            Click to browse or drag &amp; drop
+          </p>
+        </motion.div>
+      ) : (
+        <motion.div
+          className="flex items-center gap-3 px-4 py-3.5 rounded-xl border bg-[var(--bg)]"
+          style={{ borderColor: '#FF5C39' }}
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <div className="w-9 h-9 rounded-lg bg-[#FF5C39]/10 border border-[#FF5C39]/30 flex items-center justify-center flex-shrink-0">
+            <FiFile size={16} className="text-[#FF5C39]" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-medium text-[var(--fg)] truncate">{file.name}</p>
+            <p className="text-[11px] font-mono text-[var(--muted)]">{fmt(file.size)}</p>
+          </div>
+          <button
+            type="button"
+            onClick={clear}
+            className="w-7 h-7 rounded-lg hover:bg-[var(--border)] flex items-center justify-center transition-colors flex-shrink-0"
+            aria-label="Remove file"
+          >
+            <FiX size={14} className="text-[var(--muted)]" />
+          </button>
+        </motion.div>
+      )}
+    </>
+  )
+}
+
+/* ── Main section ─────────────────────────────────────────── */
+export default function Contact() {
+  const [name,    setName]    = useState('')
+  const [email,   setEmail]   = useState('')
+  const [subject, setSubject] = useState('')
+  const [message, setMessage] = useState('')
+  const [file,    setFile]    = useState<File | null>(null)
+  const [status,  setStatus]  = useState<SubmitStatus>('idle')
+  const [errMsg,  setErrMsg]  = useState('')
+
+  const reset = () => {
+    setName(''); setEmail(''); setSubject(''); setMessage(''); setFile(null)
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setStatus('loading')
+    setErrMsg('')
+
+    const fd = new FormData()
+    fd.append('name',    name)
+    fd.append('email',   email)
+    fd.append('subject', subject)
+    fd.append('message', message)
+    if (file) fd.append('attachment', file, file.name)
+
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      })
-      const data = await res.json()
+      const res  = await fetch('/api/contact', { method: 'POST', body: fd })
+      const data = await res.json() as { success: boolean; error?: string }
+
       if (data.success) {
         setStatus('success')
-        setForm({ name: '', email: '', subject: '', message: '' })
+        reset()
         setTimeout(() => setStatus('idle'), 5000)
       } else {
+        setErrMsg(data.error ?? 'Something went wrong.')
         setStatus('error')
-        setTimeout(() => setStatus('idle'), 4000)
+        setTimeout(() => setStatus('idle'), 5000)
       }
     } catch {
+      setErrMsg('Network error — check your connection.')
       setStatus('error')
-      setTimeout(() => setStatus('idle'), 4000)
+      setTimeout(() => setStatus('idle'), 5000)
     }
   }
 
@@ -158,19 +269,17 @@ export default function Contact() {
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7 }}
           >
-            {/* CTA banner */}
             <div className="p-6 rounded-2xl bg-[#FF5C39] text-white space-y-2">
               <div className="flex items-center gap-2 mb-1">
                 <FiMessageSquare size={18} />
                 <span className="text-sm font-bold opacity-80">Have a project in mind?</span>
               </div>
-              <h3 className="text-xl font-black">Open for freelance & full-time roles</h3>
+              <h3 className="text-xl font-black">Open for freelance &amp; full-time roles</h3>
               <p className="text-sm opacity-85 leading-relaxed">
                 Whether it's a project, a job opportunity, or just a hello — I always reply.
               </p>
             </div>
 
-            {/* Availability indicator */}
             <div className="flex items-center gap-3 p-4 rounded-xl border border-[#22c55e]/30 bg-[#22c55e]/5">
               <div className="relative flex-shrink-0">
                 <div className="w-3 h-3 rounded-full bg-[#22c55e]" />
@@ -182,7 +291,6 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Contact links */}
             <div className="space-y-2.5">
               {contactLinks.map(({ icon: Icon, label, value, href }) => (
                 <a
@@ -212,17 +320,32 @@ export default function Contact() {
             transition={{ duration: 0.7 }}
           >
             <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-              <FloatingInput id="name"    label="Your Name"      value={form.name}    onChange={set('name')}    required />
-              <FloatingInput id="email"   label="Email Address"  type="email" value={form.email}   onChange={set('email')}   required />
-              <FloatingInput id="subject" label="Subject"        value={form.subject} onChange={set('subject')} required />
-              <FloatingTextarea id="message" label="Message"     value={form.message} onChange={set('message')} required />
+              <FloatingInput id="name"    label="Your Name"     value={name}    onChange={setName}    required />
+              <FloatingInput id="email"   label="Email Address"  type="email" value={email}   onChange={setEmail}   required />
+              <FloatingInput id="subject" label="Subject"        value={subject} onChange={setSubject} required />
+              <FloatingTextarea id="message" label="Message"     value={message} onChange={setMessage} required />
+              <AttachmentPicker file={file} onChange={setFile} />
+
+              {/* Error detail */}
+              <AnimatePresence>
+                {status === 'error' && errMsg && (
+                  <motion.p
+                    className="text-xs text-red-400 font-mono text-center px-3"
+                    initial={{ opacity: 0, y: -4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    {errMsg}
+                  </motion.p>
+                )}
+              </AnimatePresence>
 
               <motion.button
                 type="submit"
                 disabled={status === 'loading' || status === 'success'}
                 className="w-full flex items-center justify-center gap-3 py-4 rounded-xl font-bold text-sm transition-all duration-200 disabled:cursor-not-allowed"
                 style={{
-                  backgroundColor: status === 'success' ? '#22c55e' : '#FF5C39',
+                  backgroundColor: status === 'success' ? '#22c55e' : status === 'error' ? '#ef4444' : '#FF5C39',
                   color: 'white',
                 }}
                 whileTap={{ scale: 0.98 }}
@@ -241,12 +364,12 @@ export default function Contact() {
                   )}
                   {status === 'success' && (
                     <motion.span key="success" className="flex items-center gap-2" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}>
-                      ✓ Message Sent — I'll reply soon!
+                      ✓ Sent — I'll reply soon!
                     </motion.span>
                   )}
                   {status === 'error' && (
                     <motion.span key="error" className="flex items-center gap-2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                      ✗ Failed — please try again
+                      ✗ Failed — try again
                     </motion.span>
                   )}
                 </AnimatePresence>

@@ -29,9 +29,9 @@ export default function Certifications() {
             <h2 className="text-4xl md:text-6xl font-black text-[var(--fg)]">
               Credentials &amp; <span className="text-[#FF5C39]">Courses</span>
             </h2>
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#22c55e]/10 border border-[#22c55e]/20">
-              <FiCheckCircle size={14} className="text-[#22c55e]" />
-              <span className="text-xs font-bold text-[#22c55e]">{certifications.length} Verified</span>
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#16a34a]/10 dark:bg-[#22c55e]/10 border border-[#16a34a]/30 dark:border-[#22c55e]/20">
+              <FiCheckCircle size={14} className="text-[#16a34a] dark:text-[#22c55e]" />
+              <span className="text-xs font-bold text-[#16a34a] dark:text-[#22c55e]">{certifications.length} Verified</span>
             </div>
           </div>
         </motion.div>
@@ -64,7 +64,7 @@ export default function Certifications() {
                   >
                     {issuerIcon[cert.issuer] ?? '🏅'}
                   </div>
-                  <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#22c55e]/10 text-[#22c55e] border border-[#22c55e]/20">
+                  <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#16a34a]/10 dark:bg-[#22c55e]/10 text-[#16a34a] dark:text-[#22c55e] border border-[#16a34a]/30 dark:border-[#22c55e]/20">
                     <FiCheckCircle size={10} /> VERIFIED
                   </span>
                 </div>

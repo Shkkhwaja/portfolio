@@ -1,6 +1,7 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useState } from 'react'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { FiExternalLink, FiArrowUpRight } from 'react-icons/fi'
 import projects from '@/data/projects'
@@ -27,15 +28,27 @@ function FeaturedCard({ project }: { project: typeof projects[0] }) {
       <div className="grid grid-cols-1 lg:grid-cols-5 min-h-[340px]">
         {/* Image */}
         <div className="lg:col-span-2 relative overflow-hidden h-60 lg:h-auto">
-          <motion.img
-            src={project.media.type === 'image' ? project.media.src : undefined}
-            alt={project.media.alt}
-            className="w-full h-full object-cover"
+          <motion.div
+            className="absolute inset-0"
             animate={{ scale: hovered ? 1.06 : 1 }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
-          />
+          >
+            {project.media.type === 'image' ? (
+              <Image
+                src={project.media.src}
+                alt={project.media.alt}
+                fill
+                className="object-cover object-top"
+                quality={100}
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                priority
+              />
+            ) : (
+              <div className="w-full h-full" style={{ background: project.media.src }} />
+            )}
+          </motion.div>
           {/* gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[var(--card)]/80 hidden lg:block" />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[var(--card)]/80 hidden lg:block pointer-events-none" />
           {/* LIVE badge */}
           <div className="absolute top-4 left-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm z-10">
             <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
@@ -101,46 +114,55 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
       {/* Image */}
       <div className="relative h-52 overflow-hidden">
         {project.media.type === 'image' ? (
-          <motion.img
-            src={project.media.src}
-            alt={project.media.alt}
-            className="w-full h-full object-cover"
-            animate={{ scale: hovered ? 1.07 : 1 }}
-            transition={{ duration: 0.45, ease: 'easeOut' }}
-          />
+          <>
+            <motion.div
+              className="absolute inset-0"
+              animate={{ scale: hovered ? 1.07 : 1 }}
+              transition={{ duration: 0.45, ease: 'easeOut' }}
+            >
+              <Image
+                src={project.media.src}
+                alt={project.media.alt}
+                fill
+                className="object-cover object-top"
+                quality={100}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            </motion.div>
+
+            {/* Hover description overlay */}
+            <motion.div
+              className="absolute inset-0 bg-[#0A0A0A]/85 backdrop-blur-sm flex flex-col items-center justify-center gap-3 px-5 z-10"
+              animate={{ opacity: hovered ? 1 : 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <p className="text-white text-xs text-center leading-relaxed">{project.description}</p>
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF5C39] text-white text-xs font-bold hover:bg-[#e84d2b] transition-colors"
+                onClick={(e) => e.stopPropagation()}
+              >
+                View Live <FiExternalLink size={12} />
+              </a>
+            </motion.div>
+          </>
         ) : (
           <div className="w-full h-full" style={{ background: project.media.src }} />
         )}
 
         {/* LIVE + number */}
-        <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm z-10">
+        <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm z-20">
           <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
           <span className="text-[9px] text-white font-bold tracking-widest">LIVE</span>
         </div>
         <div
-          className="absolute top-3 right-3 w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-black text-[#0A0A0A] z-10"
+          className="absolute top-3 right-3 w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-black text-[#0A0A0A] z-20"
           style={{ backgroundColor: project.accentColor }}
         >
           {num}
         </div>
-
-        {/* Hover description overlay */}
-        <motion.div
-          className="absolute inset-0 bg-[#0A0A0A]/85 backdrop-blur-sm flex flex-col items-center justify-center gap-3 px-5"
-          animate={{ opacity: hovered ? 1 : 0 }}
-          transition={{ duration: 0.2 }}
-        >
-          <p className="text-white text-xs text-center leading-relaxed">{project.description}</p>
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF5C39] text-white text-xs font-bold hover:bg-[#e84d2b] transition-colors"
-            onClick={(e) => e.stopPropagation()}
-          >
-            View Live <FiExternalLink size={12} />
-          </a>
-        </motion.div>
       </div>
 
       {/* Info */}
@@ -193,7 +215,7 @@ export default function Projects() {
           <p className="text-sm font-mono text-[#FF5C39] tracking-widest uppercase mb-3">04 — Projects</p>
           <div className="flex flex-wrap items-end justify-between gap-4">
             <h2 className="text-4xl md:text-6xl font-black text-[var(--fg)]">
-              Work I've <span className="text-[#FF5C39]">Shipped</span>
+              Work I&apos;ve <span className="text-[#FF5C39]">Shipped</span>
             </h2>
             <div className="flex items-center gap-3">
               <span

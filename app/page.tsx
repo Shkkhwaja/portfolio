@@ -10,10 +10,16 @@ import Education from '@/components/sections/Education'
 import Certifications from '@/components/sections/Certifications'
 import Contact from '@/components/sections/Contact'
 import Footer from '@/components/sections/Footer'
+import StructuredData from '@/components/seo/StructuredData'
+import ConsoleBranding from '@/components/ui/ConsoleBranding'
 
 export default function Home() {
   return (
     <>
+      {/* JSON-LD structured data — parsed by Google, Bing, AI crawlers */}
+      <StructuredData />
+      <ConsoleBranding />
+
       <LoadingScreen />
       <Navbar />
       <ScrollingMascot />

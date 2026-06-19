@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import FloatingBackground from '@/components/ui/FloatingBackground'
+import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
 
 const ProfileScene = dynamic(() => import('@/components/three/ProfileScene'), { ssr: false })
 
@@ -12,14 +13,41 @@ const HEADING = ['FULL', 'STACK', 'DEVELOPER']
 
 const stats = [
   { value: '1.3', label: 'Years Experience' },
-  { value: '7+', label: 'Projects Shipped' },
+  { value: '10+', label: 'Projects' },
   { value: '10+', label: 'Technologies' },
 ]
+
+const WEATHER_EMOJI: Record<string, string> = {
+  sunny: '☀️', partly_cloudy: '⛅', cloudy: '☁️',
+  foggy: '🌫️', drizzle: '🌦️', rainy: '🌧️', stormy: '⛈️',
+}
+
+function codeToType(code: number) {
+  if (code <= 1)                              return 'sunny'
+  if (code === 2)                             return 'partly_cloudy'
+  if (code === 3)                             return 'cloudy'
+  if (code === 45 || code === 48)             return 'foggy'
+  if (code >= 51 && code <= 57)              return 'drizzle'
+  if ((code >= 61 && code <= 82))            return 'rainy'
+  if (code === 95 || code === 96 || code === 99) return 'stormy'
+  return 'cloudy'
+}
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0)
   const [displayText, setDisplayText] = useState('')
   const [typing, setTyping] = useState(true)
+  const [weatherStr, setWeatherStr] = useState<string | null>(null)
+
+  useEffect(() => {
+    fetch('/api/weather')
+      .then(r => r.json())
+      .then(d => {
+        const emoji = WEATHER_EMOJI[codeToType(d.weathercode ?? -1)] ?? '🌤️'
+        setWeatherStr(`"${emoji} ${d.temperature}°C · ${d.description}"`)
+      })
+      .catch(() => setWeatherStr('"🌤️ Mumbai"'))
+  }, [])
 
   useEffect(() => {
     const current = roles[roleIndex]
@@ -170,25 +198,42 @@ export default function Hero() {
 
             {/* Social links */}
             <motion.div
-              className="flex items-center gap-4 pt-1"
+              className="flex items-center gap-2 pt-1 flex-wrap"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 3.9, duration: 0.5 }}
             >
-              <a href="https://github.com/Shkkhwaja/" target="_blank" rel="noopener noreferrer"
-                className="text-xs font-mono text-[var(--muted)] hover:text-[#FF5C39] transition-colors">
-                GitHub ↗
-              </a>
-              <span className="text-[var(--border)]">·</span>
-              <a href="https://linkedin.com/in/khwaja-shaikh-960b981b1/" target="_blank" rel="noopener noreferrer"
-                className="text-xs font-mono text-[var(--muted)] hover:text-[#FF5C39] transition-colors">
-                LinkedIn ↗
-              </a>
-              <span className="text-[var(--border)]">·</span>
-              <a href="mailto:khwajashaikh703@gmail.com"
-                className="text-xs font-mono text-[var(--muted)] hover:text-[#FF5C39] transition-colors">
-                Email ↗
-              </a>
+              {[
+                { label: 'GitHub',   href: 'https://github.com/Shkkhwaja/',                          icon: FiGithub   },
+                { label: 'LinkedIn', href: 'https://linkedin.com/in/khwaja-shaikh-960b981b1/',        icon: FiLinkedin },
+                { label: 'Email',    href: 'mailto:khwajashaikh703@gmail.com',                        icon: FiMail     },
+              ].map(({ label, href, icon: Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={label !== 'Email' ? '_blank' : undefined}
+                  rel={label !== 'Email' ? 'noopener noreferrer' : undefined}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono font-medium border transition-all duration-200 hover:scale-105 active:scale-95"
+                  style={{
+                    borderColor: 'rgba(255,255,255,0.18)',
+                    color: 'var(--fg)',
+                    backgroundColor: 'var(--bg-2)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = '#FF5C39'
+                    e.currentTarget.style.color = '#FF5C39'
+                    e.currentTarget.style.backgroundColor = 'rgba(255,92,57,0.08)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.18)'
+                    e.currentTarget.style.color = 'var(--fg)'
+                    e.currentTarget.style.backgroundColor = 'var(--bg-2)'
+                  }}
+                >
+                  <Icon size={12} />
+                  {label}
+                </a>
+              ))}
             </motion.div>
           </div>
 
@@ -227,9 +272,21 @@ export default function Hero() {
               </div>
               <div className="space-y-0.5">
                 <div><span className="text-[#C792EA]">const </span><span className="text-[#D4FF4F]">dev</span><span className="text-white"> = {"{"}</span></div>
-                <div className="pl-3"><span className="text-[#FF5C39]">city</span><span className="text-white">: </span><span className="text-[#C3E88D]">"Mumbai 🇮🇳"</span><span className="text-white">,</span></div>
-                <div className="pl-3"><span className="text-[#FF5C39]">exp</span><span className="text-white">: </span><span className="text-[#C3E88D]">"1.3 yrs"</span><span className="text-white">,</span></div>
-                <div className="pl-3"><span className="text-[#FF5C39]">open</span><span className="text-white">: </span><span className="text-[#D4FF4F]">true</span></div>
+                <div className="pl-3"><span className="text-[#FF5C39]">city</span><span className="text-white">: </span><span className="text-[#C3E88D]">&quot;Mumbai 🇮🇳&quot;</span><span className="text-white">,</span></div>
+                <div className="pl-3"><span className="text-[#FF5C39]">exp</span><span className="text-white">: </span><span className="text-[#C3E88D]">&quot;1.3 yrs&quot;</span><span className="text-white">,</span></div>
+                <div className="pl-3"><span className="text-[#FF5C39]">open</span><span className="text-white">: </span><span className="text-[#D4FF4F]">true</span><span className="text-white">,</span></div>
+                <div className="pl-3">
+                  <span className="text-[#FF5C39]">weather</span>
+                  <span className="text-white">: </span>
+                  {weatherStr ? (
+                    <span className="text-[#C3E88D]">{weatherStr}</span>
+                  ) : (
+                    <span className="text-[#555] italic">
+                      loading
+                      <span className="animate-pulse">...</span>
+                    </span>
+                  )}
+                </div>
                 <div><span className="text-white">{"}"}</span></div>
               </div>
             </motion.div>

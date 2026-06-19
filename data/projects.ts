@@ -45,7 +45,7 @@ const projects: Project[] = [
       src: '/images/projects/mehendibooking.png',
       alt: 'MehendiBooking — Artist Booking Marketplace',
     },
-    accentColor: '#D4FF4F',
+    accentColor: 'var(--lime)',
   },
   {
     id: 3,
@@ -77,7 +77,7 @@ const projects: Project[] = [
       src: '/images/projects/thedesignguild.png',
       alt: 'The Design Guild Awards Platform',
     },
-    accentColor: '#D4FF4F',
+    accentColor: 'var(--lime)',
   },
   {
     id: 5,
@@ -109,7 +109,7 @@ const projects: Project[] = [
       src: '/images/projects/inka.png',
       alt: 'INKA Media Solutions Website',
     },
-    accentColor: '#D4FF4F',
+    accentColor: 'var(--lime)',
   },
   {
     id: 7,

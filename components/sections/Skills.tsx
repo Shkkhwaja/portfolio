@@ -31,7 +31,7 @@ const categories: { title: string; color: string; skills: SkillItem[] }[] = [
   },
   {
     title: 'Frontend',
-    color: '#D4FF4F',
+    color: 'var(--lime)',
     skills: [
       { name: 'React.js', Icon: SiReact, color: '#61DAFB' },
       { name: 'Next.js', Icon: SiNextdotjs, color: '#FFFFFF' },
@@ -51,7 +51,7 @@ const categories: { title: string; color: string; skills: SkillItem[] }[] = [
   },
   {
     title: 'Databases',
-    color: '#D4FF4F',
+    color: 'var(--lime)',
     skills: [
       { name: 'MongoDB', Icon: SiMongodb, color: '#47A248' },
       { name: 'PostgreSQL', Icon: SiPostgresql, color: '#336791' },
@@ -69,7 +69,7 @@ const categories: { title: string; color: string; skills: SkillItem[] }[] = [
   },
   {
     title: 'Tools & Platforms',
-    color: '#D4FF4F',
+    color: 'var(--lime)',
     skills: [
       { name: 'Git', Icon: SiGit, color: '#F05032' },
       { name: 'GitHub', Icon: SiGithub, color: '#AAAAAA' },

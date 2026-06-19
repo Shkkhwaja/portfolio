@@ -44,7 +44,7 @@ const experience: Experience[] = [
       'Received a Certificate of Appreciation for outstanding contributions.',
     ],
     tags: ['HTML', 'CSS', 'JavaScript', 'React', 'Mentoring'],
-    accentColor: '#D4FF4F',
+    accentColor: 'var(--lime)',
   },
 ]
 

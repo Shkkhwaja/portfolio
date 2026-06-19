@@ -25,7 +25,7 @@ const certifications: Certification[] = [
     date: 'July 2025',
     credentialId: 'EWR3SXGGXAPPHB6i9',
     url: 'https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/9PBTqmSxAf6zZTseP/udmxiyHeqYQLkTPvf_9PBTqmSxAf6zZTseP_u6P9Xde7kPMvWepZR_1751368182488_completion_certificate.pdf',
-    color: '#D4FF4F',
+    color: 'var(--lime)',
   },
   {
     id: 3,
@@ -42,7 +42,7 @@ const certifications: Certification[] = [
     issuer: 'Great Learning',
     date: 'January 2024',
     url: 'https://www.mygreatlearning.com/certificate/OZDIDTZO',
-    color: '#D4FF4F',
+    color: 'var(--lime)',
   },
   {
     id: 5,
@@ -58,7 +58,7 @@ const certifications: Certification[] = [
     issuer: 'Great Learning',
     date: 'July 2023',
     url: 'https://www.mygreatlearning.com/certificate/NZLTSAEZ',
-    color: '#D4FF4F',
+    color: 'var(--lime)',
   },
 ]
 

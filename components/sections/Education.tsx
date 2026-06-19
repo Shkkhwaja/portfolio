@@ -40,7 +40,7 @@ export default function Education() {
               {/* Number */}
               <span
                 className="text-7xl font-black absolute -top-3 -right-2 opacity-[0.05] select-none"
-                style={{ color: i % 2 === 0 ? '#FF5C39' : '#D4FF4F' }}
+                style={{ color: i % 2 === 0 ? '#FF5C39' : 'var(--lime)' }}
               >
                 {String(i + 1).padStart(2, '0')}
               </span>
@@ -63,9 +63,9 @@ export default function Education() {
                 <p className="text-xs text-[var(--muted)]">{edu.location}</p>
 
                 {edu.grade && (
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#D4FF4F]/10 border border-[#D4FF4F]/30 mt-2">
-                    <span className="w-2 h-2 rounded-full bg-[#D4FF4F]" />
-                    <span className="text-xs font-bold text-[#D4FF4F]">{edu.grade}</span>
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#4A7C00]/10 dark:bg-[#D4FF4F]/10 border border-[#4A7C00]/30 dark:border-[#D4FF4F]/30 mt-2">
+                    <span className="w-2 h-2 rounded-full bg-[#4A7C00] dark:bg-[#D4FF4F]" />
+                    <span className="text-xs font-bold text-[var(--lime)]">{edu.grade}</span>
                   </div>
                 )}
 

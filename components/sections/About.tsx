@@ -5,7 +5,6 @@ import { motion } from 'framer-motion'
 const facts = [
   { label: 'Location', value: 'Mumbai, Maharashtra, India', icon: '📍' },
   { label: 'Email', value: 'khwajashaikh703@gmail.com', icon: '✉️' },
-  { label: 'Phone', value: '+91 7039551617', icon: '📱' },
   { label: 'Degree', value: 'BCA — Tilak Maharashtra Vidyapeeth', icon: '🎓' },
   { label: 'Current Role', value: 'Full Stack Developer @ ZAR Luxury', icon: '💼' },
   { label: 'Status', value: 'Open to freelance & opportunities', icon: '🟢' },
