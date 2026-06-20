@@ -2,13 +2,17 @@
 
 import { useEffect } from 'react'
 
+let _didBrand = false
+
 export default function ConsoleBranding() {
   useEffect(() => {
+    if (_didBrand) return
+    _didBrand = true
     const o  = 'color:#FF5C39;font-weight:900;font-size:22px;font-family:monospace;text-shadow:0 0 12px rgba(255,92,57,0.6);'
-    const l  = 'color:#D4FF4F;font-weight:700;font-size:13px;font-family:monospace;'
+    const l  = 'color:#FF5C39;font-weight:900;font-size:14px;font-family:monospace;'
     const m  = 'color:#aaaaaa;font-size:11px;font-family:monospace;line-height:1.8;'
     const lk = 'color:#7ec8f4;font-size:11px;font-family:monospace;text-decoration:underline;'
-    const w  = 'color:#FFD060;font-size:11px;font-family:monospace;background:rgba(255,208,96,0.08);padding:3px 8px;border-radius:4px;border-left:2px solid #FFD060;'
+    const w  = 'color:#e04400;font-weight:600;font-size:11px;font-family:monospace;background:rgba(255,92,57,0.10);padding:3px 8px;border-radius:4px;border-left:3px solid #FF5C39;'
     const d  = 'color:#2a2a2a;font-size:10px;font-family:monospace;'
 
     console.log('%c⚡ KHS · PORTFOLIO', o)

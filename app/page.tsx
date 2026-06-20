@@ -2,6 +2,7 @@ import Navbar from '@/components/ui/Navbar'
 import LoadingScreen from '@/components/ui/LoadingScreen'
 import ScrollingMascot from '@/components/ui/ScrollingMascot'
 import Hero from '@/components/sections/Hero'
+import ProfileSection from '@/components/sections/ProfileSection'
 import About from '@/components/sections/About'
 import Skills from '@/components/sections/Skills'
 import Experience from '@/components/sections/Experience'
@@ -25,6 +26,7 @@ export default function Home() {
       <ScrollingMascot />
       <main>
         <Hero />
+        <ProfileSection />
         <About />
         <Skills />
         <Experience />

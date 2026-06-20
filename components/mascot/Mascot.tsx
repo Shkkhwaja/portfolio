@@ -15,6 +15,7 @@ function ThrusterFlame({ x, delay = 0 }: { x: number; delay?: number }) {
         rx={6}
         ry={10}
         fill="url(#flameGrad)"
+        initial={{ rx: 6, ry: 10, opacity: 0.9 }}
         animate={{ ry: [10, 16, 8, 14, 10], rx: [6, 4, 7, 5, 6], opacity: [0.9, 0.6, 1, 0.7, 0.9] }}
         transition={{ duration: 0.4, repeat: Infinity, ease: 'easeInOut', delay }}
       />
@@ -25,6 +26,7 @@ function ThrusterFlame({ x, delay = 0 }: { x: number; delay?: number }) {
         rx={3}
         ry={6}
         fill="white"
+        initial={{ ry: 6, opacity: 1 }}
         animate={{ ry: [6, 10, 5, 9, 6], opacity: [1, 0.7, 1, 0.8, 1] }}
         transition={{ duration: 0.4, repeat: Infinity, ease: 'easeInOut', delay: delay + 0.05 }}
       />
@@ -185,6 +187,7 @@ export default function Mascot({ size = 120 }: { size?: number }) {
           <motion.rect
             x={48} y={100} width={24} height={3} rx={1.5}
             fill="#D4FF4F"
+            initial={{ width: 24 }}
             animate={{ width: [24, 14, 20, 8, 24] }}
             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
             opacity={0.6}
@@ -242,6 +245,7 @@ export default function Mascot({ size = 120 }: { size?: number }) {
             cy={50 + leftEye.y}
             r={blinkState ? 0.5 : 6.5}
             fill="white"
+            initial={{ r: 6.5 }}
             animate={{ r: blinkState ? 0.5 : 6.5 }}
             transition={{ duration: 0.07 }}
           />
@@ -262,6 +266,7 @@ export default function Mascot({ size = 120 }: { size?: number }) {
             cy={50 + rightEye.y}
             r={blinkState ? 0.5 : 6.5}
             fill="white"
+            initial={{ r: 6.5 }}
             animate={{ r: blinkState ? 0.5 : 6.5 }}
             transition={{ duration: 0.07 }}
           />
@@ -292,6 +297,7 @@ export default function Mascot({ size = 120 }: { size?: number }) {
             <line x1="60" y1="8" x2="60" y2="22" stroke="#FF5C39" strokeWidth="3" strokeLinecap="round" />
             <motion.circle
               cx="60" cy="6" r="4.5" fill="#D4FF4F"
+              initial={{ r: 4.5, opacity: 1 }}
               animate={{ r: [4.5, 6, 4.5], opacity: [1, 0.7, 1] }}
               transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
               filter="url(#glow)"

@@ -1,12 +1,16 @@
 'use client'
 
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+
+type Dot = { id: number; x: number; y: number; size: number; dur: number; del: number; color: string; op: number }
 
 /* ─── Shared content rendered in both split panels ─────────── */
 function LoadingContent({ progress }: { progress: number }) {
-  const dots = useMemo(
-    () =>
+  const [dots, setDots] = useState<Dot[]>([])
+
+  useEffect(() => {
+    setDots(
       Array.from({ length: 45 }, (_, i) => ({
         id: i,
         x: Math.random() * 100,
@@ -16,9 +20,9 @@ function LoadingContent({ progress }: { progress: number }) {
         del: Math.random() * 5,
         color: (['#FF5C39', '#D4FF4F', '#ffffff'] as const)[i % 3],
         op: Math.random() * 0.28 + 0.07,
-      })),
-    []
-  )
+      }))
+    )
+  }, [])
 
   const name = 'Khwaja Hussain Shaikh'
   const circumference = 2 * Math.PI * 168
