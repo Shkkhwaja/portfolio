@@ -96,7 +96,7 @@ function LoadingContent({ progress }: { progress: number }) {
 
       {/* ── Status labels ───────────────────────────────────── */}
       <motion.span
-        className="absolute top-[22px] left-14 font-mono text-[10px] text-white/20 tracking-[0.3em] uppercase"
+        className="absolute top-[22px] left-8 sm:left-14 font-mono text-[9px] sm:text-[10px] text-white/20 tracking-[0.15em] sm:tracking-[0.3em] uppercase"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4 }}
@@ -105,7 +105,7 @@ function LoadingContent({ progress }: { progress: number }) {
       </motion.span>
 
       <motion.span
-        className="absolute top-[22px] right-14 font-mono text-[11px] text-[#FF5C39] tabular-nums"
+        className="absolute top-[22px] right-8 sm:right-14 font-mono text-[11px] text-[#FF5C39] tabular-nums"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4 }}
@@ -134,10 +134,8 @@ function LoadingContent({ progress }: { progress: number }) {
         <div className="relative flex items-center justify-center mb-7">
           {/* SVG ring */}
           <svg
-            width="360"
-            height="360"
             viewBox="0 0 360 360"
-            className="absolute pointer-events-none"
+            className="absolute pointer-events-none w-[min(360px,82vw)] h-[min(360px,82vw)]"
             style={{ transform: 'rotate(-90deg)' }}
           >
             {/* Track */}
@@ -176,7 +174,7 @@ function LoadingContent({ progress }: { progress: number }) {
 
           {/* Pulsing background glow */}
           <motion.div
-            className="absolute w-64 h-64 rounded-full pointer-events-none"
+            className="absolute w-[min(256px,60vw)] h-[min(256px,60vw)] rounded-full pointer-events-none"
             style={{ background: 'radial-gradient(circle, rgba(255,92,57,0.12) 0%, transparent 70%)' }}
             animate={{ scale: [1, 1.18, 1], opacity: [0.6, 1, 0.6] }}
             transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
@@ -186,19 +184,22 @@ function LoadingContent({ progress }: { progress: number }) {
           <div className="relative flex items-end gap-1 z-10">
             {/* Rotating ring accents */}
             <motion.div
-              className="absolute -inset-8 rounded-full border border-[#FF5C39]/12"
+              className="absolute rounded-full border border-[#FF5C39]/12"
+              style={{ inset: 'clamp(-20px, -3vw, -32px)' }}
               animate={{ rotate: 360 }}
               transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
             />
             <motion.div
-              className="absolute -inset-14 rounded-full border border-[#D4FF4F]/08"
+              className="absolute rounded-full border border-[#D4FF4F]/08"
+              style={{ inset: 'clamp(-32px, -5vw, -56px)' }}
               animate={{ rotate: -360 }}
               transition={{ duration: 28, repeat: Infinity, ease: 'linear' }}
             />
 
             <motion.span
-              className="text-[110px] font-black text-[#FF5C39] leading-none"
+              className="font-black text-[#FF5C39] leading-none"
               style={{
+                fontSize: 'clamp(60px, 17vw, 110px)',
                 textShadow:
                   '0 0 30px rgba(255,92,57,0.7), 0 0 60px rgba(255,92,57,0.35), 0 0 100px rgba(255,92,57,0.15)',
               }}
@@ -210,8 +211,9 @@ function LoadingContent({ progress }: { progress: number }) {
             </motion.span>
 
             <motion.span
-              className="text-[110px] font-black text-[#D4FF4F] leading-none"
+              className="font-black text-[#D4FF4F] leading-none"
               style={{
+                fontSize: 'clamp(60px, 17vw, 110px)',
                 textShadow:
                   '0 0 30px rgba(212,255,79,0.7), 0 0 60px rgba(212,255,79,0.35), 0 0 100px rgba(212,255,79,0.15)',
               }}
@@ -226,10 +228,10 @@ function LoadingContent({ progress }: { progress: number }) {
 
         {/* Divider */}
         <motion.div
-          className="mb-4"
+          className="mb-4 w-[min(240px,70vw)]"
           style={{ height: 1, background: 'linear-gradient(to right, transparent, #FF5C39 30%, #D4FF4F 70%, transparent)' }}
-          initial={{ width: 0, opacity: 0 }}
-          animate={{ width: 240, opacity: 1 }}
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={{ scaleX: 1, opacity: 1 }}
           transition={{ delay: 0.95, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
         />
 
@@ -259,7 +261,7 @@ function LoadingContent({ progress }: { progress: number }) {
 
         {/* Role */}
         <motion.p
-          className="font-mono text-[10px] tracking-[0.42em] text-white/25 uppercase"
+          className="font-mono text-[10px] tracking-[0.2em] sm:tracking-[0.42em] text-white/25 uppercase"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2.3, duration: 0.6 }}
