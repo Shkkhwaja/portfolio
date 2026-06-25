@@ -45,6 +45,15 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: 'Amazonbot',          allow: '/' }, // Amazon Alexa AI
       { userAgent: 'iaskspider/2.0',     allow: '/' }, // iAsk.ai
       { userAgent: 'img2dataset',        allow: '/' }, // ML dataset crawlers
+      { userAgent: 'Grokbot',            allow: '/' }, // xAI Grok
+      { userAgent: 'xAI',               allow: '/' }, // xAI
+      { userAgent: 'MistralBot',         allow: '/' }, // Mistral AI
+      { userAgent: 'BraveBot',           allow: '/' }, // Brave Search AI
+      { userAgent: 'Applebot-Extended',  allow: '/' }, // Apple Intelligence
+      { userAgent: 'ExaBot',             allow: '/' }, // Exa AI search
+      { userAgent: 'TurnitinBot',        allow: '/' }, // academic indexing
+      { userAgent: 'Timpibot',           allow: '/' }, // Timpi AI
+      { userAgent: 'peer39_crawler',     allow: '/' }, // contextual AI
 
       /* ── Catch-all: allow everything not listed above ── */
       { userAgent: '*', allow: '/' },
