@@ -213,6 +213,7 @@ const profilePageSchema = {
   inLanguage:  'en-IN',
   isPartOf:    { '@id': `${SITE_URL}/#website` },
   about:       { '@id': `${SITE_URL}/#person` },
+  mainEntity:  { '@id': `${SITE_URL}/#person` },
   primaryImageOfPage: {
     '@type': 'ImageObject',
     url:     `${SITE_URL}${PERSON.profileImage}`,
