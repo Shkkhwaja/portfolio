@@ -1,6 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { FiGithub, FiLinkedin, FiMail, FiPhone } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa'
 
@@ -22,6 +23,15 @@ const socials = [
 ]
 
 export default function Footer() {
+  const [showTop, setShowTop] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setShowTop(window.scrollY > window.innerHeight * 0.85)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   const scrollTo = (href: string) => {
     const id = href.replace('#', '')
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
@@ -94,16 +104,26 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Back to top */}
-      <motion.button
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-[#FF5C39] text-white flex items-center justify-center shadow-lg z-50 hover:bg-[#e84d2b] transition-colors"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        aria-label="Back to top"
-      >
-        ↑
-      </motion.button>
+      {/* Back to top — hidden until scrolled past hero; on mobile floats above the robot */}
+      <AnimatePresence>
+        {showTop && (
+          <motion.button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="fixed z-50 flex items-center justify-center rounded-full bg-[#FF5C39] text-white shadow-lg hover:bg-[#e84d2b] transition-colors
+              bottom-[5.5rem] right-3 w-9 h-9 text-sm
+              sm:bottom-8 sm:right-8 sm:w-12 sm:h-12 sm:text-base"
+            initial={{ opacity: 0, scale: 0.5, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.5, y: 10 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            aria-label="Back to top"
+          >
+            ↑
+          </motion.button>
+        )}
+      </AnimatePresence>
     </footer>
   )
 }
