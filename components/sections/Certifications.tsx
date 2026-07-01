@@ -5,6 +5,7 @@ import { FiExternalLink, FiAward, FiStar, FiCheckCircle } from 'react-icons/fi'
 import certifications from '@/data/certifications'
 
 const issuerIcon: Record<string, string> = {
+  'Tilak Maharashtra Vidyapeeth': '🏆',
   'ExcelR': '🎓',
   'Deloitte Australia (via Forage)': '🏢',
   'Tata Group (via Forage)': '📊',
@@ -36,9 +37,66 @@ export default function Certifications() {
           </div>
         </motion.div>
 
-        {/* 2-column grid */}
+        {/* Featured: Department Topper — full width */}
+        {certifications[0] && (
+          <motion.a
+            href={certifications[0].url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex rounded-2xl overflow-hidden border-2 border-[#FF5C39] bg-[var(--card)] hover:shadow-2xl hover:shadow-[#FF5C39]/10 transition-all duration-300 mb-5"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.55 }}
+            whileHover={{ y: -4 }}
+          >
+            {/* Accent stripe */}
+            <div className="w-2 flex-shrink-0 bg-[#FF5C39]" />
+
+            <div className="flex-1 p-6 sm:p-8">
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div className="flex items-center gap-4">
+                  {/* Trophy icon */}
+                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0 border-2 border-[#FF5C39]/30 bg-[#FF5C39]/10">
+                    🏆
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[10px] font-mono font-bold tracking-widest text-[#FF5C39] uppercase">Achievement</span>
+                      <span className="flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-bold bg-[#16a34a]/10 dark:bg-[#22c55e]/10 text-[#16a34a] dark:text-[#22c55e] border border-[#16a34a]/30 dark:border-[#22c55e]/20">
+                        <FiCheckCircle size={9} /> VERIFIED
+                      </span>
+                    </div>
+                    <h3 className="text-lg sm:text-xl font-black text-[var(--fg)] group-hover:text-[#FF5C39] transition-colors leading-tight">
+                      {certifications[0].title}
+                    </h3>
+                    <p className="text-sm font-semibold text-[#FF5C39] mt-0.5">{certifications[0].issuer}</p>
+                  </div>
+                </div>
+
+                <div className="flex flex-col items-end gap-2">
+                  <span className="px-3 py-1 rounded-full bg-[var(--bg)] border border-[var(--border)] text-xs font-mono text-[var(--muted)]">
+                    {certifications[0].date}
+                  </span>
+                  {certifications[0].credentialId && (
+                    <div className="flex items-center gap-1.5 bg-[var(--bg)] rounded-lg px-3 py-1.5">
+                      <FiAward size={11} className="text-[#FF5C39] flex-shrink-0" />
+                      <span className="text-[10px] font-mono text-[var(--muted)]">{certifications[0].credentialId}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-1.5 mt-5 text-xs font-bold text-[#FF5C39]">
+                View Proof <FiExternalLink size={12} />
+              </div>
+            </div>
+          </motion.a>
+        )}
+
+        {/* 2-column grid for the rest */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-          {certifications.map((cert, i) => (
+          {certifications.slice(1).map((cert, i) => (
             <motion.a
               key={cert.id}
               href={cert.url}

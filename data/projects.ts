@@ -49,6 +49,22 @@ const projects: Project[] = [
   },
   {
     id: 3,
+    title: 'Space One Surfaces',
+    subtitle: 'Premium Surface Solutions Platform',
+    description:
+      'Full-stack brand website for a premium laminates & veneers company. Features a dynamic product catalog with 4 collections (3D Textured, Wood Series, High Gloss, Solid Core), finish & colour browsing, catalogue PDF downloads, admin CMS for product management, and a WhatsApp lead-capture flow.',
+    role: 'Architected and built the complete platform — product catalog with hero slider, finish & colour system, admin panel with Cloudflare R2 media uploads, MongoDB backend, PDF catalogue downloads, and GSAP scroll animations.',
+    stack: ['Next.js', 'React', 'TypeScript', 'MongoDB', 'Cloudflare R2', 'GSAP', 'Tailwind CSS', 'JWT'],
+    liveUrl: 'https://spaceonesurfaces.com/',
+    media: {
+      type: 'image',
+      src: '/images/projects/spaceonesurfaces.png',
+      alt: 'Space One Surfaces — Premium Surface Solutions',
+    },
+    accentColor: 'var(--lime)',
+  },
+  {
+    id: 5,
     title: 'Friday Charm',
     subtitle: 'Fashion & Lifestyle E-Commerce',
     description:
@@ -64,7 +80,7 @@ const projects: Project[] = [
     accentColor: '#FF5C39',
   },
   {
-    id: 4,
+    id: 6,
     title: 'Design Guild Awards',
     subtitle: 'Architecture & Interior Design Awards',
     description:
@@ -80,7 +96,7 @@ const projects: Project[] = [
     accentColor: 'var(--lime)',
   },
   {
-    id: 5,
+    id: 7,
     title: 'Bellavita Smart Home',
     subtitle: 'Home Automation Brand Website',
     description:
@@ -96,7 +112,7 @@ const projects: Project[] = [
     accentColor: '#FF5C39',
   },
   {
-    id: 6,
+    id: 8,
     title: 'INKA Media Solutions',
     subtitle: 'Digital Marketing Agency Website',
     description:
@@ -112,7 +128,7 @@ const projects: Project[] = [
     accentColor: 'var(--lime)',
   },
   {
-    id: 7,
+    id: 9,
     title: 'BLP Interior',
     subtitle: 'Luxury Furniture & Interior Studio',
     description:
