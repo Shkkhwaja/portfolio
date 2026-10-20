@@ -132,3 +132,85 @@ section {
   z-index: 1;
   border-radius: inherit;
 }
+
+/* ───────────────────────────────────────────────────────────────
+   Loading screen — pure CSS, transform/opacity only.
+   Runs on the compositor, so it stays smooth while the page hydrates.
+─────────────────────────────────────────────────────────────── */
+.ld-root { position: fixed; inset: 0; z-index: 9990; overflow: hidden; contain: strict; }
+.ld-cols { position: absolute; inset: 0; display: flex; }
+.ld-col {
+  position: relative; flex: 1 1 0; height: 100%; margin-right: -1px;
+  background: #0A0A0A; will-change: transform;
+  transition: transform 0.85s cubic-bezier(0.76, 0, 0.24, 1);
+  transition-delay: calc(0.32s + var(--i) * 0.07s);
+}
+.ld-col::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+  background: var(--c); box-shadow: 0 0 14px var(--c);
+}
+.ld-root[data-state='exit'] .ld-col { transform: translate3d(0, -101%, 0); }
+
+.ld-stage {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 1.75rem;
+  transition: opacity 0.4s ease-in, transform 0.4s ease-in; will-change: opacity, transform;
+}
+.ld-root[data-state='exit'] .ld-stage { opacity: 0; transform: scale3d(1.05, 1.05, 1); }
+
+.ld-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 18% 70%, rgba(255, 92, 57, 0.16), transparent 70%),
+    radial-gradient(55% 45% at 85% 25%, rgba(212, 255, 79, 0.11), transparent 70%),
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px) 0 0 / 56px 56px,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px) 0 0 / 56px 56px;
+}
+.ld-vignette {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 80% 70% at 50% 50%, transparent 35%, #0A0A0A 100%);
+}
+
+.ld-orbit { position: relative; width: min(280px, 70vw); aspect-ratio: 1; display: grid; place-items: center; }
+.ld-orbit > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.ld-ring-in { animation: ld-pop 1s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.ld-spin { animation: ld-spin 7s linear infinite; }
+.ld-spin-rev { animation: ld-spin 11s linear infinite reverse; }
+.ld-glow {
+  position: absolute; width: 55%; aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 92, 57, 0.45), rgba(212, 255, 79, 0.18) 55%, transparent 72%);
+  animation: ld-breathe 2.4s ease-in-out infinite;
+}
+
+.ld-mono { position: relative; z-index: 1; display: flex; align-items: flex-end; gap: 0.15em; font-size: clamp(44px, 12vw, 74px); line-height: 0.95; font-weight: 900; }
+.ld-mask { display: block; overflow: hidden; padding-bottom: 0.06em; }
+.ld-letter { display: block; animation: ld-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(0.2s + var(--i) * 0.1s); }
+
+.ld-name { animation: ld-fade-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both; }
+.ld-role { animation: ld-fade-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.85s both; }
+
+.ld-bar { position: absolute; left: 50%; bottom: 2.25rem; width: min(300px, 76vw); transform: translateX(-50%); }
+.ld-track { height: 2px; border-radius: 2px; background: rgba(255, 255, 255, 0.1); overflow: hidden; }
+.ld-fill {
+  height: 100%; width: 100%; transform-origin: left center; transform: scaleX(0);
+  background: linear-gradient(to right, #FF5C39, #D4FF4F); will-change: transform;
+  animation: ld-fill 1.6s cubic-bezier(0.65, 0, 0.35, 1) 0.1s forwards;
+}
+.ld-dots span { display: inline-block; animation: ld-dot 1.2s ease-in-out infinite; }
+.ld-dots span:nth-child(2) { animation-delay: 0.15s; }
+.ld-dots span:nth-child(3) { animation-delay: 0.3s; }
+
+.ld-corner { position: absolute; width: 1.75rem; height: 1.75rem; animation: ld-pop 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+@keyframes ld-spin { to { transform: rotate(360deg); } }
+@keyframes ld-rise { from { transform: translate3d(0, 115%, 0) rotate(5deg); } to { transform: translate3d(0, 0, 0) rotate(0); } }
+@keyframes ld-fade-up { from { opacity: 0; transform: translate3d(0, 10px, 0); } to { opacity: 1; transform: translate3d(0, 0, 0); } }
+@keyframes ld-pop { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: scale(1); } }
+@keyframes ld-breathe { 0%, 100% { opacity: 0.55; transform: scale(0.92); } 50% { opacity: 1; transform: scale(1.08); } }
+@keyframes ld-fill { to { transform: scaleX(1); } }
+@keyframes ld-dot { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .ld-spin, .ld-spin-rev, .ld-glow, .ld-dots span { animation: none; }
+  .ld-col { transition-duration: 0.3s; transition-delay: 0s; }
+}

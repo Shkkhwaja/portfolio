@@ -104,14 +104,14 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Back to top — hidden until scrolled past hero; on mobile floats above the robot */}
+      {/* Back to top — hidden until scrolled past hero; bottom-left (the AI robot lives bottom-right) */}
       <AnimatePresence>
         {showTop && (
           <motion.button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="fixed z-50 flex items-center justify-center rounded-full bg-[#FF5C39] text-white shadow-lg hover:bg-[#e84d2b] transition-colors
-              bottom-[5.5rem] right-3 w-9 h-9 text-sm
-              sm:bottom-8 sm:right-8 sm:w-12 sm:h-12 sm:text-base"
+              bottom-4 left-3 w-9 h-9 text-sm
+              sm:bottom-8 sm:left-8 sm:w-12 sm:h-12 sm:text-base"
             initial={{ opacity: 0, scale: 0.5, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.5, y: 10 }}

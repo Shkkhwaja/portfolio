@@ -84,12 +84,12 @@ const allIcons: SkillItem[] = categories.flatMap((c) => c.skills)
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-24 md:py-32 overflow-hidden">
+    <section id="skills" className="py-10 md:py-14 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
 
         {/* Header */}
         <motion.div
-          className="mb-16"
+          className="mb-8 md:mb-10"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
@@ -102,7 +102,7 @@ export default function Skills() {
         </motion.div>
 
         {/* Skill categories grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10 md:mb-12">
           {categories.map((cat, ci) => (
             <motion.div
               key={cat.title}

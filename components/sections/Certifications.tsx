@@ -14,12 +14,12 @@ const issuerIcon: Record<string, string> = {
 
 export default function Certifications() {
   return (
-    <section id="certifications" className="py-24 md:py-32 bg-[var(--bg-2)]">
+    <section id="certifications" className="py-10 md:py-14 bg-[var(--bg-2)]">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
 
         {/* Header */}
         <motion.div
-          className="mb-16"
+          className="mb-8 md:mb-10"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}

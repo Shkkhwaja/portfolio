@@ -18,12 +18,12 @@ export default function Experience() {
   }
 
   return (
-    <section id="experience" className="py-14 md:py-32 relative" ref={sectionRef}>
+    <section id="experience" className="py-8 md:py-14 relative" ref={sectionRef}>
       <div className="max-w-7xl mx-auto px-6 md:px-12">
 
         {/* Header */}
         <motion.div
-          className="mb-10 md:mb-20"
+          className="mb-8 md:mb-10"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
@@ -135,7 +135,7 @@ export default function Experience() {
             style={{ height: '100%' }}
           />
 
-          <div className="space-y-16">
+          <div className="space-y-8">
             {experience.map((exp, i) => {
               const isLeft = i % 2 === 0
               return (

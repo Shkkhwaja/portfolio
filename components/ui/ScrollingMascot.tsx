@@ -23,14 +23,19 @@ export default function ScrollingMascot() {
   const smoothX = useSpring(rawX, { stiffness: 35, damping: 14, mass: 1.2 })
   const leftStyle = useTransform(smoothX, (v) => `${v}%`)
 
+  /* compact mode = touch device OR narrow viewport (the walking mascot would run off-screen) */
   useEffect(() => {
     setMounted(true)
-    if (typeof window === 'undefined') return
-    if (window.matchMedia('(pointer: coarse)').matches) {
-      setIsTouch(true)
-      return
-    }
+    const mq = window.matchMedia('(pointer: coarse), (max-width: 767px)')
+    const update = () => setIsTouch(mq.matches)
+    update()
+    mq.addEventListener('change', update)
+    return () => mq.removeEventListener('change', update)
+  }, [])
 
+  /* desktop only: scroll-driven walk */
+  useEffect(() => {
+    if (isTouch) return
     const onScroll = () => {
       const angle = (window.scrollY / 1000) * Math.PI
       const newX = 48 + 40 * Math.cos(angle)
@@ -38,10 +43,10 @@ export default function ScrollingMascot() {
       prevXRef.current = newX
       rawX.set(newX)
     }
-
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [rawX])
+  }, [isTouch, rawX])
 
   if (!mounted || open) return null
 

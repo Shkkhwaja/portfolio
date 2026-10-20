@@ -88,7 +88,14 @@ export default function Hero() {
                     {wi === 0 && <span className="text-[#FF5C39]">{word}</span>}
                     {wi === 1 && <span className="text-[var(--fg)]">{word}</span>}
                     {wi === 2 && (
-                      <span style={{ WebkitTextStroke: '2px var(--fg)', color: 'transparent' }}>
+                      <span
+                        style={{
+                          // fill covers the glyph's self-overlapping inner contours; only the outer half of the stroke shows
+                          WebkitTextStroke: '4px var(--fg)',
+                          paintOrder: 'stroke fill',
+                          color: 'var(--bg)',
+                        }}
+                      >
                         {word}
                       </span>
                     )}

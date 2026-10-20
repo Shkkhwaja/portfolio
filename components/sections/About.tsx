@@ -30,11 +30,11 @@ const codeLines = [
 
 export default function About() {
   return (
-    <section id="about" className="py-24 md:py-32 relative">
+    <section id="about" className="py-10 md:py-14 relative">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
 
         <motion.div
-          className="mb-16"
+          className="mb-8 md:mb-10"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
