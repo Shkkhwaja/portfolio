@@ -12,6 +12,7 @@ import Certifications from '@/components/sections/Certifications'
 import Contact from '@/components/sections/Contact'
 import Footer from '@/components/sections/Footer'
 import StructuredData from '@/components/seo/StructuredData'
+import ExploreLinks from '@/components/seo/ExploreLinks'
 import ConsoleBranding from '@/components/ui/ConsoleBranding'
 
 export default function Home() {
@@ -35,6 +36,7 @@ export default function Home() {
         <Certifications />
         <Contact />
       </main>
+      <ExploreLinks />
       <Footer />
     </>
   )

@@ -1,326 +1,287 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import {
+  AnimatePresence,
+  animate,
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useTransform,
+  type Variants,
+} from 'framer-motion'
 
-type Particle = { id: number; x: number; y: number; size: number; dur: number; del: number; color: string; op: number }
+/**
+ * First-visit intro.
+ *
+ * Smoothness notes:
+ *  - progress is a MotionValue (no React re-render per frame) and the bar uses scaleX (compositor only);
+ *  - content is rendered once (the old version rendered it twice in two split panels);
+ *  - exit = content dissolves, then 6 curtain columns wipe upward in a stagger. Only transform/opacity animate.
+ *
+ * Total run time ≈ 2.8 s (the hero animations are timed to start right after).
+ */
 
-const BOOT_LINES = ['> SYSTEM INIT...', '> AUTH: OK', '> LOADING PORTFOLIO']
+const EASE_OUT = [0.16, 1, 0.3, 1] as const
+const EASE_IN_OUT = [0.76, 0, 0.24, 1] as const
+const COLUMNS = 6
+const LOAD_SECONDS = 1.9
 
-function LoadingContent({ progress }: { progress: number }) {
-  const [particles, setParticles] = useState<Particle[]>([])
-  const [bootLine, setBootLine] = useState(0)
+const curtain: Variants = {
+  initial: {},
+  animate: {},
+  exit: { transition: { staggerChildren: 0.07, delayChildren: 0.28 } },
+}
+const column: Variants = {
+  initial: { y: 0 },
+  animate: { y: 0 },
+  exit: { y: '-101%', transition: { duration: 0.7, ease: EASE_IN_OUT } },
+}
+const content: Variants = {
+  initial: { opacity: 1 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0, scale: 1.06, filter: 'blur(8px)', transition: { duration: 0.38, ease: 'easeIn' } },
+}
+
+const LETTERS = ['K', 'H', 'S']
+
+function Intro({ reduce }: { reduce: boolean }) {
+  const progress = useMotionValue(0)
+  const rounded = useTransform(progress, (v) => String(Math.round(v)).padStart(3, '0'))
+  const scaleX = useTransform(progress, (v) => v / 100)
+  const ringLength = useTransform(progress, (v) => v / 100)
 
   useEffect(() => {
-    setParticles(
-      Array.from({ length: 18 }, (_, i) => ({
-        id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: Math.random() * 2 + 0.6,
-        dur: Math.random() * 5 + 3,
-        del: Math.random() * 2,
-        color: (['#FF5C39', '#D4FF4F', '#ffffff'] as const)[i % 3],
-        op: Math.random() * 0.18 + 0.05,
-      }))
-    )
-    const t1 = setTimeout(() => setBootLine(1), 180)
-    const t2 = setTimeout(() => setBootLine(2), 450)
-    return () => { clearTimeout(t1); clearTimeout(t2) }
-  }, [])
+    const controls = animate(progress, 100, {
+      duration: reduce ? 0.6 : LOAD_SECONDS,
+      ease: [0.65, 0, 0.35, 1],
+    })
+    return () => controls.stop()
+  }, [progress, reduce])
 
   return (
-    <div className="absolute inset-0 bg-[#0A0A0A] overflow-hidden select-none">
-
-      {/* Grid */}
+    <motion.div variants={content} className="absolute inset-0 select-none will-change-transform">
+      {/* grid */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0"
         style={{
           backgroundImage:
-            'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)',
-          backgroundSize: '48px 48px',
+            'linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)',
+          backgroundSize: '56px 56px',
+          maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, #000 20%, transparent 80%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, #000 20%, transparent 80%)',
         }}
       />
 
-      {/* Vignette */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 85% 85% at 50% 50%, transparent 35%, #0A0A0A 100%)' }}
-      />
+      {/* aurora blobs */}
+      {!reduce && (
+        <>
+          <motion.div
+            className="absolute -left-1/4 top-1/4 h-[55vmax] w-[55vmax] rounded-full blur-[90px]"
+            style={{ background: 'radial-gradient(circle, rgba(255,92,57,0.22), transparent 65%)' }}
+            animate={{ x: ['0%', '25%', '0%'], y: ['0%', '-10%', '0%'] }}
+            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          <motion.div
+            className="absolute -right-1/4 bottom-0 h-[50vmax] w-[50vmax] rounded-full blur-[90px]"
+            style={{ background: 'radial-gradient(circle, rgba(212,255,79,0.16), transparent 65%)' }}
+            animate={{ x: ['0%', '-25%', '0%'], y: ['0%', '12%', '0%'] }}
+            transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+          />
+        </>
+      )}
 
-      {/* Center glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 50% 40% at 50% 50%, rgba(255,92,57,0.07) 0%, transparent 70%)' }}
-      />
-
-      {/* Particles */}
-      {particles.map((p) => (
-        <motion.div
-          key={p.id}
-          className="absolute rounded-full pointer-events-none"
-          style={{ left: `${p.x}%`, top: `${p.y}%`, width: p.size, height: p.size, backgroundColor: p.color, opacity: p.op }}
-          animate={{ y: ['-8px', '8px', '-8px'] }}
-          transition={{ duration: p.dur, delay: p.del, repeat: Infinity, ease: 'easeInOut' }}
-        />
-      ))}
-
-      {/* Fast scan line */}
-      <motion.div
-        className="absolute left-0 right-0 h-px pointer-events-none z-10"
-        style={{ background: 'linear-gradient(to right, transparent 5%, rgba(212,255,79,0.45) 50%, transparent 95%)' }}
-        animate={{ top: ['-2px', '100vh'] }}
-        transition={{ duration: 2.2, repeat: Infinity, ease: 'linear', delay: 0.2 }}
-      />
-
-      {/* Corner brackets */}
+      {/* corner brackets */}
       {[
-        'top-4 left-4 border-t-2 border-l-2 border-[#FF5C39]/70',
-        'top-4 right-4 border-t-2 border-r-2 border-[#D4FF4F]/70',
-        'bottom-4 left-4 border-b-2 border-l-2 border-[#D4FF4F]/70',
-        'bottom-4 right-4 border-b-2 border-r-2 border-[#FF5C39]/70',
+        'top-5 left-5 border-t-2 border-l-2 border-[#FF5C39]/70',
+        'top-5 right-5 border-t-2 border-r-2 border-[#D4FF4F]/70',
+        'bottom-5 left-5 border-b-2 border-l-2 border-[#D4FF4F]/70',
+        'bottom-5 right-5 border-b-2 border-r-2 border-[#FF5C39]/70',
       ].map((cls, i) => (
         <motion.div
           key={i}
-          className={`absolute w-5 h-5 sm:w-6 sm:h-6 ${cls}`}
-          initial={{ opacity: 0, scale: 0.4 }}
+          className={`absolute h-6 w-6 sm:h-8 sm:w-8 ${cls}`}
+          initial={{ opacity: 0, scale: 0.3 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: i * 0.04, duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ delay: 0.1 + i * 0.06, duration: 0.6, ease: EASE_OUT }}
         />
       ))}
 
-      {/* Boot lines — top-left terminal */}
-      <div className="absolute top-9 left-6 sm:left-12 font-mono space-y-[3px]">
-        {BOOT_LINES.slice(0, bootLine + 1).map((line, i) => (
-          <motion.div
-            key={i}
-            className={`text-[9px] sm:text-[10px] ${i === bootLine ? 'text-[#D4FF4F]' : 'text-white/18'}`}
-            initial={{ opacity: 0, x: -6 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.18 }}
-          >
-            {line}
-            {i === bootLine && (
-              <motion.span
-                className="inline-block w-[5px] h-[9px] bg-[#D4FF4F] ml-1 align-middle"
-                animate={{ opacity: [1, 0] }}
-                transition={{ duration: 0.45, repeat: Infinity }}
-              />
-            )}
-          </motion.div>
-        ))}
-      </div>
+      {/* centre stage */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-7">
+        {/* orbit rings + monogram */}
+        <div className="relative flex items-center justify-center" style={{ width: 'min(300px, 72vw)', height: 'min(300px, 72vw)' }}>
+          <svg viewBox="0 0 200 200" className="absolute inset-0 h-full w-full overflow-visible" fill="none" aria-hidden>
+            <defs>
+              <linearGradient id="ldGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stopColor="#FF5C39" />
+                <stop offset="100%" stopColor="#D4FF4F" />
+              </linearGradient>
+            </defs>
+            {/* ring that draws itself */}
+            <motion.circle
+              cx="100"
+              cy="100"
+              r="92"
+              stroke="url(#ldGrad)"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              style={{ rotate: -90, transformOrigin: '100px 100px' }}
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 1 }}
+              transition={{ duration: 1.3, ease: EASE_OUT }}
+            />
+            {/* progress ring */}
+            <motion.circle
+              cx="100"
+              cy="100"
+              r="80"
+              stroke="rgba(255,255,255,0.08)"
+              strokeWidth="1"
+            />
+            <motion.circle
+              cx="100"
+              cy="100"
+              r="80"
+              stroke="#D4FF4F"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              style={{ rotate: -90, transformOrigin: '100px 100px', pathLength: ringLength }}
+            />
+            {/* counter-rotating dashed orbit with satellites */}
+            <motion.g
+              style={{ transformOrigin: '100px 100px' }}
+              animate={reduce ? undefined : { rotate: 360 }}
+              transition={{ duration: 9, repeat: Infinity, ease: 'linear' }}
+            >
+              <circle cx="100" cy="100" r="68" stroke="rgba(255,255,255,0.18)" strokeWidth="1" strokeDasharray="2 7" />
+              <circle cx="100" cy="32" r="3.5" fill="#FF5C39" />
+              <circle cx="168" cy="100" r="2.5" fill="#D4FF4F" />
+            </motion.g>
+          </svg>
 
-      {/* Progress % — top-right */}
-      <motion.span
-        className="absolute top-[22px] right-8 sm:right-14 font-mono text-[11px] text-[#FF5C39] tabular-nums"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.15 }}
-      >
-        {String(progress).padStart(3, '0')}%
-      </motion.span>
-
-      {/* Side data-stream lines */}
-      <motion.div
-        className="absolute left-5 top-1/2 h-px bg-gradient-to-r from-transparent to-[#FF5C39]/25"
-        initial={{ width: 0, opacity: 0 }}
-        animate={{ width: '15%', opacity: 1 }}
-        transition={{ delay: 0.3, duration: 0.5 }}
-      />
-      <motion.div
-        className="absolute right-5 top-1/2 h-px bg-gradient-to-l from-transparent to-[#D4FF4F]/25"
-        initial={{ width: 0, opacity: 0 }}
-        animate={{ width: '15%', opacity: 1 }}
-        transition={{ delay: 0.3, duration: 0.5 }}
-      />
-
-      {/* Center content */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-
-        {/* KS Monogram with glitch effect */}
-        <div className="relative">
-          {/* Ambient glow blob */}
+          {/* glow */}
           <div
-            className="absolute -inset-8 blur-3xl opacity-30 pointer-events-none"
-            style={{ background: 'radial-gradient(circle, rgba(255,92,57,0.6) 0%, rgba(212,255,79,0.4) 100%)' }}
+            className="absolute h-1/2 w-1/2 rounded-full blur-3xl opacity-40"
+            style={{ background: 'radial-gradient(circle, rgba(255,92,57,0.7), rgba(212,255,79,0.4))' }}
           />
 
-          <div className="relative flex items-end gap-1.5 z-10">
-            {/* K */}
-            <div className="relative">
-              <motion.span
-                className="font-black text-[#FF5C39] leading-none block"
-                style={{
-                  fontSize: 'clamp(72px, 20vw, 128px)',
-                  textShadow: '0 0 40px rgba(255,92,57,0.9), 0 0 80px rgba(255,92,57,0.4)',
-                }}
-                initial={{ opacity: 0, y: 24, filter: 'blur(20px)' }}
-                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                transition={{ duration: 0.45, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              >
-                K
-              </motion.span>
-              {/* Glitch layer K */}
-              <motion.span
-                className="absolute inset-0 font-black text-[#D4FF4F] leading-none pointer-events-none"
-                style={{ fontSize: 'clamp(72px, 20vw, 128px)' }}
-                animate={{
-                  x: [0, -4, 3, -1, 0, 2, -2, 0],
-                  opacity: [0, 0.8, 0, 0.6, 0, 0.4, 0, 0],
-                  clipPath: [
-                    'inset(30% 0 55% 0)', 'inset(30% 0 55% 0)',
-                    'inset(65% 0 15% 0)', 'inset(65% 0 15% 0)',
-                    'inset(10% 0 75% 0)', 'inset(10% 0 75% 0)',
-                    'inset(45% 0 40% 0)', 'inset(45% 0 40% 0)',
-                  ],
-                }}
-                transition={{ duration: 3, repeat: Infinity, times: [0, 0.08, 0.12, 0.22, 0.27, 0.38, 0.44, 1], delay: 0.9 }}
-              >
-                K
-              </motion.span>
-            </div>
-
-            {/* S */}
-            <div className="relative">
-              <motion.span
-                className="font-black text-[#D4FF4F] leading-none block"
-                style={{
-                  fontSize: 'clamp(72px, 20vw, 128px)',
-                  textShadow: '0 0 40px rgba(212,255,79,0.9), 0 0 80px rgba(212,255,79,0.4)',
-                }}
-                initial={{ opacity: 0, y: 24, filter: 'blur(20px)' }}
-                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                transition={{ duration: 0.45, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-              >
-                S
-              </motion.span>
-              {/* Glitch layer S */}
-              <motion.span
-                className="absolute inset-0 font-black text-[#FF5C39] leading-none pointer-events-none"
-                style={{ fontSize: 'clamp(72px, 20vw, 128px)' }}
-                animate={{
-                  x: [0, 3, -2, 1, 0, -3, 2, 0],
-                  opacity: [0, 0.7, 0, 0.5, 0, 0.35, 0, 0],
-                  clipPath: [
-                    'inset(50% 0 28% 0)', 'inset(50% 0 28% 0)',
-                    'inset(18% 0 62% 0)', 'inset(18% 0 62% 0)',
-                    'inset(72% 0 8% 0)',  'inset(72% 0 8% 0)',
-                    'inset(38% 0 44% 0)', 'inset(38% 0 44% 0)',
-                  ],
-                }}
-                transition={{ duration: 3, repeat: Infinity, times: [0, 0.08, 0.12, 0.22, 0.27, 0.38, 0.44, 1], delay: 1.3 }}
-              >
-                S
-              </motion.span>
-            </div>
+          {/* monogram — each letter slides up out of a mask */}
+          <div className="relative z-10 flex items-end gap-1 sm:gap-2" aria-label="KHS">
+            {LETTERS.map((l, i) => (
+              <span key={l} className="block overflow-hidden pb-1">
+                <motion.span
+                  className="block font-black leading-[0.9]"
+                  style={{
+                    fontSize: 'clamp(44px, 12vw, 76px)',
+                    color: i === 1 ? '#D4FF4F' : i === 0 ? '#FF5C39' : '#ffffff',
+                    textShadow: `0 0 30px ${i === 0 ? 'rgba(255,92,57,0.8)' : i === 1 ? 'rgba(212,255,79,0.8)' : 'rgba(255,255,255,0.5)'}`,
+                  }}
+                  initial={{ y: '115%', rotate: 6 }}
+                  animate={{ y: '0%', rotate: 0 }}
+                  transition={{ duration: 0.95, delay: 0.25 + i * 0.12, ease: EASE_OUT }}
+                >
+                  {l}
+                </motion.span>
+              </span>
+            ))}
           </div>
         </div>
 
-        {/* Divider */}
-        <motion.div
-          className="w-[min(220px,65vw)] h-px"
-          style={{ background: 'linear-gradient(to right, transparent, #FF5C39 30%, #D4FF4F 70%, transparent)' }}
-          initial={{ scaleX: 0, opacity: 0 }}
-          animate={{ scaleX: 1, opacity: 1 }}
-          transition={{ delay: 0.38, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-        />
-
-        {/* Name — single fade instead of letter-by-letter */}
-        <motion.p
-          className="font-mono text-[11px] sm:text-[13px] text-white/60 tracking-[0.12em] sm:tracking-[0.18em] px-4 text-center"
-          initial={{ opacity: 0, y: 5 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.48, duration: 0.35 }}
-        >
-          Khwaja Hussain Shaikh
-        </motion.p>
-
-        {/* Role + blinking cursor */}
-        <motion.div
-          className="flex items-center gap-1"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.3 }}
-        >
-          <span className="font-mono text-[9px] sm:text-[10px] tracking-[0.22em] sm:tracking-[0.38em] text-white/22 uppercase">
-            Full Stack Developer
+        {/* name + role */}
+        <div className="flex flex-col items-center gap-2 px-4 text-center">
+          <span className="block overflow-hidden">
+            <motion.p
+              className="font-mono text-[12px] sm:text-sm text-white/80 uppercase"
+              initial={{ y: '120%', opacity: 0, letterSpacing: '0.6em' }}
+              animate={{ y: 0, opacity: 1, letterSpacing: '0.2em' }}
+              transition={{ duration: 1.1, delay: 0.7, ease: EASE_OUT }}
+            >
+              Khwaja Hussain Shaikh
+            </motion.p>
           </span>
-          <motion.span
-            className="inline-block w-[2px] h-3 bg-[#D4FF4F]"
-            animate={{ opacity: [1, 0] }}
-            transition={{ duration: 0.55, repeat: Infinity }}
-          />
-        </motion.div>
+          <motion.p
+            className="font-mono text-[10px] sm:text-[11px] tracking-[0.35em] text-[#D4FF4F]/80 uppercase"
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.0, ease: EASE_OUT }}
+          >
+            Full Stack Developer
+          </motion.p>
+        </div>
       </div>
 
-      {/* Bottom progress bar */}
-      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/[0.04]">
-        <motion.div
-          className="h-full"
-          style={{ width: `${progress}%`, background: 'linear-gradient(to right, #FF5C39, #D4FF4F)' }}
-        />
-        <motion.div
-          className="absolute top-0 h-[2px] w-20 pointer-events-none"
-          style={{
-            left: `${Math.max(0, progress - 10)}%`,
-            background: 'linear-gradient(to right, transparent, rgba(255,255,255,0.7), transparent)',
-          }}
-        />
+      {/* bottom: counter + progress bar */}
+      <div className="absolute bottom-8 left-1/2 w-[min(320px,78vw)] -translate-x-1/2">
+        <div className="mb-2 flex items-end justify-between font-mono text-[10px] tracking-[0.25em] text-white/40 uppercase">
+          <span>Loading experience</span>
+          <span className="text-sm text-[#FF5C39] tabular-nums tracking-normal">
+            <motion.span>{rounded}</motion.span>%
+          </span>
+        </div>
+        <div className="h-[2px] w-full overflow-hidden rounded-full bg-white/10">
+          <motion.div
+            className="h-full w-full origin-left"
+            style={{ scaleX, background: 'linear-gradient(to right, #FF5C39, #D4FF4F)' }}
+          />
+        </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
 export default function LoadingScreen() {
+  const reduce = useReducedMotion() ?? false
   const [loading, setLoading] = useState(true)
-  const [progress, setProgress] = useState(0)
 
-  /* Progress 0→100 over ~1.6 s */
+  /* dismiss when the progress animation is done (+ a beat) */
   useEffect(() => {
-    let current = 0
-    const iv = setInterval(() => {
-      current = Math.min(current + (1.2 + Math.random() * 1.4) * (16 / 1600) * 100, 100)
-      setProgress(Math.floor(current))
-      if (current >= 100) clearInterval(iv)
-    }, 16)
-    return () => clearInterval(iv)
-  }, [])
-
-  /* Dismiss after 1.9 s */
-  useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 1900)
+    const t = setTimeout(() => setLoading(false), ((reduce ? 0.6 : LOAD_SECONDS) + 0.1) * 1000)
     return () => clearTimeout(t)
-  }, [])
+  }, [reduce])
+
+  /* freeze scroll behind the intro so nothing janks underneath */
+  useEffect(() => {
+    if (!loading) return
+    const prev = document.documentElement.style.overflow
+    document.documentElement.style.overflow = 'hidden'
+    return () => {
+      document.documentElement.style.overflow = prev
+    }
+  }, [loading])
 
   return (
     <AnimatePresence>
       {loading && (
-        <>
-          {/* TOP panel — slides up on exit */}
-          <motion.div
-            key="ld-top"
-            className="fixed top-0 left-0 right-0 z-[9990]"
-            style={{ height: '50vh', overflow: 'hidden' }}
-            exit={{ y: '-100%', transition: { duration: 0.62, ease: [0.76, 0, 0.24, 1] } }}
-          >
-            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '100vh' }}>
-              <LoadingContent progress={progress} />
-            </div>
-          </motion.div>
+        <motion.div
+          key="loader"
+          className="fixed inset-0 z-[9990]"
+          variants={curtain}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          role="status"
+          aria-label="Loading portfolio"
+        >
+          {/* curtain columns — plain dark panels with a glowing lower edge */}
+          <div className="absolute inset-0 flex">
+            {Array.from({ length: COLUMNS }).map((_, i) => (
+              <motion.div
+                key={i}
+                variants={column}
+                className="relative h-full flex-1 bg-[#0A0A0A] will-change-transform"
+                style={{ marginRight: i < COLUMNS - 1 ? -1 : 0 }}
+              >
+                <span
+                  className="absolute bottom-0 left-0 right-0 h-[3px]"
+                  style={{ background: i % 2 ? '#D4FF4F' : '#FF5C39', boxShadow: `0 0 18px ${i % 2 ? '#D4FF4F' : '#FF5C39'}` }}
+                />
+              </motion.div>
+            ))}
+          </div>
 
-          {/* BOTTOM panel — slides down on exit */}
-          <motion.div
-            key="ld-bot"
-            className="fixed bottom-0 left-0 right-0 z-[9990]"
-            style={{ height: '50vh', overflow: 'hidden' }}
-            exit={{ y: '100%', transition: { duration: 0.62, ease: [0.76, 0, 0.24, 1] } }}
-          >
-            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '100vh' }}>
-              <LoadingContent progress={progress} />
-            </div>
-          </motion.div>
-        </>
+          <Intro reduce={reduce} />
+        </motion.div>
       )}
     </AnimatePresence>
   )

@@ -34,11 +34,36 @@ function ThrusterFlame({ x, delay = 0 }: { x: number; delay?: number }) {
   )
 }
 
-export default function Mascot({ size = 120 }: { size?: number }) {
+type MascotProps = {
+  size?: number
+  /** text shown on hover; null disables the hover bubble */
+  hoverText?: string | null
+  /** text shown on click; null disables the click bubble */
+  clickText?: string | null
+  /** persistent bubble (e.g. "Ask me anything!") */
+  bubble?: string | null
+  /** waving + smiling "working" state, used while the chatbot is answering */
+  busy?: boolean
+  /** mirror the sprite only (bubble text stays readable) */
+  flip?: boolean
+  /** keep bubble inside the viewport when the mascot hugs the right edge */
+  bubbleAlign?: 'center' | 'right'
+}
+
+export default function Mascot({
+  size = 120,
+  hoverText = 'Hi there! 👋',
+  clickText = 'Boop! ⚡',
+  bubble = null,
+  busy = false,
+  flip = false,
+  bubbleAlign = 'center',
+}: MascotProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [leftEye, setLeftEye] = useState<EyePos>({ x: 0, y: 0 })
   const [rightEye, setRightEye] = useState<EyePos>({ x: 0, y: 0 })
-  const [isWaving, setIsWaving] = useState(false)
+  const [hovered, setHovered] = useState(false)
+  const isWaving = hovered || busy
   const [blinkState, setBlinkState] = useState(false)
   const [clicked, setClicked] = useState(false)
   const clickAnim = useAnimation()
@@ -85,12 +110,13 @@ export default function Mascot({ size = 120 }: { size?: number }) {
       style={{ width: size, height: (size / 120) * 160 }}
       animate={{ y: [0, -10, 0] }}
       transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
-      onHoverStart={() => setIsWaving(true)}
-      onHoverEnd={() => setIsWaving(false)}
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
       onClick={handleClick}
       className="relative select-none"
     >
       <motion.div animate={clickAnim} style={{ originX: '50%', originY: '50%' }}>
+        <div style={{ transform: flip ? 'scaleX(-1)' : undefined, transition: 'transform 0.3s ease-in-out' }}>
         <svg
           viewBox="0 0 120 160"
           width={size}
@@ -307,36 +333,36 @@ export default function Mascot({ size = 120 }: { size?: number }) {
           {/* Head top accent stripe */}
           <rect x="35" y="20" width="50" height="5" rx="4" fill="#e8ff6b" opacity="0.5" />
         </svg>
+        </div>
       </motion.div>
 
-      {/* Speech bubble on hover */}
+      {/* Speech bubbles */}
       <AnimatePresence>
-        {isWaving && (
-          <motion.div
-            className="absolute -top-12 left-1/2 -translate-x-1/2 bg-[#D4FF4F] text-[#0A0A0A] font-bold px-3 py-1.5 rounded-xl whitespace-nowrap shadow-lg"
-            style={{ fontSize: Math.round(11 * scale) }}
-            initial={{ opacity: 0, scale: 0.6, y: 8 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.6, y: 8 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-          >
-            Hi there! 👋
-            <span className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#D4FF4F] rotate-45" />
-          </motion.div>
-        )}
-        {clicked && (
-          <motion.div
-            className="absolute -top-12 left-1/2 -translate-x-1/2 bg-[#FF5C39] text-white font-bold px-3 py-1.5 rounded-xl whitespace-nowrap shadow-lg"
-            style={{ fontSize: Math.round(11 * scale) }}
-            initial={{ opacity: 0, scale: 0.6, y: 8 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ type: 'spring', stiffness: 500, damping: 22 }}
-          >
-            Boop! ⚡
-            <span className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#FF5C39] rotate-45" />
-          </motion.div>
-        )}
+        {(() => {
+          const text = clicked && clickText ? clickText : hovered && hoverText ? hoverText : bubble
+          if (!text) return null
+          const accent = clicked && clickText
+          return (
+            <motion.div
+              key={text}
+              className={`absolute -top-12 ${bubbleAlign === 'right' ? 'right-0' : 'left-1/2 -translate-x-1/2'} font-bold px-3 py-1.5 rounded-xl whitespace-nowrap shadow-lg pointer-events-none ${
+                accent ? 'bg-[#FF5C39] text-white' : 'bg-[#D4FF4F] text-[#0A0A0A]'
+              }`}
+              style={{ fontSize: Math.max(10, Math.round(11 * scale)) }}
+              initial={{ opacity: 0, scale: 0.6, y: 8 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.6, y: 8 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+            >
+              {text}
+              <span
+                className={`absolute -bottom-1.5 ${bubbleAlign === 'right' ? 'right-4' : 'left-1/2 -translate-x-1/2'} w-3 h-3 rotate-45 ${
+                  accent ? 'bg-[#FF5C39]' : 'bg-[#D4FF4F]'
+                }`}
+              />
+            </motion.div>
+          )
+        })()}
       </AnimatePresence>
     </motion.div>
   )

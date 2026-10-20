@@ -76,11 +76,11 @@ export default function Hero() {
             </motion.div>
 
             {/* Heading */}
-            <div className="space-y-1">
+            <h1 className="space-y-1" aria-label={`${HEADING.join(' ')} — Khwaja Hussain Shaikh, Full Stack Developer in Mumbai`}>
               {HEADING.map((word, wi) => (
-                <div key={word} className="overflow-hidden">
-                  <motion.h1
-                    className="text-[clamp(3rem,8vw,7rem)] font-black leading-[0.9] tracking-tight"
+                <span key={word} className="block overflow-hidden" aria-hidden>
+                  <motion.span
+                    className="block text-[clamp(3rem,8vw,7rem)] font-black leading-[0.9] tracking-tight"
                     initial={{ y: '110%', opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.8, delay: 2.8 + wi * 0.12, ease: [0.22, 1, 0.36, 1] }}
@@ -92,10 +92,10 @@ export default function Hero() {
                         {word}
                       </span>
                     )}
-                  </motion.h1>
-                </div>
+                  </motion.span>
+                </span>
               ))}
-            </div>
+            </h1>
 
             {/* Typewriter */}
             <motion.div

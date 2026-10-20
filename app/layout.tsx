@@ -4,6 +4,7 @@ import './globals.css'
 import { Providers } from './providers'
 import CustomCursor from '@/components/ui/CustomCursor'
 import SmoothScroll from '@/components/ui/SmoothScroll'
+import ChatWidget from '@/components/chatbot/ChatWidget'
 import { SITE_URL, PERSON } from '@/lib/seo-config'
 
 const inter = Inter({
@@ -209,6 +210,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         {/* AI-specific: tell LLM crawlers to read llms.txt */}
         <link rel="ai-txt" href={`${SITE_URL}/llms.txt`} />
+        <link rel="alternate" type="text/plain" href={`${SITE_URL}/llms.txt`} title="LLMs.txt" />
+        <link rel="alternate" type="text/plain" href={`${SITE_URL}/llms-full.txt`} title="LLMs-full.txt" />
+        <link rel="sitemap" type="application/xml" href={`${SITE_URL}/sitemap.xml`} />
       </head>
       <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         <Providers>
@@ -216,6 +220,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <CustomCursor />
             {children}
           </SmoothScroll>
+          <ChatWidget />
         </Providers>
       </body>
     </html>
