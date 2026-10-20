@@ -214,11 +214,6 @@ const websiteSchema = {
   description: PERSON.tagline,
   author:     { '@id': `${SITE_URL}/#person` },
   inLanguage: 'en-IN',
-  potentialAction: {
-    '@type':       'SearchAction',
-    target:        { '@type': 'EntryPoint', urlTemplate: `${SITE_URL}/?q={search_term_string}` },
-    'query-input': 'required name=search_term_string',
-  },
 }
 
 /* ── 3. ProfilePage schema ────────────────────────────────────── */

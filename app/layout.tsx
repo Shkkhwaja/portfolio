@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 
   /* ── Primary identity ── */
   title: {
-    default: `${PERSON.name} — ${PERSON.title}`,
+    default: `${PERSON.name} — Full Stack Developer in Mumbai | MERN & Next.js`,
     template: `%s | ${PERSON.name}`,
   },
   description: PERSON.description,
@@ -126,7 +126,7 @@ export const metadata: Metadata = {
     description: PERSON.description,
     images: [
       {
-        url: `${SITE_URL}/images/profile.jpg`,
+        url: `${SITE_URL}${PERSON.ogImage}`,
         width: 1200,
         height: 630,
         alt: `${PERSON.name} — ${PERSON.title} from Mumbai, India`,
@@ -145,7 +145,7 @@ export const metadata: Metadata = {
     card:        'summary_large_image',
     title:       `${PERSON.name} — ${PERSON.title}`,
     description: PERSON.description,
-    images:      [`${SITE_URL}/images/profile.jpg`],
+    images:      [`${SITE_URL}${PERSON.ogImage}`],
     creator:     '@khwajashaikh',
   },
 

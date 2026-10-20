@@ -13,12 +13,13 @@ export const PERSON = {
   title:        'Full Stack Developer',
   tagline:      'Full Stack Developer specializing in MERN Stack, Next.js & scalable web applications.',
   description:
-    'Khwaja Hussain Shaikh is one of the best Full Stack Developers in Mumbai, India — specializing in MERN stack (MongoDB, Express.js, React.js, Node.js) and Next.js. He builds production-grade web applications, RESTful APIs, and high-performance UIs. Available for hire as a freelance developer or full-time opportunity. Currently working at ZAR Luxury Pvt. Ltd. in Mumbai. BCA graduate from Tilak Maharashtra Vidyapeeth with a CGPA of 8.30, Department Topper, and double winner of Tech Shaastra Hackathon 2024 & 2025.',
+    'Khwaja Hussain Shaikh is a Full Stack Developer in Mumbai, India, building fast MERN-stack and Next.js web apps. Works at ZAR Luxury; BCA Department Topper and 2x Tech Shaastra Hackathon winner. Open to freelance and full-time work.',
   email:        'khwajashaikh703@gmail.com',
   location:     'Mumbai, Maharashtra, India',
   github:       'https://github.com/Shkkhwaja/',
   linkedin:     'https://linkedin.com/in/khwaja-shaikh-960b981b1/',
   whatsapp:     'https://wa.me/917039551617',
   profileImage: '/images/profile.jpg',
+  ogImage:      '/images/og-image.jpg', // 1200x630, ~36 KB — social cards ignore multi-MB images
   resume:       '/resume.pdf',
 } as const

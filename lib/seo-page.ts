@@ -12,7 +12,7 @@ type PageMeta = {
 /** Per-page metadata with canonical, Open Graph, Twitter and robots — layout supplies the title template. */
 export function buildMetadata({ title, description, path, keywords = [], type = 'website' }: PageMeta): Metadata {
   const url = `${SITE_URL}${path}`
-  const image = `${SITE_URL}${PERSON.profileImage}`
+  const image = `${SITE_URL}${PERSON.ogImage}`
   return {
     title,
     description,
