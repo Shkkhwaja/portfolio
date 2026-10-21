@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import { scrollToId } from '@/lib/scroll'
 import FloatingBackground from '@/components/ui/FloatingBackground'
 import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
 
@@ -54,7 +55,7 @@ export default function Hero() {
   }, [roleIndex, typing])
 
   const scrollTo = (id: string) =>
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    scrollToId(id)
 
   return (
     <section id="hero" className="relative sm:min-h-screen flex flex-col overflow-hidden">
@@ -69,7 +70,7 @@ export default function Hero() {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] bg-[var(--bg-2)]"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 2.8 }}
+              transition={{ duration: 0.45, delay: 1.9 }}
             >
               <span className="w-2 h-2 rounded-full bg-[#22c55e] animate-pulse" />
               <span className="text-sm font-mono text-[var(--muted)]">Available for freelance work</span>
@@ -83,7 +84,7 @@ export default function Hero() {
                     className="block text-[clamp(3rem,8vw,7rem)] font-black leading-[0.9] tracking-tight"
                     initial={{ y: '110%', opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 2.8 + wi * 0.12, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 0.6, delay: 1.9 + wi * 0.08, ease: [0.22, 1, 0.36, 1] }}
                   >
                     {wi === 0 && <span className="text-[#FF5C39]">{word}</span>}
                     {wi === 1 && <span className="text-[var(--fg)]">{word}</span>}
@@ -108,7 +109,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 3.3, duration: 0.5 }}
+              transition={{ delay: 2.2, duration: 0.4 }}
             >
               <span className="text-base md:text-lg text-[var(--muted)] font-mono">
                 &gt;{' '}
@@ -125,7 +126,7 @@ export default function Hero() {
               className="text-base md:text-lg text-[var(--muted)] leading-relaxed max-w-xl"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 3.5, duration: 0.6 }}
+              transition={{ delay: 2.3, duration: 0.45 }}
             >
               Full Stack Developer with hands-on experience in the MERN stack and Next.js.
               Building scalable web applications from{' '}
@@ -137,7 +138,7 @@ export default function Hero() {
               className="flex flex-wrap gap-4 pt-2"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 3.7, duration: 0.5 }}
+              transition={{ delay: 2.4, duration: 0.4 }}
             >
               <button
                 onClick={() => scrollTo('projects')}
@@ -176,7 +177,7 @@ export default function Hero() {
               className="flex items-center gap-2 pt-1 flex-wrap"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 3.9, duration: 0.5 }}
+              transition={{ delay: 2.5, duration: 0.4 }}
             >
               {[
                 { label: 'GitHub',   href: 'https://github.com/Shkkhwaja/',                   icon: FiGithub   },
@@ -219,7 +220,7 @@ export default function Hero() {
         className="relative z-10 border-t border-[var(--border)] bg-[var(--bg-2)]/70 backdrop-blur-sm"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 4.0, duration: 0.6 }}
+        transition={{ delay: 2.55, duration: 0.45 }}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-6 flex flex-wrap justify-around gap-6">
           {stats.map(({ value, label }, i) => (
@@ -243,7 +244,7 @@ export default function Hero() {
         className="absolute bottom-[7rem] left-1/2 -translate-x-1/2 z-10 hidden sm:flex flex-col items-center gap-2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 4.3, duration: 0.5 }}
+        transition={{ delay: 2.7, duration: 0.4 }}
       >
         <motion.div
           className="w-[1px] h-12 bg-gradient-to-b from-[#FF5C39] to-transparent"

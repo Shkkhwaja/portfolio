@@ -185,7 +185,7 @@ function Sparkles() {
  *  Subtle breathing scale (±0.6%) → card feels alive
  * ─────────────────────────────────────────────────────────────── */
 function ProfileCard() {
-  const texture  = useTexture('/images/profile.jpg')
+  const texture  = useTexture('/images/profile-tex.jpg')
   const groupRef = useRef<THREE.Group>(null)
   const [aspect, setAspect] = useState(0.8)
   const t0 = useRef(0)
@@ -856,6 +856,17 @@ export default function ProfileScene() {
 
   useEffect(() => { setMounted(true) }, [])
 
+  /* render only while the scene is on screen */
+  const rootRef = useRef<HTMLDivElement>(null)
+  const [inView, setInView] = useState(true)
+  useEffect(() => {
+    const el = rootRef.current
+    if (!el || typeof IntersectionObserver === 'undefined') return
+    const io = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { rootMargin: '120px' })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
   useEffect(() => {
     if (!mounted) return
     fetch('/api/weather')
@@ -870,10 +881,13 @@ export default function ProfileScene() {
   const glowColor = (weatherType === 'sunny' || weatherType === 'partly_cloudy') ? '#FFD060' : '#FF5C39'
 
   return (
-    <div className="relative w-full h-full">
+    <div ref={rootRef} className="relative w-full h-full">
       <Canvas
         camera={{ position: [0, 0.3, 5.5], fov: 46 }}
-        gl={{ antialias: true, alpha: true }}
+        // cap resolution (retina/4K would render 4-9x the pixels for no visible gain) and stop rendering off-screen
+        dpr={[1, 1.5]}
+        frameloop={inView ? 'always' : 'never'}
+        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
         style={{ background: 'transparent' }}
       >
         <WeatherLights type={weatherType} />

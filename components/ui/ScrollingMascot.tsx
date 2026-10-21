@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import Mascot from '@/components/mascot/Mascot'
 import { chatStore, useChatState } from '@/lib/chatbot/store'
-import AurexLogo from '@/components/chatbot/AurexLogo'
 
 const LABEL = 'Ask me anything! 💬'
 
@@ -81,10 +80,7 @@ export default function ScrollingMascot() {
         {...a11y}
       >
         <motion.div animate={{ y: [0, -6, 0] }} transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}>
-          <span className="absolute -left-3 top-2 z-10 pointer-events-none">
-            <AurexLogo size={24} />
-          </span>
-          <Mascot size={46} bubble={bubble} bubbleAlign="right" hoverText={null} clickText={null} />
+          <Mascot size={52} ball bubble={bubble} bubbleAlign="right" hoverText={null} clickText={null} />
         </motion.div>
       </motion.div>
     )
@@ -111,11 +107,7 @@ export default function ScrollingMascot() {
             aria-hidden
             className="absolute inset-x-2 inset-y-4 rounded-full bg-[#FF5C39]/25 blur-xl motion-safe:animate-pulse"
           />
-          {/* AUREX emblem orbiting at the mascot's shoulder */}
-          <span className="absolute -right-3 top-6 z-10 pointer-events-none">
-            <AurexLogo size={34} />
-          </span>
-          <Mascot size={88} flip={flipped} bubble={bubble} hoverText="Click me to chat! 💬" clickText="Opening chat… ⚡" />
+          <Mascot size={88} ball flip={flipped} bubble={bubble} hoverText="Click me to chat! 💬" clickText="Opening chat… ⚡" />
         </motion.div>
       </motion.div>
     </motion.div>

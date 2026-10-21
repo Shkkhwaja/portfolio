@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiGithub, FiLinkedin, FiMail, FiPhone } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa'
+import { scrollToId, scrollToTop } from '@/lib/scroll'
 
 const navLinks = [
   { label: 'About', href: '#about' },
@@ -34,7 +35,7 @@ export default function Footer() {
 
   const scrollTo = (href: string) => {
     const id = href.replace('#', '')
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    scrollToId(id)
   }
 
   return (
@@ -108,7 +109,7 @@ export default function Footer() {
       <AnimatePresence>
         {showTop && (
           <motion.button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={scrollToTop}
             className="fixed z-50 flex items-center justify-center rounded-full bg-[#FF5C39] text-white shadow-lg hover:bg-[#e84d2b] transition-colors
               bottom-4 left-3 w-9 h-9 text-sm
               sm:bottom-8 sm:left-8 sm:w-12 sm:h-12 sm:text-base"

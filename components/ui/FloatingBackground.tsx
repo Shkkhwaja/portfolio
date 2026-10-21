@@ -53,9 +53,14 @@ export default function FloatingBackground() {
     const onMouseMove = (e: MouseEvent) => {
       mouseRef.current = { x: e.clientX, y: e.clientY }
     }
-    window.addEventListener('mousemove', onMouseMove)
+    window.addEventListener('mousemove', onMouseMove, { passive: true })
 
-    const draw = () => {
+    let last = 0
+    let running = true
+    const draw = (now = 0) => {
+      rafRef.current = requestAnimationFrame(draw)
+      if (!running || now - last < 33) return // ~30fps is plenty for slow drifting outlines
+      last = now
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
       shapesRef.current.forEach((shape) => {
@@ -88,13 +93,15 @@ export default function FloatingBackground() {
         ctx.restore()
       })
 
-      rafRef.current = requestAnimationFrame(draw)
     }
 
+    const onVis = () => { running = !document.hidden }
+    document.addEventListener('visibilitychange', onVis)
     draw()
 
     return () => {
       cancelAnimationFrame(rafRef.current)
+      document.removeEventListener('visibilitychange', onVis)
       window.removeEventListener('resize', resize)
       window.removeEventListener('mousemove', onMouseMove)
     }

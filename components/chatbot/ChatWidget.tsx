@@ -179,7 +179,7 @@ export default function ChatWidget() {
             animate={{ y: 0, opacity: 1, scale: 1 }}
             transition={{ type: 'spring', stiffness: 260, damping: 16, delay: 0.1 }}
           >
-            <Mascot size={58} busy={busy} hoverText="Ask away! 💬" clickText="Boop! ⚡" />
+            <Mascot size={58} ball busy={busy} hoverText="Ask away! 💬" clickText="Boop! ⚡" />
           </motion.div>
 
           <div

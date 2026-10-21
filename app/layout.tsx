@@ -5,6 +5,7 @@ import { Providers } from './providers'
 import CustomCursor from '@/components/ui/CustomCursor'
 import SmoothScroll from '@/components/ui/SmoothScroll'
 import ChatWidget from '@/components/chatbot/ChatWidget'
+import LuxuryEffects from '@/components/ui/LuxuryEffects'
 import { SITE_URL, PERSON } from '@/lib/seo-config'
 
 const inter = Inter({
@@ -220,6 +221,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <CustomCursor />
             {children}
           </SmoothScroll>
+          <LuxuryEffects />
           <ChatWidget />
         </Providers>
       </body>

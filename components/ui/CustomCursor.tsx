@@ -49,15 +49,13 @@ export default function CustomCursor() {
     const onLeave = () => setVisible(false)
     const onEnter = () => setVisible(true)
 
-    const watch = () => {
-      document.querySelectorAll('a, button, [role="button"], [data-cursor="interactive"]').forEach((el) => {
-        el.addEventListener('mouseenter', () => setCurState('hover'))
-        el.addEventListener('mouseleave', () => setCurState('default'))
-      })
-      document.querySelectorAll('[data-cursor="project"]').forEach((el) => {
-        el.addEventListener('mouseenter', () => setCurState('project'))
-        el.addEventListener('mouseleave', () => setCurState('default'))
-      })
+    /* Event delegation: one listener, works for elements added later (chat, routes) — no MutationObserver */
+    const onOver = (e: MouseEvent) => {
+      const t = e.target as Element | null
+      if (!t || !t.closest) return
+      if (t.closest('[data-cursor="project"]')) setCurState('project')
+      else if (t.closest('a, button, [role="button"], [data-cursor="interactive"]')) setCurState('hover')
+      else setCurState('default')
     }
 
     document.addEventListener('mousemove', onMove)
@@ -65,9 +63,7 @@ export default function CustomCursor() {
     document.addEventListener('mouseup',   onUp)
     document.addEventListener('mouseleave', onLeave)
     document.addEventListener('mouseenter', onEnter)
-    watch()
-    const mo = new MutationObserver(watch)
-    mo.observe(document.body, { childList: true, subtree: true })
+    document.addEventListener('mouseover', onOver, { passive: true })
 
     return () => {
       document.removeEventListener('mousemove', onMove)
@@ -75,7 +71,7 @@ export default function CustomCursor() {
       document.removeEventListener('mouseup',   onUp)
       document.removeEventListener('mouseleave', onLeave)
       document.removeEventListener('mouseenter', onEnter)
-      mo.disconnect()
+      document.removeEventListener('mouseover', onOver)
     }
   }, [dotX, dotY, mx, my, tx, ty])
 

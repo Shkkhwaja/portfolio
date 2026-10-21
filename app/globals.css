@@ -194,7 +194,7 @@ section {
 .ld-fill {
   height: 100%; width: 100%; transform-origin: left center; transform: scaleX(0);
   background: linear-gradient(to right, #FF5C39, #D4FF4F); will-change: transform;
-  animation: ld-fill 1.6s cubic-bezier(0.65, 0, 0.35, 1) 0.1s forwards;
+  animation: ld-fill 1.3s cubic-bezier(0.65, 0, 0.35, 1) 0.1s forwards;
 }
 .ld-dots span { display: inline-block; animation: ld-dot 1.2s ease-in-out infinite; }
 .ld-dots span:nth-child(2) { animation-delay: 0.15s; }
@@ -214,3 +214,40 @@ section {
   .ld-spin, .ld-spin-rev, .ld-glow, .ld-dots span { animation: none; }
   .ld-col { transition-duration: 0.3s; transition-delay: 0s; }
 }
+
+/* ───────────────────────────────────────────────────────────────
+   Luxury layer — hover-only, never changes layout.
+─────────────────────────────────────────────────────────────── */
+@media (hover: hover) and (pointer: fine) {
+  /* cursor-following spotlight on cards (vars set by LuxuryEffects) */
+  [class*="bg-[var(--card)]"]:hover,
+  [data-spotlight]:hover {
+    background-image: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 92, 57, 0.1), transparent 65%);
+    box-shadow: 0 22px 60px -28px rgba(255, 92, 57, 0.35);
+  }
+
+  /* light sweep across primary orange buttons */
+  a[class*="bg-[#FF5C39]"],
+  button[class*="bg-[#FF5C39]"] {
+    background-image: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, 0.3) 50%, transparent 65%);
+    background-size: 250% 100%;
+    background-position: 160% 0;
+    background-repeat: no-repeat;
+  }
+  a[class*="bg-[#FF5C39]"]:hover,
+  button[class*="bg-[#FF5C39]"]:hover {
+    background-position: -60% 0;
+    transition: background-position 0.9s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a[class*="bg-[#FF5C39]"]:hover,
+  button[class*="bg-[#FF5C39]"]:hover { transition: none; }
+}
+
+/* ─── Lenis smooth scroll (recommended base rules) ─────────────── */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }

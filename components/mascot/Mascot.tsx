@@ -1,36 +1,79 @@
 'use client'
 
 import { useRef, useEffect, useState } from 'react'
-import { motion, useAnimation, AnimatePresence } from 'framer-motion'
+import { motion, useAnimation, AnimatePresence, useReducedMotion } from 'framer-motion'
+import AurexLogo from '@/components/chatbot/AurexLogo'
 
-type EyePos = { x: number; y: number }
 
 function ThrusterFlame({ x, delay = 0 }: { x: number; delay?: number }) {
+  // scaleY + opacity only (transform animations avoid re-computing SVG geometry every frame)
+  const common = { transformBox: 'fill-box' as const, transformOrigin: '50% 0%' }
   return (
     <motion.g>
-      {/* Outer flame */}
       <motion.ellipse
-        cx={x}
-        cy={148}
-        rx={6}
-        ry={10}
+        cx={x} cy={148} rx={6} ry={10}
         fill="url(#flameGrad)"
-        initial={{ rx: 6, ry: 10, opacity: 0.9 }}
-        animate={{ ry: [10, 16, 8, 14, 10], rx: [6, 4, 7, 5, 6], opacity: [0.9, 0.6, 1, 0.7, 0.9] }}
+        style={common}
+        animate={{ scaleY: [1, 1.6, 0.8, 1.4, 1], scaleX: [1, 0.7, 1.1, 0.85, 1], opacity: [0.9, 0.6, 1, 0.7, 0.9] }}
         transition={{ duration: 0.4, repeat: Infinity, ease: 'easeInOut', delay }}
       />
-      {/* Inner core */}
       <motion.ellipse
-        cx={x}
-        cy={147}
-        rx={3}
-        ry={6}
+        cx={x} cy={147} rx={3} ry={6}
         fill="white"
-        initial={{ ry: 6, opacity: 1 }}
-        animate={{ ry: [6, 10, 5, 9, 6], opacity: [1, 0.7, 1, 0.8, 1] }}
+        style={common}
+        animate={{ scaleY: [1, 1.6, 0.8, 1.5, 1], opacity: [1, 0.7, 1, 0.8, 1] }}
         transition={{ duration: 0.4, repeat: Infinity, ease: 'easeInOut', delay: delay + 0.05 }}
       />
     </motion.g>
+  )
+}
+
+/**
+ * The AUREX orb, tossed from the left hand to the right hand and back.
+ * Hand positions come from the SVG (viewBox 120x160): left hand ≈ (14, 93), right hand ≈ (106, 93).
+ */
+function JugglingBall({ size, busy }: { size: number; busy: boolean }) {
+  const reduce = useReducedMotion()
+  const H = (size / 120) * 160
+  const orb = Math.round(size * 0.4)
+  const lx = (14 / 120) * size - orb / 2
+  const rx = (106 / 120) * size - orb / 2
+  const mid = (lx + rx) / 2
+  const hy = (93 / 160) * H - orb / 2
+  const arc = H * 0.2
+  const total = busy ? 1.9 : 3.6 // seconds for a full left → right → left cycle
+
+  return (
+    <motion.span
+      aria-hidden
+      className="absolute left-0 top-0 z-10 pointer-events-none"
+      style={{ width: orb, height: orb }}
+      initial={{ x: lx, y: hy }}
+      animate={
+        reduce
+          ? { x: lx, y: hy }
+          : {
+              // hold in the left hand, toss across in an arc, hold in the right hand, toss back
+              x: [lx, mid, rx, rx, mid, lx, lx],
+              y: [hy, hy - arc, hy, hy, hy - arc, hy, hy],
+            }
+      }
+      transition={{
+        duration: total,
+        repeat: Infinity,
+        times: [0, 0.2, 0.4, 0.5, 0.7, 0.9, 1],
+        x: { duration: total, repeat: Infinity, times: [0, 0.2, 0.4, 0.5, 0.7, 0.9, 1], ease: 'linear' },
+        y: {
+          duration: total,
+          repeat: Infinity,
+          times: [0, 0.2, 0.4, 0.5, 0.7, 0.9, 1],
+          // rise decelerates, fall accelerates → a natural toss
+          ease: ['easeOut', 'easeIn', 'linear', 'easeOut', 'easeIn', 'linear'],
+        },
+      }}
+    >
+      <AurexLogo size={orb} thinking={busy} steady />
+    </motion.span>
   )
 }
 
@@ -44,6 +87,8 @@ type MascotProps = {
   bubble?: string | null
   /** waving + smiling "working" state, used while the chatbot is answering */
   busy?: boolean
+  /** the AUREX orb juggled between the two hands */
+  ball?: boolean
   /** mirror the sprite only (bubble text stays readable) */
   flip?: boolean
   /** keep bubble inside the viewport when the mascot hugs the right edge */
@@ -57,11 +102,14 @@ export default function Mascot({
   bubble = null,
   busy = false,
   flip = false,
+  ball = false,
   bubbleAlign = 'center',
 }: MascotProps) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [leftEye, setLeftEye] = useState<EyePos>({ x: 0, y: 0 })
-  const [rightEye, setRightEye] = useState<EyePos>({ x: 0, y: 0 })
+  // pupils are moved imperatively (rAF-throttled) — no React re-render per mouse move
+  const pupilRef = useRef<SVGGElement>(null)
+  const irisRef = useRef<SVGGElement>(null)
+  const shineRef = useRef<SVGGElement>(null)
   const [hovered, setHovered] = useState(false)
   const isWaving = hovered || busy
   const [blinkState, setBlinkState] = useState(false)
@@ -74,20 +122,30 @@ export default function Mascot({
       setTimeout(() => setBlinkState(false), 130)
     }, 2800)
 
-    const onMouseMove = (e: MouseEvent) => {
+    let raf = 0
+    let mx = 0
+    let my = 0
+    const apply = () => {
+      raf = 0
       const el = containerRef.current
       if (!el) return
       const rect = el.getBoundingClientRect()
-      const cx = rect.left + rect.width / 2
-      const cy = rect.top + rect.height / 2
-      const angle = Math.atan2(e.clientY - cy, e.clientX - cx)
-      const dist = 4.5
-      setLeftEye({ x: Math.cos(angle) * dist, y: Math.sin(angle) * dist })
-      setRightEye({ x: Math.cos(angle) * dist, y: Math.sin(angle) * dist })
+      const angle = Math.atan2(my - (rect.top + rect.height / 2), mx - (rect.left + rect.width / 2))
+      const x = Math.cos(angle) * 4.5
+      const y = Math.sin(angle) * 4.5
+      pupilRef.current?.setAttribute('transform', `translate(${x} ${y})`)
+      irisRef.current?.setAttribute('transform', `translate(${x * 0.6} ${y * 0.6})`)
+      shineRef.current?.setAttribute('transform', `translate(${x * 0.4} ${y * 0.4})`)
+    }
+    const onMouseMove = (e: MouseEvent) => {
+      mx = e.clientX
+      my = e.clientY
+      if (!raf) raf = requestAnimationFrame(apply)
     }
 
-    window.addEventListener('mousemove', onMouseMove)
+    window.addEventListener('mousemove', onMouseMove, { passive: true })
     return () => {
+      if (raf) cancelAnimationFrame(raf)
       window.removeEventListener('mousemove', onMouseMove)
       clearInterval(blinkInterval)
     }
@@ -262,46 +320,27 @@ export default function Mascot({
           <circle cx="100" cy="42" r="4" fill="#D4FF4F" />
           <circle cx="100" cy="58" r="4" fill="#D4FF4F" />
 
-          {/* ── Left Eye socket ── */}
+          {/* ── Eye sockets ── */}
           <circle cx="43" cy="50" r="14" fill="#0A0A0A" />
           <circle cx="43" cy="50" r="14" fill="url(#eyeGlow)" />
-          {/* Left Pupil */}
-          <motion.circle
-            cx={43 + leftEye.x}
-            cy={50 + leftEye.y}
-            r={blinkState ? 0.5 : 6.5}
-            fill="white"
-            initial={{ r: 6.5 }}
-            animate={{ r: blinkState ? 0.5 : 6.5 }}
-            transition={{ duration: 0.07 }}
-          />
-          {!blinkState && (
-            <>
-              <circle cx={43 + leftEye.x * 0.6} cy={50 + leftEye.y * 0.6} r={2.8} fill="#0A0A0A" />
-              {/* Pupil shine */}
-              <circle cx={43 + leftEye.x * 0.4 + 2} cy={50 + leftEye.y * 0.4 - 2} r={1.2} fill="white" opacity={0.9} />
-            </>
-          )}
-
-          {/* ── Right Eye socket ── */}
           <circle cx="77" cy="50" r="14" fill="#0A0A0A" />
           <circle cx="77" cy="50" r="14" fill="url(#eyeGlow)" />
-          {/* Right Pupil */}
-          <motion.circle
-            cx={77 + rightEye.x}
-            cy={50 + rightEye.y}
-            r={blinkState ? 0.5 : 6.5}
-            fill="white"
-            initial={{ r: 6.5 }}
-            animate={{ r: blinkState ? 0.5 : 6.5 }}
-            transition={{ duration: 0.07 }}
-          />
-          {!blinkState && (
-            <>
-              <circle cx={77 + rightEye.x * 0.6} cy={50 + rightEye.y * 0.6} r={2.8} fill="#0A0A0A" />
-              <circle cx={77 + rightEye.x * 0.4 + 2} cy={50 + rightEye.y * 0.4 - 2} r={1.2} fill="white" opacity={0.9} />
-            </>
-          )}
+
+          {/* Pupils (white) — group translated by the mouse tracker */}
+          <g ref={pupilRef}>
+            <motion.circle cx={43} cy={50} r={6.5} fill="white" initial={{ r: 6.5 }} animate={{ r: blinkState ? 0.5 : 6.5 }} transition={{ duration: 0.07 }} />
+            <motion.circle cx={77} cy={50} r={6.5} fill="white" initial={{ r: 6.5 }} animate={{ r: blinkState ? 0.5 : 6.5 }} transition={{ duration: 0.07 }} />
+          </g>
+          {/* Iris (dark) */}
+          <g ref={irisRef} style={{ opacity: blinkState ? 0 : 1 }}>
+            <circle cx={43} cy={50} r={2.8} fill="#0A0A0A" />
+            <circle cx={77} cy={50} r={2.8} fill="#0A0A0A" />
+          </g>
+          {/* Shine */}
+          <g ref={shineRef} style={{ opacity: blinkState ? 0 : 0.9 }}>
+            <circle cx={45} cy={48} r={1.2} fill="white" />
+            <circle cx={79} cy={48} r={1.2} fill="white" />
+          </g>
 
           {/* ── Mouth ── */}
           {isWaving ? (
@@ -335,6 +374,8 @@ export default function Mascot({
         </svg>
         </div>
       </motion.div>
+
+      {ball && <JugglingBall size={size} busy={busy} />}
 
       {/* Speech bubbles */}
       <AnimatePresence>

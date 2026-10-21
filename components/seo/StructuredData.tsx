@@ -40,6 +40,8 @@ const personSchema = {
     '@type':  'ImageObject',
     '@id':    `${SITE_URL}/#personImage`,
     url:      `${SITE_URL}${PERSON.profileImage}`,
+    width:    800,
+    height:   800,
     caption:  `${PERSON.name} — ${PERSON.title}`,
   },
 
@@ -55,6 +57,7 @@ const personSchema = {
   sameAs: [
     PERSON.github,
     PERSON.linkedin,
+    PERSON.linkedinLegacy,
     SITE_URL,
   ],
 

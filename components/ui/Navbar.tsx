@@ -5,6 +5,7 @@ import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motio
 import { useActiveSection } from '@/hooks/useActiveSection'
 import ThemeToggle from './ThemeToggle'
 import { HiMenuAlt3, HiX } from 'react-icons/hi'
+import { scrollToId } from '@/lib/scroll'
 
 const navLinks = [
   { label: 'About', href: '#about' },
@@ -126,7 +127,7 @@ export default function Navbar() {
   const scrollTo = (href: string) => {
     setMenuOpen(false)
     const id = href.replace('#', '')
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    scrollToId(id)
   }
 
   return (

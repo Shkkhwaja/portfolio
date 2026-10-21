@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
  * JS only decides *when* to leave: after a minimum on-screen time AND once the browser is idle.
  */
 
-const MIN_VISIBLE_MS = 1800 // measured from navigation start, so slow loads don't wait twice
+const MIN_VISIBLE_MS = 1500 // measured from navigation start, so slow loads don't wait twice
 const EXIT_MS = 1300 // longest column transition (0.32 + 5*0.07 + 0.85) plus margin
 
 const COLUMNS = 6

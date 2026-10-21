@@ -17,9 +17,10 @@ export const PERSON = {
   email:        'khwajashaikh703@gmail.com',
   location:     'Mumbai, Maharashtra, India',
   github:       'https://github.com/Shkkhwaja/',
-  linkedin:     'https://linkedin.com/in/khwaja-shaikh-960b981b1/',
+  linkedin:     'https://www.linkedin.com/in/khwaja-shaikh/',
+  linkedinLegacy: 'https://linkedin.com/in/khwaja-shaikh-960b981b1/', // older URL still used in on-page links; kept in sameAs
   whatsapp:     'https://wa.me/917039551617',
-  profileImage: '/images/profile.jpg',
-  ogImage:      '/images/og-image.jpg', // 1200x630, ~36 KB — social cards ignore multi-MB images
+  profileImage: '/images/khwaja-shaikh.jpg', // 800x800 headshot (from public/images/personal-photo)
+  ogImage:      '/images/og-image.jpg', // 1200x630 crop of the same headshot, ~38 KB
   resume:       '/resume.pdf',
 } as const

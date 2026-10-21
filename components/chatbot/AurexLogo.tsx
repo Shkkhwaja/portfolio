@@ -11,11 +11,14 @@ export default function AurexLogo({
   size = 40,
   thinking = false,
   priority = false,
+  steady = false,
   className = '',
 }: {
   size?: number
   thinking?: boolean
   priority?: boolean
+  /** constant apparent size: no breathing/bobbing (used when the orb is being juggled) */
+  steady?: boolean
   className?: string
 }) {
   const reduce = useReducedMotion()
@@ -31,7 +34,7 @@ export default function AurexLogo({
       <motion.span
         className="absolute inset-[-18%] rounded-full blur-md"
         style={{ background: 'radial-gradient(circle, rgba(212,255,79,0.55) 0%, rgba(255,92,57,0.35) 45%, transparent 70%)' }}
-        animate={reduce ? undefined : { scale: thinking ? [1, 1.25, 1] : [1, 1.12, 1], opacity: thinking ? [0.8, 1, 0.8] : [0.5, 0.8, 0.5] }}
+        animate={reduce ? undefined : steady ? { opacity: [0.55, 0.85, 0.55] } : { scale: thinking ? [1, 1.25, 1] : [1, 1.12, 1], opacity: thinking ? [0.8, 1, 0.8] : [0.5, 0.8, 0.5] }}
         transition={{ duration: thinking ? 0.9 : 2.8, repeat: Infinity, ease: 'easeInOut' }}
       />
 
@@ -66,7 +69,7 @@ export default function AurexLogo({
       {/* the orb */}
       <motion.span
         className="relative block h-full w-full"
-        animate={reduce ? undefined : { y: [0, -size * 0.05, 0], rotate: thinking ? [0, 8, -8, 0] : [0, 3, -3, 0] }}
+        animate={reduce || steady ? undefined : { y: [0, -size * 0.05, 0], rotate: thinking ? [0, 8, -8, 0] : [0, 3, -3, 0] }}
         transition={{ duration: thinking ? 1.2 : 4, repeat: Infinity, ease: 'easeInOut' }}
       >
         <Image
