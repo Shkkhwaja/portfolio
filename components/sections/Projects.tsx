@@ -25,9 +25,9 @@ function FeaturedCard({ project }: { project: typeof projects[0] }) {
         01
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 min-h-[340px]">
+      <div className="grid grid-cols-1 lg:grid-cols-5">
         {/* Image */}
-        <div className="lg:col-span-2 relative overflow-hidden h-60 lg:h-auto">
+        <div className="lg:col-span-3 relative overflow-hidden aspect-[2/1]">
           <motion.div
             className="absolute inset-0"
             animate={{ scale: hovered ? 1.06 : 1 }}
@@ -40,15 +40,13 @@ function FeaturedCard({ project }: { project: typeof projects[0] }) {
                 fill
                 className="object-cover object-top"
                 quality={100}
-                sizes="(max-width: 1024px) 100vw, 40vw"
+                sizes="(max-width: 1024px) 100vw, 60vw"
                 priority
               />
             ) : (
               <div className="w-full h-full" style={{ background: project.media.src }} />
             )}
           </motion.div>
-          {/* gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[var(--card)]/80 hidden lg:block pointer-events-none" />
           {/* LIVE badge */}
           <div className="absolute top-4 left-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm z-10">
             <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
@@ -57,7 +55,7 @@ function FeaturedCard({ project }: { project: typeof projects[0] }) {
         </div>
 
         {/* Content */}
-        <div className="lg:col-span-3 flex flex-col justify-center p-8 lg:p-12 relative z-10">
+        <div className="lg:col-span-2 flex flex-col justify-center p-8 lg:p-10 relative z-10">
           <p className="text-xs font-mono text-[var(--muted)] mb-3 tracking-widest uppercase">Featured Project</p>
           <h3 className="text-3xl md:text-4xl font-black text-[var(--fg)] mb-2 leading-tight">
             {project.title}
@@ -76,14 +74,16 @@ function FeaturedCard({ project }: { project: typeof projects[0] }) {
               </span>
             ))}
           </div>
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#FF5C39] text-white rounded-full text-sm font-bold w-fit hover:bg-[#e84d2b] transition-colors"
-          >
-            View Live Project <FiExternalLink size={14} />
-          </a>
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-[#FF5C39] text-white rounded-full text-sm font-bold w-fit hover:bg-[#e84d2b] transition-colors"
+            >
+              View Live Project <FiExternalLink size={14} />
+            </a>
+          )}
         </div>
       </div>
     </motion.div>
@@ -112,7 +112,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
       </div>
 
       {/* Image */}
-      <div className="relative h-52 overflow-hidden">
+      <div className="relative aspect-[2/1] overflow-hidden">
         {project.media.type === 'image' ? (
           <>
             <motion.div
@@ -137,15 +137,17 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
               transition={{ duration: 0.2 }}
             >
               <p className="text-white text-xs text-center leading-relaxed">{project.description}</p>
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF5C39] text-white text-xs font-bold hover:bg-[#e84d2b] transition-colors"
-                onClick={(e) => e.stopPropagation()}
-              >
-                View Live <FiExternalLink size={12} />
-              </a>
+              {project.liveUrl && (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF5C39] text-white text-xs font-bold hover:bg-[#e84d2b] transition-colors"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  View Live <FiExternalLink size={12} />
+                </a>
+              )}
             </motion.div>
           </>
         ) : (
@@ -154,8 +156,12 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
 
         {/* LIVE + number */}
         <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm z-20">
-          <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-          <span className="text-[9px] text-white font-bold tracking-widest">LIVE</span>
+          <span
+            className={`w-1.5 h-1.5 rounded-full animate-pulse ${project.status === 'in-progress' ? 'bg-amber-400' : 'bg-green-400'}`}
+          />
+          <span className="text-[9px] text-white font-bold tracking-widest">
+            {project.status === 'in-progress' ? 'IN PROGRESS' : 'LIVE'}
+          </span>
         </div>
         <div
           className="absolute top-3 right-3 w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-black text-[#0A0A0A] z-20"
@@ -172,14 +178,16 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             <h3 className="text-base font-bold text-[var(--fg)] leading-tight">{project.title}</h3>
             <p className="text-xs font-mono text-[var(--muted)] mt-0.5">{project.subtitle}</p>
           </div>
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-shrink-0 w-8 h-8 rounded-lg border border-[var(--border)] flex items-center justify-center text-[var(--muted)] hover:border-[#FF5C39] hover:text-[#FF5C39] transition-colors"
-          >
-            <FiArrowUpRight size={15} />
-          </a>
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-shrink-0 w-8 h-8 rounded-lg border border-[var(--border)] flex items-center justify-center text-[var(--muted)] hover:border-[#FF5C39] hover:text-[#FF5C39] transition-colors"
+            >
+              <FiArrowUpRight size={15} />
+            </a>
+          )}
         </div>
         <div className="flex flex-wrap gap-1.5 mt-3">
           {project.stack.slice(0, 4).map((tech) => (
@@ -235,9 +243,12 @@ export default function Projects() {
         <FeaturedCard project={featured} />
 
         {/* Remaining projects grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        {/* flex-wrap + justify-center keeps an incomplete last row centred instead of left-aligned */}
+        <div className="flex flex-wrap justify-center gap-6">
           {rest.map((project, i) => (
-            <ProjectCard key={project.id} project={project} index={i} />
+            <div key={project.id} className="w-full md:w-[calc(50%-0.75rem)] xl:w-[calc(33.333%-1rem)]">
+              <ProjectCard project={project} index={i} />
+            </div>
           ))}
         </div>
       </div>

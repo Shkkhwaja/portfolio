@@ -5,7 +5,12 @@ export type Project = {
   description: string
   role: string
   stack: string[]
-  liveUrl: string
+  /** public site; omit until the project is deployed / linkable */
+  liveUrl?: string
+  /** short bullet list shown on the project detail page and used by the chatbot / llms files */
+  highlights?: string[]
+  /** defaults to 'live' */
+  status?: 'live' | 'in-progress'
   media: {
     type: 'gradient' | 'image' | 'video'
     src: string
@@ -15,6 +20,32 @@ export type Project = {
 }
 
 const projects: Project[] = [
+  {
+    id: 10,
+    title: 'CodeMind AI',
+    subtitle: 'AI-Assisted Bug Investigation for GitHub Repos',
+    description:
+      'An evidence-driven engineering platform that investigates a bug in a GitHub repository step by step — problem, evidence, hypotheses, root cause, fix and validation — before AI is involved, with human approval before any pull request. Includes secure sign-in with two password-recovery paths (a one-time email link and a recovery code), GitHub App integration and encrypted token storage.',
+    role: 'Built the full stack — secure sign-in and sessions, a two-path password-reset system, encrypted GitHub token storage, GitHub App integration and the investigation workflow UI.',
+    stack: ['Next.js', 'React', 'TypeScript', 'Prisma', 'PostgreSQL', 'GitHub App', 'Resend', 'Ant Design', 'Tailwind CSS'],
+    highlights: [
+      'Investigation workflow: problem → evidence → hypotheses → root cause → fix → validation → human approval → pull request; AI comes in only after the evidence is gathered.',
+      'Secure sign-in: scrypt-hashed passwords and random session tokens in HttpOnly cookies (only a hash of the token is stored).',
+      'GitHub App integration, with GitHub tokens encrypted at rest (AES-256-GCM).',
+      'Password reset by email link: one-time, expires in 30 minutes, only a SHA-256 hash of the token is stored, and the response is identical whether or not the account exists so registered emails cannot be discovered.',
+      'Password reset by recovery code: a one-time code shown once at signup that works without email; only an HMAC of the code is stored and a fresh code is issued after every reset.',
+      'Account-safety details: a successful reset signs the user out on every device, attempts are rate-limited, and codes are compared in constant time.',
+      'Transactional email through Resend, with the link printed to the server console in local development.',
+      'Repository indexing and AI analysis are the planned next phases.',
+    ],
+    liveUrl: 'https://codemind-ai-rho.vercel.app/login',
+    media: {
+      type: 'image',
+      src: '/images/projects/codemind-ai.png',
+      alt: 'CodeMind AI — sign-in screen: Investigate. Understand. Fix. Validate.',
+    },
+    accentColor: '#FF5C39',
+  },
   {
     id: 1,
     title: 'Queryly',
@@ -30,22 +61,6 @@ const projects: Project[] = [
       alt: 'Queryly — AI-Powered Q&A Platform',
     },
     accentColor: '#FF5C39',
-  },
-  {
-    id: 2,
-    title: 'MehendiBooking',
-    subtitle: 'Mehendi Artist Booking Marketplace',
-    description:
-      'India\'s mehendi-artist discovery and booking platform connecting brides with 500+ verified artists across Mumbai, Navi Mumbai & Thane. Features style-based browsing, ₹99 lifetime-access model, portfolio galleries, and an artist-onboarding flow.',
-    role: 'Led full frontend development — booking flows, artist profiles, location-based search, and companion Android app UI.',
-    stack: ['Next.js', 'React', 'Tailwind CSS'],
-    liveUrl: 'https://mehendibooking.com/',
-    media: {
-      type: 'image',
-      src: '/images/projects/mehendibooking.png',
-      alt: 'MehendiBooking — Artist Booking Marketplace',
-    },
-    accentColor: 'var(--lime)',
   },
   {
     id: 3,
@@ -142,6 +157,22 @@ const projects: Project[] = [
       alt: 'BLP Interior — Luxury Studio',
     },
     accentColor: '#FF5C39',
+  },
+  {
+    id: 11,
+    title: 'FinalYear Labs',
+    subtitle: 'Final-Year Project Platform for Students',
+    description:
+      'A platform where BCA, MCA, BSc IT and B.Tech students find a final-year project, preview the live demo, and get source code, report and PPT help, viva preparation and WhatsApp support — with category browsing, project search and custom-project requests.',
+    role: 'Designed and built the website — project catalogue, search, demo previews and the WhatsApp support flow.',
+    stack: ['Project Catalogue', 'Live Demos', 'Search', 'WhatsApp Support'],
+    liveUrl: 'https://finalyear-labs.vercel.app/',
+    media: {
+      type: 'image',
+      src: '/images/projects/finalyear-labs.png',
+      alt: 'FinalYear Labs — Your Final-Year Project Starts Here',
+    },
+    accentColor: 'var(--lime)',
   },
 ]
 

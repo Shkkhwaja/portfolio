@@ -15,7 +15,8 @@ Key facts: Location: Mumbai, Maharashtra, India. Email: khwajashaikh703@gmail.co
 
 - [All projects](https://khwajashaikh.vercel.app/projects): 8 live production websites
 - [Queryly](https://khwajashaikh.vercel.app/projects/queryly): AI-powered Q&A platform (React, Node.js, MongoDB)
-- [MehendiBooking](https://khwajashaikh.vercel.app/projects/mehendibooking): mehendi artist booking marketplace (Next.js)
+- [CodeMind AI](https://khwajashaikh.vercel.app/projects/codemind-ai): AI-assisted bug investigation for GitHub repositories, with secure auth and two-path password reset (Next.js, Prisma, PostgreSQL)
+- [FinalYear Labs](https://khwajashaikh.vercel.app/projects/finalyear-labs): final-year project platform for BCA / MCA / BSc IT / B.Tech students
 - [Space One Surfaces](https://khwajashaikh.vercel.app/projects/space-one-surfaces): premium laminates catalogue with admin CMS (Next.js, MongoDB, Cloudflare R2)
 - [Friday Charm](https://khwajashaikh.vercel.app/projects/friday-charm): fashion e-commerce storefront (Next.js)
 - [Design Guild Awards](https://khwajashaikh.vercel.app/projects/design-guild-awards): awards submission platform with Razorpay (Next.js)

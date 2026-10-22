@@ -161,11 +161,6 @@ const personSchema = {
       name:    'Queryly — AI-Powered Q&A Platform',
       url:     'https://queryly.vercel.app/',
     },
-    {
-      '@type': 'WebSite',
-      name:    'MehendiBooking — Mehendi Artist Booking Marketplace',
-      url:     'https://mehendibooking.com/',
-    },
   ],
 
   /* Awards */
@@ -265,9 +260,9 @@ const projectListSchema = {
     {
       '@type':    'ListItem',
       position:   2,
-      name:       'MehendiBooking — Mehendi Artist Booking Marketplace',
-      url:        'https://mehendibooking.com/',
-      description: "India's mehendi-artist discovery and booking platform with 500+ verified artists across Mumbai. Built with Next.js and Tailwind CSS.",
+      name:       'CodeMind AI — AI-Assisted Bug Investigation for GitHub Repos',
+      url:        'https://codemind-ai-rho.vercel.app/',
+      description: 'Evidence-driven platform that investigates a bug in a GitHub repository step by step (problem, evidence, hypotheses, root cause, fix, validation) before involving AI, with human approval before any pull request. Built with Next.js, TypeScript, Prisma and PostgreSQL.',
     },
     {
       '@type':    'ListItem',
@@ -310,6 +305,13 @@ const projectListSchema = {
       name:       'BLP Interior — Luxury Furniture & Interior Studio',
       url:        'https://blpinterior.vercel.app/',
       description: 'Portfolio site for a luxury hospitality furniture studio with projects at Four Seasons, Hyatt, and Meliá properties.',
+    },
+    {
+      '@type':    'ListItem',
+      position:   9,
+      name:       'FinalYear Labs — Final-Year Project Platform for Students',
+      url:        'https://finalyear-labs.vercel.app/',
+      description: 'Platform where BCA, MCA, BSc IT and B.Tech students find a final-year project, preview the live demo, and get source code, report and PPT help, viva preparation and WhatsApp support.',
     },
   ],
 }
@@ -380,7 +382,7 @@ const faqSchema = {
       name: 'What projects has Khwaja Shaikh built?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Khwaja Shaikh has built 8 live production projects including: Queryly (AI-powered Q&A platform), MehendiBooking (artist booking marketplace with 500+ artists), Space One Surfaces (premium laminates brand with admin CMS), Friday Charm (fashion e-commerce), The Design Guild Awards (architecture awards with Razorpay), Bellavita Smart Home, INKA Media Solutions, and BLP Interior. View them at https://khwajashaikh.vercel.app/#projects',
+        text: 'Khwaja Shaikh has built 8 live production projects including: Queryly (AI-powered Q&A platform), FinalYear Labs (final-year project platform for students), Space One Surfaces (premium laminates brand with admin CMS), Friday Charm (fashion e-commerce), The Design Guild Awards (architecture awards with Razorpay), Bellavita Smart Home, INKA Media Solutions, and BLP Interior. View them at https://khwajashaikh.vercel.app/#projects',
       },
     },
     {
@@ -436,7 +438,7 @@ const faqSchema = {
       name: 'Next.js developer in Mumbai',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Khwaja Hussain Shaikh is a Next.js specialist based in Mumbai, India. He has built multiple production Next.js applications including MehendiBooking, Space One Surfaces, The Design Guild Awards, INKA Media Solutions, and more. He uses Next.js App Router with TypeScript, Tailwind CSS, and Framer Motion. Available for hire. Contact: khwajashaikh703@gmail.com',
+        text: 'Khwaja Hussain Shaikh is a Next.js specialist based in Mumbai, India. He has built multiple production Next.js applications including FinalYear Labs, Space One Surfaces, The Design Guild Awards, INKA Media Solutions, and more. He uses Next.js App Router with TypeScript, Tailwind CSS, and Framer Motion. Available for hire. Contact: khwajashaikh703@gmail.com',
       },
     },
   ],

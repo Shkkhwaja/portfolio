@@ -55,7 +55,7 @@ export function buildKnowledgeBase(): string {
 
   const proj = projects.map(
     (p) =>
-      `- ${p.title} — ${p.subtitle}\n    Details page: ${SITE_URL}/projects/${slugify(p.title)}\n    Description: ${p.description}\n    His role: ${p.role}\n    Stack: ${p.stack.join(', ')}\n    Live: ${p.liveUrl}`,
+      `- ${p.title} — ${p.subtitle}\n    Details page: ${SITE_URL}/projects/${slugify(p.title)}\n    Description: ${p.description}\n    His role: ${p.role}\n    Stack: ${p.stack.join(', ')}${p.highlights?.length ? `\n    Key features:\n${p.highlights.map((h) => `      * ${h}`).join('\n')}` : ''}\n    ${p.liveUrl ? `Live: ${p.liveUrl}` : 'Live link: none'}${p.status === 'in-progress' ? '\n    Status: in progress' : ''}`,
   )
 
   const sk = skills.map((c) => `- ${c.category}: ${c.skills.map((s) => s.name).join(', ')}`)

@@ -87,7 +87,8 @@ export const metadata: Metadata = {
     'Tilak Maharashtra Vidyapeeth BCA',
     'Tech Shaastra Hackathon winner',
     'Queryly developer',
-    'MehendiBooking developer',
+    'FinalYear Labs developer',
+    'CodeMind AI developer',
     /* Technologies */
     'MERN Stack', 'Next.js', 'React.js', 'Node.js', 'Express.js', 'MongoDB', 'PostgreSQL',
   ],

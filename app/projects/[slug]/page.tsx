@@ -51,14 +51,14 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         headline: `${p.title} — ${p.subtitle}`,
         description: p.description,
         url: `${SITE_URL}/projects/${params.slug}`,
-        sameAs: p.liveUrl,
+        ...(p.liveUrl ? { sameAs: p.liveUrl } : {}),
         image: `${SITE_URL}${p.media.src}`,
         keywords: p.stack.join(', '),
         author: { '@type': 'Person', '@id': `${SITE_URL}/#person`, name: PERSON.name },
       }}
     >
       {p.media.type === 'image' && (
-        <div className="relative aspect-video rounded-2xl overflow-hidden border border-[var(--border)] bg-[var(--card)]">
+        <div className="relative aspect-[2/1] rounded-2xl overflow-hidden border border-[var(--border)] bg-[var(--card)]">
           <Image src={p.media.src} alt={p.media.alt} fill priority sizes="(min-width:1024px) 960px, 100vw" className="object-cover" />
         </div>
       )}
@@ -66,6 +66,16 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
       <Section id="role" title="My role">
         <p className="max-w-3xl text-[var(--muted)] leading-relaxed">{p.role}</p>
       </Section>
+
+      {p.highlights && p.highlights.length > 0 && (
+        <Section id="features" title="Key features">
+          <ul className="max-w-3xl list-disc pl-5 space-y-2 text-[var(--muted)] leading-relaxed">
+            {p.highlights.map((h) => (
+              <li key={h}>{h}</li>
+            ))}
+          </ul>
+        </Section>
+      )}
 
       <Section id="stack" title="Technology stack">
         <ul className="flex flex-wrap gap-2">
@@ -75,16 +85,18 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         </ul>
       </Section>
 
-      <Section id="live" title="See it live">
-        <a
-          href={p.liveUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-xl bg-[#FF5C39] text-white font-bold px-5 py-3 hover:brightness-110 transition"
-        >
-          Visit {p.title} ↗
-        </a>
-      </Section>
+      {p.liveUrl && (
+        <Section id="live" title="See it live">
+          <a
+            href={p.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-xl bg-[#FF5C39] text-white font-bold px-5 py-3 hover:brightness-110 transition"
+          >
+            Visit {p.title} ↗
+          </a>
+        </Section>
+      )}
 
       <nav aria-label="More projects" className="flex flex-wrap justify-between gap-4 pt-4 border-t border-[var(--border)] text-sm">
         <Link href={`/projects/${slugify(prev.title)}`} className="hover:text-[#FF5C39]">

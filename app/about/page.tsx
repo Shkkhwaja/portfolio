@@ -43,8 +43,8 @@ export default function AboutPage() {
           <p>
             Since {current.period.split('—')[0].trim()} he has worked as a {current.role} at{' '}
             <strong className="text-[var(--fg)]">{current.company}</strong>, maintaining production-grade web platforms.
-            He has shipped eight live production websites for real clients, from booking marketplaces to e-commerce and
-            admin-managed catalogues.
+            He has shipped eight live production websites for real clients, from e-commerce storefronts and awards platforms to
+            admin-managed catalogues and a student project platform.
           </p>
           <p>
             He holds a {degree.degree} from {degree.institution} ({degree.grade}), graduated as Department Topper and
