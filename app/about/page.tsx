@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import PageShell, { Section } from '@/components/seo/PageShell'
 import { buildMetadata } from '@/lib/seo-page'
 import { PERSON, SITE_URL } from '@/lib/seo-config'
@@ -33,6 +34,17 @@ export default function AboutPage() {
       }}
     >
       <Section id="who" title="Who is Khwaja Shaikh?">
+        <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 items-start">
+          {/* real, crawlable <img> of the profile photo (the home page shows it inside a 3D canvas that bots cannot read) */}
+          <Image
+            src={PERSON.profileImage}
+            alt={`${PERSON.name} — ${PERSON.title} in Mumbai`}
+            width={800}
+            height={800}
+            priority
+            sizes="(min-width: 640px) 224px, 160px"
+            className="h-40 w-40 sm:h-56 sm:w-56 shrink-0 rounded-2xl border border-[var(--border)] object-cover"
+          />
         <div className="space-y-4 max-w-3xl leading-relaxed text-[var(--muted)]">
           <p>
             <strong className="text-[var(--fg)]">{PERSON.name}</strong> (also known as Khwaja Shaikh or KHS) is a{' '}
@@ -50,6 +62,7 @@ export default function AboutPage() {
             He holds a {degree.degree} from {degree.institution} ({degree.grade}), graduated as Department Topper and
             won the Tech Shaastra Hackathon in 2024 and 2025.
           </p>
+        </div>
         </div>
       </Section>
 

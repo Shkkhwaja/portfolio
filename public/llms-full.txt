@@ -21,6 +21,7 @@
 - LinkedIn: https://linkedin.com/in/khwaja-shaikh-960b981b1/
 - WhatsApp: https://wa.me/917039551617
 - Portfolio: https://khwajashaikh.vercel.app
+- Profile photo (official headshot): https://khwajashaikh.vercel.app/images/khwaja-shaikh.jpg
 - Resume: https://khwajashaikh.vercel.app/resume.pdf
 - Sitemap: https://khwajashaikh.vercel.app/sitemap.xml
 
@@ -126,15 +127,14 @@ Contact to hire:
   repository step by step (problem, evidence, hypotheses, root cause, fix, validation) before
   AI is involved, with human approval before any pull request.
 - Key features:
+  * Evidence gathering from the repository (text, symbols, files, dependencies, git, vector search)
+    before the AI step; human approval before any pull request.
   * Secure sign-in: scrypt-hashed passwords, random session tokens in HttpOnly cookies.
   * GitHub App integration; GitHub tokens encrypted at rest (AES-256-GCM).
-  * Password reset by one-time email link (30-minute expiry, only a SHA-256 hash of the token
-    stored, identical response whether or not the account exists).
-  * Password reset by one-time recovery code shown once at signup (works without email;
-    only an HMAC stored; a new code is issued after every reset).
-  * A successful reset signs the user out everywhere; attempts are rate-limited; codes are
-    compared in constant time. Email is sent through Resend.
-  * Planned next phases: repository indexing and AI analysis.
+  * Forgot-password flow with email OTP: a 6-digit one-time code sent through Google SMTP
+    (Nodemailer); expires in 10 minutes, single use, burned after 5 wrong guesses, only a keyed
+    hash stored; identical response whether or not the account exists; a successful reset signs
+    the user out everywhere; resends are cooldown- and rate-limited.
 
 ### 2b. FinalYear Labs — Final-Year Project Platform for Students
 - Live URL: https://finalyear-labs.vercel.app/
