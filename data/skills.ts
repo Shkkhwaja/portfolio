@@ -18,6 +18,7 @@ const skills: SkillCategory[] = [
       { name: 'JavaScript', icon: 'SiJavascript', color: '#F7DF1E' },
       { name: 'TypeScript', icon: 'SiTypescript', color: '#3178C6' },
       { name: 'Java', icon: 'FaJava', color: '#ED8B00' },
+      { name: 'Python', icon: 'SiPython', color: '#3776AB' },
       { name: 'HTML5', icon: 'SiHtml5', color: '#E34F26' },
       { name: 'CSS3', icon: 'SiCss3', color: '#1572B6' },
     ],
@@ -68,6 +69,8 @@ const skills: SkillCategory[] = [
       { name: 'GitHub', icon: 'SiGithub', color: '#FFFFFF' },
       { name: 'Vercel', icon: 'SiVercel', color: '#FFFFFF' },
       { name: 'Cloudflare', icon: 'SiCloudflare', color: '#F6821F' },
+      { name: 'Docker', icon: 'SiDocker', color: '#2496ED' },
+      { name: 'CI/CD Pipeline', icon: 'TbGitBranch', color: '#FF5C39' },
     ],
   },
   {

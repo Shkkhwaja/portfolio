@@ -7,10 +7,10 @@ import {
   SiNodedotjs, SiExpress, SiSpringboot,
   SiMongodb, SiPostgresql, SiMysql,
   SiGit, SiGithub, SiVercel, SiCloudflare, SiJsonwebtokens,
-  SiClaude, SiOpenai,
+  SiClaude, SiOpenai, SiPython, SiDocker,
 } from 'react-icons/si'
 import { FaJava } from 'react-icons/fa'
-import { TbApi, TbSparkles, TbPrompt } from 'react-icons/tb'
+import { TbApi, TbSparkles, TbPrompt, TbGitBranch } from 'react-icons/tb'
 
 type SkillItem = {
   name: string
@@ -26,6 +26,7 @@ const categories: { title: string; color: string; skills: SkillItem[] }[] = [
       { name: 'JavaScript', Icon: SiJavascript, color: '#F7DF1E' },
       { name: 'TypeScript', Icon: SiTypescript, color: '#3178C6' },
       { name: 'Java', Icon: FaJava, color: '#ED8B00' },
+      { name: 'Python', Icon: SiPython, color: '#3776AB' },
       { name: 'HTML5', Icon: SiHtml5, color: '#E34F26' },
       { name: 'CSS3', Icon: SiCss, color: '#1572B6' },
     ],
@@ -76,6 +77,8 @@ const categories: { title: string; color: string; skills: SkillItem[] }[] = [
       { name: 'GitHub', Icon: SiGithub, color: '#AAAAAA' },
       { name: 'Vercel', Icon: SiVercel, color: '#AAAAAA' },
       { name: 'Cloudflare', Icon: SiCloudflare, color: '#F6821F' },
+      { name: 'Docker', Icon: SiDocker, color: '#2496ED' },
+      { name: 'CI/CD Pipeline', Icon: TbGitBranch, color: '#FF5C39' },
     ],
   },
   {

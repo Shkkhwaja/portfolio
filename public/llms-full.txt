@@ -98,13 +98,13 @@ Contact to hire:
 
 ## Technical Skills
 
-**Languages:** JavaScript (ES6+), TypeScript, Java, HTML5, CSS3
+**Languages:** JavaScript (ES6+), TypeScript, Java, Python, HTML5, CSS3
 **Frontend:** React.js, Next.js 14/15, Tailwind CSS, Ant Design, GSAP, Framer Motion, Three.js
 **Backend:** Node.js, Express.js, Spring Boot
 **Databases:** MongoDB, PostgreSQL, MySQL, Oracle SQL
 **APIs & Auth:** REST APIs, JWT Authentication, OAuth, Google OAuth
 **Payments:** Razorpay integration, WhatsApp Business API
-**DevOps & Tools:** Git, GitHub, Vercel, Cloudflare R2, Postman, VS Code
+**DevOps & Tools:** Git, GitHub, Vercel, Cloudflare R2, Docker, CI/CD pipelines, Postman, VS Code
 **AI & Prompting:** Claude Code, OpenAI Codex, AI-assisted coding, prompt engineering
 **Other:** SEO, Performance Optimisation, Responsive Design, CI/CD, Schema.org JSON-LD
 
