@@ -90,7 +90,7 @@ export default function ProfileSection() {
         <div className="flex flex-col items-center">
 
           {/* ── Scene container ── */}
-          <div className="relative w-full h-[50vh] sm:h-[560px] md:h-[680px] lg:h-[760px] max-w-full lg:max-w-[1100px]">
+          <div className="relative w-full h-[50vh] sm:h-[560px] md:h-[680px] lg:h-[760px] max-w-full lg:max-w-[1100px] mb-[9.75rem] sm:mb-0">
 
             {/* 3D Scene */}
             <div className="absolute inset-0 z-10">
@@ -116,10 +116,10 @@ export default function ProfileSection() {
             </motion.div>
 
             {/* Name plate — bottom centre */}
-            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
-              <div className="px-5 py-2 rounded-xl backdrop-blur-md bg-[#0A0A0A]/70 border border-white/10 text-center">
-                <p className="text-sm font-bold text-white">Khwaja Hussain Shaikh</p>
-                <p className="text-[10px] font-mono text-[#D4FF4F]">Full Stack Developer · Mumbai 🇮🇳</p>
+            <div className="absolute left-1/2 top-full mt-3 -translate-x-1/2 z-20 pointer-events-none max-w-[calc(100%-1rem)] sm:top-auto sm:mt-0 sm:bottom-12">
+              <div className="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-xl bg-[#0A0A0A]/85 border border-white/10 text-center whitespace-nowrap">
+                <p className="text-[13px] sm:text-sm font-bold text-white">Khwaja Hussain Shaikh</p>
+                <p className="text-[9px] sm:text-[10px] font-mono text-[#D4FF4F]">Full Stack Developer · Mumbai 🇮🇳</p>
               </div>
             </div>
           </div>

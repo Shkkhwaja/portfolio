@@ -34,7 +34,7 @@ export default function LuxuryEffects() {
     }
     const onMove = (e: PointerEvent) => {
       const el = (e.target as Element | null)?.closest?.(SPOTLIGHT_SELECTOR) as HTMLElement | null
-      if (!el) return
+      if (!el || el.querySelector('img, canvas')) return // large media cards would repaint on every move
       target = el
       x = e.clientX
       y = e.clientY

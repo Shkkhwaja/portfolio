@@ -359,13 +359,13 @@ export default function Mascot({
             transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
             style={{ originX: '60px', originY: '20px' }}
           >
+            <circle cx="60" cy="6" r="9" fill="#D4FF4F" opacity="0.28" />
             <line x1="60" y1="8" x2="60" y2="22" stroke="#FF5C39" strokeWidth="3" strokeLinecap="round" />
             <motion.circle
               cx="60" cy="6" r="4.5" fill="#D4FF4F"
               initial={{ r: 4.5, opacity: 1 }}
               animate={{ r: [4.5, 6, 4.5], opacity: [1, 0.7, 1] }}
               transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
-              filter="url(#glow)"
             />
           </motion.g>
 

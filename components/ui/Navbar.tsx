@@ -138,8 +138,7 @@ export default function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 2.6, ease: [0.22, 1, 0.36, 1] }}
         style={{
-          backdropFilter: scrolled ? 'blur(20px)' : 'none',
-          backgroundColor: scrolled ? 'rgba(10,10,10,0.88)' : 'transparent',
+          backgroundColor: scrolled ? 'var(--nav-bg)' : 'transparent',
           borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent',
           transition: 'background-color 0.3s, border-color 0.3s',
         }}
@@ -180,7 +179,7 @@ export default function Navbar() {
 
           {/* Mobile hamburger — always visible with orange ring */}
           <motion.button
-            className="md:hidden relative flex items-center justify-center w-10 h-10 rounded-full border-2 border-[#FF5C39] text-[#FF5C39] bg-[#FF5C39]/10 backdrop-blur-sm"
+            className="md:hidden relative flex items-center justify-center w-10 h-10 rounded-full border-2 border-[#FF5C39] text-[#FF5C39] bg-[#FF5C39]/10"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
             whileTap={{ scale: 0.88 }}
@@ -205,7 +204,7 @@ export default function Navbar() {
         {menuOpen && (
           <motion.div
             className="fixed inset-0 z-[99] flex flex-col items-center justify-center overflow-hidden"
-            style={{ background: 'rgba(8,8,8,0.97)', backdropFilter: 'blur(24px)' }}
+            style={{ background: 'var(--nav-menu-bg)' }}
             initial={{ opacity: 0, clipPath: 'circle(0% at calc(100% - 3.5rem) 3.5rem)' }}
             animate={{ opacity: 1, clipPath: 'circle(160% at calc(100% - 3.5rem) 3.5rem)' }}
             exit={{ opacity: 0, clipPath: 'circle(0% at calc(100% - 3.5rem) 3.5rem)' }}
@@ -220,7 +219,7 @@ export default function Navbar() {
                 <motion.button
                   key={href}
                   onClick={() => scrollTo(href)}
-                  className="relative group text-[clamp(2.4rem,9vw,4rem)] font-black text-white"
+                  className="relative group text-[clamp(2.4rem,9vw,4rem)] font-black text-[var(--fg)]"
                   initial={{ x: -50, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   exit={{ x: -30, opacity: 0 }}

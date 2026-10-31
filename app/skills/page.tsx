@@ -6,7 +6,7 @@ import skills from '@/data/skills'
 export const metadata = buildMetadata({
   title: 'Skills — React, Next.js, Node.js, MongoDB & TypeScript Developer',
   description:
-    "Khwaja Shaikh's technical skills: JavaScript, TypeScript, Java, React.js, Next.js, Tailwind CSS, GSAP, Node.js, Express.js, Spring Boot, MongoDB, PostgreSQL, MySQL, REST APIs, JWT, Git, Vercel and Cloudflare.",
+    "Khwaja Shaikh's technical skills: JavaScript, TypeScript, Java, React.js, Next.js, Tailwind CSS, GSAP, Node.js, Express.js, Spring Boot, MongoDB, PostgreSQL, MySQL, REST APIs, JWT, Git, Vercel, Cloudflare, Claude Code, OpenAI Codex and prompt engineering.",
   path: '/skills',
   keywords: ['React developer skills', 'Next.js developer', 'Node.js developer Mumbai', 'MongoDB', 'TypeScript developer India'],
 })

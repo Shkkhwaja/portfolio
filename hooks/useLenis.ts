@@ -17,7 +17,7 @@ export function useLenis() {
 
     // lerp-based easing: continuous and interruptible, so wheel bursts glide instead of snapping
     const lenis = new Lenis({
-      lerp: 0.085,
+      lerp: 0.12,
       wheelMultiplier: 1,
       touchMultiplier: 1.4,
       smoothWheel: true,

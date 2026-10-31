@@ -19,14 +19,14 @@ export default function CustomCursor() {
   /* Ring position — spring lag */
   const mx   = useMotionValue(-200)
   const my   = useMotionValue(-200)
-  const ringX = useSpring(mx, { stiffness: 160, damping: 20, mass: 0.55 })
-  const ringY = useSpring(my, { stiffness: 160, damping: 20, mass: 0.55 })
+  const ringX = useSpring(mx, { stiffness: 520, damping: 34, mass: 0.4 })
+  const ringY = useSpring(my, { stiffness: 520, damping: 34, mass: 0.4 })
 
   /* Secondary trail — more lag */
   const tx    = useMotionValue(-200)
   const ty    = useMotionValue(-200)
-  const trailX = useSpring(tx, { stiffness: 80, damping: 18, mass: 0.7 })
-  const trailY = useSpring(ty, { stiffness: 80, damping: 18, mass: 0.7 })
+  const trailX = useSpring(tx, { stiffness: 260, damping: 28, mass: 0.5 })
+  const trailY = useSpring(ty, { stiffness: 260, damping: 28, mass: 0.5 })
 
   useEffect(() => {
     setMounted(true)

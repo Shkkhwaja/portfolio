@@ -1,12 +1,16 @@
 'use client'
 
-import { useRef, useMemo, Suspense, useEffect, useState } from 'react'
+import { useRef, useMemo, Suspense, useEffect, useState, useCallback, Component, type ReactNode } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { useTexture, Line } from '@react-three/drei'
 import * as THREE from 'three'
+import TechUniverse from './TechUniverse'
+import TechHud from './TechHud'
+import NightSky from './NightSky'
+import { TECH_ITEMS } from './tech-items'
 
 /* ─── Weather type ────────────────────────────────────────────── */
-type WeatherType = 'sunny' | 'partly_cloudy' | 'cloudy' | 'foggy' | 'drizzle' | 'rainy' | 'stormy' | 'loading'
+type WeatherType = 'sunny' | 'partly_cloudy' | 'cloudy' | 'foggy' | 'drizzle' | 'rainy' | 'stormy' | 'night' | 'loading'
 
 function codeToWeatherType(code: number): WeatherType {
   if (code === 0 || code === 1) return 'sunny'
@@ -22,7 +26,7 @@ function codeToWeatherType(code: number): WeatherType {
 const WEATHER_EMOJI: Record<WeatherType, string> = {
   sunny: '☀️', partly_cloudy: '⛅', cloudy: '☁️',
   foggy: '🌫️', drizzle: '🌦️', rainy: '🌧️',
-  stormy: '⛈️', loading: '…',
+  stormy: '⛈️', night: '🌙', loading: '…',
 }
 
 /*
@@ -718,6 +722,15 @@ function WeatherScene({ type }: { type: WeatherType }) {
         </>
       )
 
+    case 'night':
+      return (
+        <>
+          <NightSky />
+          <RealisticCloud pos={[-3.0, 1.5, -1.4]} scale={0.8} baseColor="#3a4466" />
+          <RealisticCloud pos={[ 3.1, 0.9, -1.5]} scale={0.7} baseColor="#343d5e" />
+        </>
+      )
+
     case 'foggy':
       return (
         <>
@@ -800,6 +813,15 @@ function WeatherLights({ type }: { type: WeatherType }) {
           <pointLight position={[ 0, 3, 3]} intensity={2.5} color="#ffffff" />
         </>
       )
+    case 'night':
+      return (
+        <>
+          <ambientLight intensity={0.5} />
+          <pointLight position={[-4, 4, 4]} intensity={2.4} color="#9fb4ff" />
+          <pointLight position={[ 4,-2, 4]} intensity={1.8} color="#FF5C39" />
+          <pointLight position={[ 0, 3, 3]} intensity={1.5} color="#ffffff" />
+        </>
+      )
     case 'foggy':
       return (
         <>
@@ -849,12 +871,60 @@ function WeatherLights({ type }: { type: WeatherType }) {
 }
 
 /* ─── Scene root ──────────────────────────────────────────────── */
+/* ─── Error boundary: a failed WebGL context shows the portrait instead of a broken section ─── */
+class SceneBoundary extends Component<{ fallback: ReactNode; children: ReactNode }, { failed: boolean }> {
+  state = { failed: false }
+  static getDerivedStateFromError() {
+    return { failed: true }
+  }
+  componentDidCatch(err: unknown) {
+    console.warn('[ProfileScene] WebGL scene failed, showing fallback', err)
+  }
+  render() {
+    return this.state.failed ? this.props.fallback : this.props.children
+  }
+}
+
+function PortraitFallback() {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/images/profile-tex.jpg"
+        alt="Khwaja Hussain Shaikh"
+        className="h-56 w-56 rounded-2xl border-2 border-[#FF5C39] object-cover shadow-xl"
+      />
+    </div>
+  )
+}
+
+function webglAvailable() {
+  try {
+    const c = document.createElement('canvas')
+    return !!(c.getContext('webgl2') || c.getContext('webgl'))
+  } catch {
+    return false
+  }
+}
+
+/* ─── Scene root ──────────────────────────────────────────────── */
 export default function ProfileScene() {
   const [mounted,     setMounted]     = useState(false)
   const [weatherType, setWeatherType] = useState<WeatherType>('loading')
+  const [isDay,       setIsDay]       = useState(true)
   const [weatherInfo, setWeatherInfo] = useState<{ temp?: number; description?: string }>({})
+  const [webgl,       setWebgl]       = useState<boolean | null>(null)
+  const [prefs,       setPrefs]       = useState({ reduced: false, low: false })
 
-  useEffect(() => { setMounted(true) }, [])
+  useEffect(() => {
+    setMounted(true)
+    setWebgl(webglAvailable())
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const small = window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches
+    const nav = navigator as Navigator & { deviceMemory?: number }
+    const weak = (navigator.hardwareConcurrency ?? 8) <= 4 || (nav.deviceMemory ?? 8) <= 4
+    setPrefs({ reduced, low: small || weak })
+  }, [])
 
   /* render only while the scene is on screen */
   const rootRef = useRef<HTMLDivElement>(null)
@@ -873,45 +943,98 @@ export default function ProfileScene() {
       .then((r) => r.json())
       .then((data) => {
         setWeatherType(codeToWeatherType(data.weathercode ?? -1))
+        setIsDay(data.isDay !== false)
         setWeatherInfo({ temp: data.temperature, description: data.description })
       })
       .catch(() => setWeatherType('cloudy'))
   }, [mounted])
 
-  const glowColor = (weatherType === 'sunny' || weatherType === 'partly_cloudy') ? '#FFD060' : '#FF5C39'
+  /* live Mumbai night: clear / partly-cloudy skies at night get the night scene; other weather keeps its own look */
+  const sceneType: WeatherType =
+    !isDay && (weatherType === 'sunny' || weatherType === 'partly_cloudy') ? 'night' : weatherType
+
+  const glowColor = (sceneType === 'sunny' || sceneType === 'partly_cloudy') ? '#FFD060' : '#FF5C39'
+
+  /* ── "Collect My Tech Stack" mini-game state (changes only on click, never per frame) ── */
+  const collectedRef = useRef<Set<string>>(new Set())
+  const [collected, setCollected] = useState<string[]>([])
+  const [last, setLast] = useState<{ id: string; stamp: number } | null>(null)
+  const [revealToken, setRevealToken] = useState(0)
+  const [celebrateToken, setCelebrateToken] = useState(0)
+
+  const onCollect = useCallback((id: string) => {
+    if (collectedRef.current.has(id)) return
+    collectedRef.current.add(id)
+    setCollected((c) => [...c, id])
+    setLast({ id, stamp: Date.now() })
+    if (collectedRef.current.size === TECH_ITEMS.length) {
+      window.setTimeout(() => {
+        setCelebrateToken((n) => n + 1)
+        setLast({ id: '__done', stamp: Date.now() })
+      }, 1100)
+    }
+  }, [])
+
+  const onReveal = useCallback(() => setRevealToken((n) => n + 1), [])
+  const onReset = useCallback(() => {
+    collectedRef.current.clear()
+    setCollected([])
+    setLast(null)
+  }, [])
+
+  const canRender3D = webgl !== false
 
   return (
     <div ref={rootRef} className="relative w-full h-full">
-      <Canvas
-        camera={{ position: [0, 0.3, 5.5], fov: 46 }}
-        // cap resolution (retina/4K would render 4-9x the pixels for no visible gain) and stop rendering off-screen
-        dpr={[1, 1.5]}
-        frameloop={inView ? 'always' : 'never'}
-        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
-        style={{ background: 'transparent' }}
-      >
-        <WeatherLights type={weatherType} />
-        <GlowDisc color={glowColor} />
+      {canRender3D ? (
+        <SceneBoundary fallback={<PortraitFallback />}>
+          <Canvas
+            camera={{ position: [0, 0.3, 5.5], fov: 46 }}
+            // cap resolution (retina/4K would render 4-9x the pixels for no visible gain) and stop rendering off-screen
+            dpr={prefs.low ? [1, 1.1] : [1, 1.25]}
+            frameloop={inView ? 'always' : 'never'}
+            gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+            style={{ background: 'transparent' }}
+          >
+            <WeatherLights type={sceneType} />
+            <GlowDisc color={glowColor} />
 
-        <Suspense fallback={null}>
-          <ProfileCard />
-        </Suspense>
+            <Suspense fallback={null}>
+              <ProfileCard />
+            </Suspense>
 
-        <OrbitRing radius={2.05} count={90} color="#FF5C39" speed={0.28}  tiltX={Math.PI * 0.22}               size={0.04}  opacity={0.7}  />
-        <OrbitRing radius={2.55} count={70} color="#D4FF4F" speed={-0.18} tiltX={Math.PI * 0.5}  tiltZ={0.4}  size={0.035} opacity={0.55} />
-        <OrbitRing radius={1.75} count={50} color="#ffffff" speed={0.42}  tiltX={Math.PI * 0.35} tiltZ={-0.6} size={0.028} opacity={0.35} />
+            <OrbitRing radius={2.05} count={90} color="#FF5C39" speed={0.28}  tiltX={Math.PI * 0.22}               size={0.04}  opacity={0.7}  />
+            <OrbitRing radius={2.55} count={70} color="#D4FF4F" speed={-0.18} tiltX={Math.PI * 0.5}  tiltZ={0.4}  size={0.035} opacity={0.55} />
+            <OrbitRing radius={1.75} count={50} color="#ffffff" speed={0.42}  tiltX={Math.PI * 0.35} tiltZ={-0.6} size={0.028} opacity={0.35} />
 
-        <LeadOrb radius={2.05} speed={0.28}  color="#FF5C39" tiltX={Math.PI * 0.22} offset={0}       />
-        <LeadOrb radius={2.55} speed={-0.18} color="#D4FF4F" tiltX={Math.PI * 0.5}  offset={Math.PI} />
+            <LeadOrb radius={2.05} speed={0.28}  color="#FF5C39" tiltX={Math.PI * 0.22} offset={0}       />
+            <LeadOrb radius={2.55} speed={-0.18} color="#D4FF4F" tiltX={Math.PI * 0.5}  offset={Math.PI} />
 
-        <Sparkles />
-        <WeatherScene type={weatherType} />
-      </Canvas>
+            <Sparkles />
+            <WeatherScene type={sceneType} />
+
+            {/* interactive developer-universe layer (same canvas, same render loop) */}
+            <TechUniverse
+              scene={sceneType}
+              reduced={prefs.reduced}
+              low={prefs.low}
+              collectedRef={collectedRef}
+              onCollect={onCollect}
+              revealToken={revealToken}
+              celebrateToken={celebrateToken}
+            />
+          </Canvas>
+        </SceneBoundary>
+      ) : (
+        <PortraitFallback />
+      )}
+
+      {canRender3D && <TechHud collected={collected} last={last} onReveal={onReveal} onReset={onReset} />}
 
       {mounted && weatherType !== 'loading' && (
         <div className="absolute bottom-3 left-1/2 -translate-x-1/2 pointer-events-none z-10">
-          <div className="flex items-center gap-1.5 bg-black/40 backdrop-blur-md border border-white/10 rounded-full px-3 py-1 text-[11px] font-mono text-white/65 whitespace-nowrap shadow-lg">
-            <span>{WEATHER_EMOJI[weatherType]}</span>
+          <div className="flex items-center gap-1.5 bg-black/70 border border-white/10 rounded-full px-3 py-1 text-[11px] font-mono text-white/65 whitespace-nowrap shadow-lg">
+            <span>{WEATHER_EMOJI[sceneType]}</span>
             <span>Mumbai</span>
             {weatherInfo.temp !== undefined && (
               <span className="text-[#D4FF4F] font-semibold">{weatherInfo.temp}°C</span>

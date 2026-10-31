@@ -37,7 +37,7 @@ export default function PageShell({
     <div className="min-h-screen bg-[var(--bg)] text-[var(--fg)]">
       <JsonLd data={[breadcrumbSchema(all), ...extra]} />
 
-      <header className="border-b border-[var(--border)] bg-[var(--bg-2)]/80 backdrop-blur sticky top-0 z-50">
+      <header className="border-b border-[var(--border)] bg-[var(--bg-2)]/95 sticky top-0 z-50">
         <nav aria-label="Primary" className="mx-auto max-w-5xl px-5 h-16 flex items-center justify-between gap-4">
           <Link href="/" className="font-black tracking-tight text-lg">
             <span className="text-[#FF5C39]">{PERSON.initials}</span>

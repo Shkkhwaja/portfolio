@@ -3,8 +3,31 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 import { FiExternalLink, FiArrowUpRight } from 'react-icons/fi'
 import projects from '@/data/projects'
+import { slugify } from '@/lib/slug'
+
+/* Long descriptions are clamped to 3 lines with an inline Read more / Show less toggle. */
+function ReadMore({ text, className = '' }: { text: string; className?: string }) {
+  const [open, setOpen] = useState(false)
+  const long = text.length > 150
+  return (
+    <div className={className}>
+      <p className={`text-sm text-[var(--muted)] leading-relaxed ${long && !open ? 'line-clamp-3' : ''}`}>{text}</p>
+      {long && (
+        <button
+          type="button"
+          onClick={() => setOpen((o) => !o)}
+          aria-expanded={open}
+          className="mt-1.5 font-mono text-xs font-bold text-[#FF5C39] hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#FF5C39]"
+        >
+          {open ? 'Show less' : 'Read more'}
+        </button>
+      )}
+    </div>
+  )
+}
 
 /* ─── Featured card (first project, full width) ───────────── */
 function FeaturedCard({ project }: { project: typeof projects[0] }) {
@@ -48,7 +71,7 @@ function FeaturedCard({ project }: { project: typeof projects[0] }) {
             )}
           </motion.div>
           {/* LIVE badge */}
-          <div className="absolute top-4 left-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm z-10">
+          <div className="absolute top-4 left-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/70 z-10">
             <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
             <span className="text-[9px] text-white font-bold tracking-widest">LIVE</span>
           </div>
@@ -61,9 +84,7 @@ function FeaturedCard({ project }: { project: typeof projects[0] }) {
             {project.title}
           </h3>
           <p className="text-sm font-medium text-[#FF5C39] mb-4">{project.subtitle}</p>
-          <p className="text-sm text-[var(--muted)] leading-relaxed mb-6 max-w-lg">
-            {project.description}
-          </p>
+          <ReadMore text={project.description} className="mb-6 max-w-lg" />
           <div className="flex flex-wrap gap-1.5 mb-8">
             {project.stack.map((tech) => (
               <span
@@ -132,11 +153,20 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
 
             {/* Hover description overlay */}
             <motion.div
-              className="absolute inset-0 bg-[#0A0A0A]/85 backdrop-blur-sm flex flex-col items-center justify-center gap-3 px-5 z-10"
+              className="absolute inset-0 bg-[#0A0A0A]/90 flex flex-col items-center justify-center gap-3 px-5 z-10"
               animate={{ opacity: hovered ? 1 : 0 }}
               transition={{ duration: 0.2 }}
             >
-              <p className="text-white text-xs text-center leading-relaxed">{project.description}</p>
+              <p className="text-white text-xs text-center leading-relaxed line-clamp-4">{project.description}</p>
+              {project.description.length > 150 && (
+                <Link
+                  href={`/projects/${slugify(project.title)}`}
+                  onClick={(e) => e.stopPropagation()}
+                  className="font-mono text-[11px] font-bold text-[#D4FF4F] hover:underline"
+                >
+                  Read more →
+                </Link>
+              )}
               {project.liveUrl && (
                 <a
                   href={project.liveUrl}
@@ -155,7 +185,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
         )}
 
         {/* LIVE + number */}
-        <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm z-20">
+        <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/70 z-20">
           <span
             className={`w-1.5 h-1.5 rounded-full animate-pulse ${project.status === 'in-progress' ? 'bg-amber-400' : 'bg-green-400'}`}
           />

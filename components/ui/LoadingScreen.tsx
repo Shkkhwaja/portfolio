@@ -14,14 +14,14 @@ const EXIT_MS = 1300 // longest column transition (0.32 + 5*0.07 + 0.85) plus ma
 const COLUMNS = 6
 const LETTERS = [
   { l: 'K', color: '#FF5C39', glow: 'rgba(255,92,57,0.7)' },
-  { l: 'H', color: '#D4FF4F', glow: 'rgba(212,255,79,0.7)' },
-  { l: 'S', color: '#FFFFFF', glow: 'rgba(255,255,255,0.4)' },
+  { l: 'H', color: 'var(--ld-lime)', glow: 'rgba(212,255,79,0.7)' },
+  { l: 'S', color: 'var(--ld-strong)', glow: 'rgba(255,255,255,0.4)' },
 ]
 
 const CORNERS = [
   'top-5 left-5 border-t-2 border-l-2 border-[#FF5C39]/70',
-  'top-5 right-5 border-t-2 border-r-2 border-[#D4FF4F]/70',
-  'bottom-5 left-5 border-b-2 border-l-2 border-[#D4FF4F]/70',
+  'top-5 right-5 border-t-2 border-r-2 border-[var(--ld-lime)]',
+  'bottom-5 left-5 border-b-2 border-l-2 border-[var(--ld-lime)]',
   'bottom-5 right-5 border-b-2 border-r-2 border-[#FF5C39]/70',
 ]
 
@@ -87,11 +87,11 @@ export default function LoadingScreen() {
             <defs>
               <linearGradient id="ldg" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0%" stopColor="#FF5C39" />
-                <stop offset="100%" stopColor="#D4FF4F" />
+                <stop offset="100%" stopColor="var(--ld-lime)" />
               </linearGradient>
             </defs>
             <g className="ld-ring-in" style={{ transformOrigin: '100px 100px' }}>
-              <circle cx="100" cy="100" r="92" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+              <circle cx="100" cy="100" r="92" style={{ stroke: 'var(--ld-ring)' }} strokeWidth="1" />
               {/* gradient arc that spins */}
               <g className="ld-spin" style={{ transformOrigin: '100px 100px' }}>
                 <circle cx="100" cy="100" r="92" stroke="url(#ldg)" strokeWidth="2" strokeLinecap="round" strokeDasharray="150 430" />
@@ -99,8 +99,8 @@ export default function LoadingScreen() {
               </g>
               {/* dotted counter orbit */}
               <g className="ld-spin-rev" style={{ transformOrigin: '100px 100px' }}>
-                <circle cx="100" cy="100" r="72" stroke="rgba(255,255,255,0.2)" strokeWidth="1" strokeDasharray="2 7" />
-                <circle cx="172" cy="100" r="3" fill="#D4FF4F" />
+                <circle cx="100" cy="100" r="72" style={{ stroke: 'var(--ld-ring2)' }} strokeWidth="1" strokeDasharray="2 7" />
+                <circle cx="172" cy="100" r="3" style={{ fill: 'var(--ld-lime)' }} />
               </g>
             </g>
           </svg>
@@ -110,7 +110,7 @@ export default function LoadingScreen() {
           <div className="ld-mono" aria-label="KHS">
             {LETTERS.map(({ l, color, glow }, i) => (
               <span key={l} className="ld-mask" aria-hidden>
-                <span className="ld-letter" style={{ ['--i' as string]: i, color, textShadow: `0 0 24px ${glow}` }}>
+                <span className="ld-letter" style={{ ['--i' as string]: i, ['--g' as string]: glow, color }}>
                   {l}
                 </span>
               </span>
@@ -119,16 +119,16 @@ export default function LoadingScreen() {
         </div>
 
         <div className="flex flex-col items-center gap-2 px-4 text-center">
-          <p className="ld-name font-mono text-[12px] sm:text-sm uppercase tracking-[0.22em] text-white/80">
+          <p className="ld-name font-mono text-[12px] sm:text-sm uppercase tracking-[0.22em] text-[var(--ld-fg)]">
             Khwaja Hussain Shaikh
           </p>
-          <p className="ld-role font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.35em] text-[#D4FF4F]/80">
+          <p className="ld-role font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.35em] text-[var(--ld-lime)]">
             Full Stack Developer
           </p>
         </div>
 
         <div className="ld-bar" aria-hidden>
-          <div className="mb-2 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.25em] text-white/40">
+          <div className="mb-2 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--ld-dim)]">
             <span>Loading experience</span>
             <span className="ld-dots text-[#FF5C39]">
               <span>.</span>

@@ -84,6 +84,10 @@ const personSchema = {
     'Cloudflare',
     'Web Performance Optimization',
     'CI/CD',
+    'Claude Code',
+    'OpenAI Codex',
+    'AI-Assisted Coding',
+    'Prompt Engineering',
   ],
 
   knowsLanguage: ['English', 'Hindi', 'Urdu'],

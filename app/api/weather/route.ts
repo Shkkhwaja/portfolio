@@ -23,8 +23,10 @@ export async function GET() {
     const temp: number = cw.temperature ?? 30
     const description = WMO_DESCRIPTIONS[code] ?? 'Cloudy'
 
-    return NextResponse.json({ weathercode: code, temperature: Math.round(temp), description })
+    const isDay: boolean = cw.is_day !== 0
+
+    return NextResponse.json({ weathercode: code, temperature: Math.round(temp), description, isDay })
   } catch {
-    return NextResponse.json({ weathercode: 3, temperature: 30, description: 'Cloudy' })
+    return NextResponse.json({ weathercode: 3, temperature: 30, description: 'Cloudy', isDay: true })
   }
 }

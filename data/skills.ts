@@ -70,6 +70,16 @@ const skills: SkillCategory[] = [
       { name: 'Cloudflare', icon: 'SiCloudflare', color: '#F6821F' },
     ],
   },
+  {
+    category: 'AI & Prompting',
+    icon: 'sparkles',
+    skills: [
+      { name: 'Claude Code', icon: 'SiClaude', color: '#D97757' },
+      { name: 'OpenAI Codex', icon: 'SiOpenai', color: '#10A37F' },
+      { name: 'AI-Assisted Coding', icon: 'TbSparkles', color: '#D4FF4F' },
+      { name: 'Prompt Engineering', icon: 'TbPrompt', color: '#C792EA' },
+    ],
+  },
 ]
 
 /* Flat list used for the marquee strip */

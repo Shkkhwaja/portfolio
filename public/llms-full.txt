@@ -105,6 +105,7 @@ Contact to hire:
 **APIs & Auth:** REST APIs, JWT Authentication, OAuth, Google OAuth
 **Payments:** Razorpay integration, WhatsApp Business API
 **DevOps & Tools:** Git, GitHub, Vercel, Cloudflare R2, Postman, VS Code
+**AI & Prompting:** Claude Code, OpenAI Codex, AI-assisted coding, prompt engineering
 **Other:** SEO, Performance Optimisation, Responsive Design, CI/CD, Schema.org JSON-LD
 
 

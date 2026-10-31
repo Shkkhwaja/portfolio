@@ -7,9 +7,10 @@ import {
   SiNodedotjs, SiExpress, SiSpringboot,
   SiMongodb, SiPostgresql, SiMysql,
   SiGit, SiGithub, SiVercel, SiCloudflare, SiJsonwebtokens,
+  SiClaude, SiOpenai,
 } from 'react-icons/si'
 import { FaJava } from 'react-icons/fa'
-import { TbApi } from 'react-icons/tb'
+import { TbApi, TbSparkles, TbPrompt } from 'react-icons/tb'
 
 type SkillItem = {
   name: string
@@ -77,6 +78,16 @@ const categories: { title: string; color: string; skills: SkillItem[] }[] = [
       { name: 'Cloudflare', Icon: SiCloudflare, color: '#F6821F' },
     ],
   },
+  {
+    title: 'AI & Prompting',
+    color: '#FF5C39',
+    skills: [
+      { name: 'Claude Code', Icon: SiClaude, color: '#D97757' },
+      { name: 'OpenAI Codex', Icon: SiOpenai, color: '#10A37F' },
+      { name: 'AI-Assisted Coding', Icon: TbSparkles, color: 'var(--lime)' },
+      { name: 'Prompt Engineering', Icon: TbPrompt, color: '#C792EA' },
+    ],
+  },
 ]
 
 /* Marquee of all icons */
@@ -102,11 +113,12 @@ export default function Skills() {
         </motion.div>
 
         {/* Skill categories grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10 md:mb-12">
+        {/* flex-wrap + justify-center keeps an incomplete last row centred */}
+        <div className="flex flex-wrap justify-center gap-5 mb-10 md:mb-12">
           {categories.map((cat, ci) => (
             <motion.div
               key={cat.title}
-              className="p-5 rounded-2xl bg-[var(--card)] border border-[var(--border)] hover:border-[#FF5C39]/40 transition-colors duration-300"
+              className="w-full sm:w-[calc(50%-0.625rem)] lg:w-[calc(33.333%-0.84rem)] p-5 rounded-2xl bg-[var(--card)] border border-[var(--border)] hover:border-[#FF5C39]/40 transition-colors duration-300"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}

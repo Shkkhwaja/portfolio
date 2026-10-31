@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { scrollToId } from '@/lib/scroll'
 import FloatingBackground from '@/components/ui/FloatingBackground'
+import HeroBackdrop from '@/components/ui/HeroBackdrop'
 import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
 
 const roles = ['Full Stack Developer', 'MERN Stack Engineer', 'Next.js Specialist', 'React Developer']
@@ -59,6 +60,7 @@ export default function Hero() {
 
   return (
     <section id="hero" className="relative sm:min-h-screen flex flex-col overflow-hidden">
+      <HeroBackdrop />
       <FloatingBackground />
 
       <div className="relative z-10 flex-1 flex items-center">
@@ -217,7 +219,7 @@ export default function Hero() {
 
       {/* ── Stats row ── */}
       <motion.div
-        className="relative z-10 border-t border-[var(--border)] bg-[var(--bg-2)]/70 backdrop-blur-sm"
+        className="relative z-10 border-t border-[var(--border)] bg-[var(--bg-2)]/85"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 2.55, duration: 0.45 }}
