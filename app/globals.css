@@ -359,3 +359,15 @@ html.lenis, html.lenis body { height: auto; }
 }
 /* glows look muddy on a light background */
 :root:not(.dark) .ld-letter { text-shadow: none; }
+
+/* ─── Multi Brand SEO Automation pages ─────────────────────────── */
+.sa-draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: sa-draw 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; }
+.sa-grow { transform-origin: bottom; animation: sa-grow 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.sa-pulse { animation: sa-pulse 2.4s ease-in-out infinite; }
+@keyframes sa-draw { to { stroke-dashoffset: 0; } }
+@keyframes sa-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes sa-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+@media (prefers-reduced-motion: reduce) {
+  .sa-draw { animation: none; stroke-dashoffset: 0; }
+  .sa-grow, .sa-pulse { animation: none; }
+}
