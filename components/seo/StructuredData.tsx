@@ -273,48 +273,13 @@ const projectListSchema = {
     {
       '@type':    'ListItem',
       position:   3,
-      name:       'Space One Surfaces — Premium Surface Solutions Platform',
-      url:        'https://spaceonesurfaces.com/',
-      description: 'Full-stack brand website for a premium laminates & veneers company. Features a dynamic product catalog with 4 collections, admin CMS, Cloudflare R2 uploads, and GSAP scroll animations. Built with Next.js, MongoDB, TypeScript.',
-    },
-    {
-      '@type':    'ListItem',
-      position:   4,
       name:       'Friday Charm — Fashion E-Commerce',
       url:        'https://fridaycharm.vercel.app/',
       description: 'Modern fashion and lifestyle e-commerce storefront with curated collections and mobile-first design.',
     },
     {
       '@type':    'ListItem',
-      position:   5,
-      name:       'The Design Guild Awards — Architecture Awards Platform',
-      url:        'https://www.thedesignguildawards.com/',
-      description: "India's premier architecture and interior design awards platform with Razorpay payment integration.",
-    },
-    {
-      '@type':    'ListItem',
-      position:   6,
-      name:       'Bellavita Smart Home — Home Automation Website',
-      url:        'https://www.bellavitasmarthome.com/',
-      description: 'Marketing and lead-generation site for a home-automation company with 6500+ projects since 2018.',
-    },
-    {
-      '@type':    'ListItem',
-      position:   7,
-      name:       'INKA Media Solutions — Digital Marketing Agency',
-      url:        'https://inkamediasolutions.com/',
-      description: 'Conversion-focused agency site with live animated ROAS/lead metrics and a multi-step consultation form.',
-    },
-    {
-      '@type':    'ListItem',
-      position:   8,
-      name:       'BLP Interior — Luxury Furniture & Interior Studio',
-      url:        'https://blpinterior.vercel.app/',
-      description: 'Portfolio site for a luxury hospitality furniture studio with projects at Four Seasons, Hyatt, and Meliá properties.',
-    },
-    {
-      '@type':    'ListItem',
-      position:   9,
+      position:   4,
       name:       'FinalYear Labs — Final-Year Project Platform for Students',
       url:        'https://finalyear-labs.vercel.app/',
       description: 'Platform where BCA, MCA, BSc IT and B.Tech students find a final-year project, preview the live demo, and get source code, report and PPT help, viva preparation and WhatsApp support.',
@@ -388,7 +353,7 @@ const faqSchema = {
       name: 'What projects has Khwaja Shaikh built?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Khwaja Shaikh has built 8 live production projects including: Queryly (AI-powered Q&A platform), FinalYear Labs (final-year project platform for students), Space One Surfaces (premium laminates brand with admin CMS), Friday Charm (fashion e-commerce), The Design Guild Awards (architecture awards with Razorpay), Bellavita Smart Home, INKA Media Solutions, and BLP Interior. View them at https://khwajashaikh.vercel.app/#projects',
+        text: 'Khwaja Shaikh has built 8 live production projects including: Queryly (AI-powered Q&A platform), FinalYear Labs (final-year project platform for students), Friday Charm (fashion e-commerce). View them at https://khwajashaikh.vercel.app/#projects',
       },
     },
     {
@@ -444,7 +409,7 @@ const faqSchema = {
       name: 'Next.js developer in Mumbai',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Khwaja Hussain Shaikh is a Next.js specialist based in Mumbai, India. He has built multiple production Next.js applications including FinalYear Labs, Space One Surfaces, The Design Guild Awards, INKA Media Solutions, and more. He uses Next.js App Router with TypeScript, Tailwind CSS, and Framer Motion. Available for hire. Contact: khwajashaikh703@gmail.com',
+        text: 'Khwaja Hussain Shaikh is a Next.js specialist based in Mumbai, India. He has built multiple production Next.js applications including FinalYear Labs, Queryly, and more. He uses Next.js App Router with TypeScript, Tailwind CSS, and Framer Motion. Available for hire. Contact: khwajashaikh703@gmail.com',
       },
     },
   ],

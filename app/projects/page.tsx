@@ -9,7 +9,7 @@ import { slugify } from '@/lib/slug'
 export const metadata = buildMetadata({
   title: 'Projects — Live Next.js & MERN Stack Websites by Khwaja Shaikh',
   description:
-    'Projects by Khwaja Hussain Shaikh: Queryly, CodeMind AI, FinalYear Labs, Space One Surfaces, Friday Charm, Design Guild Awards, Bellavita Smart Home, INKA Media and BLP Interior.',
+    'Projects by Khwaja Hussain Shaikh: CodeMind AI, Queryly, FinalYear Labs and Friday Charm.',
   path: '/projects',
   keywords: ['Next.js projects', 'MERN stack projects', 'full stack developer portfolio projects Mumbai', 'React portfolio'],
 })

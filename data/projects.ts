@@ -62,22 +62,6 @@ const projects: Project[] = [
     accentColor: '#FF5C39',
   },
   {
-    id: 3,
-    title: 'Space One Surfaces',
-    subtitle: 'Premium Surface Solutions Platform',
-    description:
-      'Full-stack brand website for a premium laminates & veneers company. Features a dynamic product catalog with 4 collections (3D Textured, Wood Series, High Gloss, Solid Core), finish & colour browsing, catalogue PDF downloads, admin CMS for product management, and a WhatsApp lead-capture flow.',
-    role: 'Architected and built the complete platform — product catalog with hero slider, finish & colour system, admin panel with Cloudflare R2 media uploads, MongoDB backend, PDF catalogue downloads, and GSAP scroll animations.',
-    stack: ['Next.js', 'React', 'TypeScript', 'MongoDB', 'Cloudflare R2', 'GSAP', 'Tailwind CSS', 'JWT'],
-    liveUrl: 'https://spaceonesurfaces.com/',
-    media: {
-      type: 'image',
-      src: '/images/projects/spaceonesurfaces.png',
-      alt: 'Space One Surfaces — Premium Surface Solutions',
-    },
-    accentColor: 'var(--lime)',
-  },
-  {
     id: 5,
     title: 'Friday Charm',
     subtitle: 'Fashion & Lifestyle E-Commerce',
@@ -90,70 +74,6 @@ const projects: Project[] = [
       type: 'image',
       src: '/images/projects/friday-charm.png',
       alt: 'Friday Charm — Fashion E-Commerce',
-    },
-    accentColor: '#FF5C39',
-  },
-  {
-    id: 6,
-    title: 'Design Guild Awards',
-    subtitle: 'Architecture & Interior Design Awards',
-    description:
-      'India\'s premier architecture and interior design awards platform. Multi-section submission system covering applicant details, project overview, category selection, design philosophy, media uploads, and Razorpay payment integration.',
-    role: 'Built the full multi-step submission system and jury showcase with integrated Razorpay payments.',
-    stack: ['Next.js', 'React', 'Razorpay'],
-    liveUrl: 'https://www.thedesignguildawards.com/',
-    media: {
-      type: 'image',
-      src: '/images/projects/thedesignguild.png',
-      alt: 'The Design Guild Awards Platform',
-    },
-    accentColor: 'var(--lime)',
-  },
-  {
-    id: 7,
-    title: 'Bellavita Smart Home',
-    subtitle: 'Home Automation Brand Website',
-    description:
-      'Marketing and lead-generation site for a home-automation company with 6500+ projects since 2018. Multi-step lead capture, solutions showcase (lighting, security, curtains, climate), and device-compatibility grid (Alexa, Google Home, HomeKit, Matter).',
-    role: 'Developed the full marketing site, multi-step lead form, and interactive solutions showcase.',
-    stack: ['Next.js', 'React'],
-    liveUrl: 'https://www.bellavitasmarthome.com/',
-    media: {
-      type: 'image',
-      src: '/images/projects/bellavita.png',
-      alt: 'Bellavita Smart Home Website',
-    },
-    accentColor: '#FF5C39',
-  },
-  {
-    id: 8,
-    title: 'INKA Media Solutions',
-    subtitle: 'Digital Marketing Agency Website',
-    description:
-      'Conversion-focused agency website with live animated metrics (ROAS, lead growth, ad spend), service pages (SEO, Performance Marketing, Google/Meta Ads, Lead Gen, Brand Strategy), case studies, and a multi-step consultation form.',
-    role: 'Architected and built the full site — animated metric counters, service pages, case study layouts, and consultation flow.',
-    stack: ['Next.js', 'React', 'Tailwind CSS'],
-    liveUrl: 'https://inkamediasolutions.com/',
-    media: {
-      type: 'image',
-      src: '/images/projects/inka.png',
-      alt: 'INKA Media Solutions Website',
-    },
-    accentColor: 'var(--lime)',
-  },
-  {
-    id: 9,
-    title: 'BLP Interior',
-    subtitle: 'Luxury Furniture & Interior Studio',
-    description:
-      'Portfolio site for a luxury hospitality furniture/décor studio with projects across Four Seasons, Hyatt, and Meliá properties in Tanzania and Ethiopia. Editorial project showcase with full-bleed imagery, testimonials, and downloadable catalogue.',
-    role: 'Led frontend development — editorial project showcase, full-bleed imagery system, and testimonial section.',
-    stack: ['Next.js', 'React'],
-    liveUrl: 'https://blpinterior.vercel.app/',
-    media: {
-      type: 'image',
-      src: '/images/projects/BLP.png',
-      alt: 'BLP Interior — Luxury Studio',
     },
     accentColor: '#FF5C39',
   },

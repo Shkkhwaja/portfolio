@@ -32,7 +32,7 @@ const FAQ = [
   },
   {
     q: 'What kind of projects has he built?',
-    a: 'Eight live production websites, including a student project platform, an e-commerce storefront, an admin-managed product catalogue, an awards platform with Razorpay payments and agency marketing sites.',
+    a: 'Eight live production websites, including a student project platform, a Q&A platform and an e-commerce storefront.',
   },
   {
     q: 'How can I contact him?',

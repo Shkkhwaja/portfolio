@@ -15,16 +15,11 @@ Key facts: Location: Mumbai, Maharashtra, India. Email: khwajashaikh703@gmail.co
 
 ## Projects
 
-- [All projects](https://khwajashaikh.vercel.app/projects): 8 live production websites
+- [All projects](https://khwajashaikh.vercel.app/projects): selected projects
 - [Queryly](https://khwajashaikh.vercel.app/projects/queryly): AI-powered Q&A platform (React, Node.js, MongoDB)
 - [CodeMind AI](https://khwajashaikh.vercel.app/projects/codemind-ai): AI-assisted bug investigation for GitHub repositories, with secure auth and an email-OTP forgot-password flow (Next.js, Prisma, PostgreSQL)
 - [FinalYear Labs](https://khwajashaikh.vercel.app/projects/finalyear-labs): final-year project platform for BCA / MCA / BSc IT / B.Tech students
-- [Space One Surfaces](https://khwajashaikh.vercel.app/projects/space-one-surfaces): premium laminates catalogue with admin CMS (Next.js, MongoDB, Cloudflare R2)
 - [Friday Charm](https://khwajashaikh.vercel.app/projects/friday-charm): fashion e-commerce storefront (Next.js)
-- [Design Guild Awards](https://khwajashaikh.vercel.app/projects/design-guild-awards): awards submission platform with Razorpay (Next.js)
-- [Bellavita Smart Home](https://khwajashaikh.vercel.app/projects/bellavita-smart-home): home-automation marketing and lead site (Next.js)
-- [INKA Media Solutions](https://khwajashaikh.vercel.app/projects/inka-media-solutions): digital marketing agency site (Next.js)
-- [BLP Interior](https://khwajashaikh.vercel.app/projects/blp-interior): luxury furniture studio showcase (Next.js)
 
 ## Hire / Contact
 

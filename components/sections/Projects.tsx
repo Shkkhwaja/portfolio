@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { FiExternalLink, FiArrowUpRight } from 'react-icons/fi'
+import { scrollToId } from '@/lib/scroll'
 import projects from '@/data/projects'
 import { slugify } from '@/lib/slug'
 
@@ -281,6 +282,29 @@ export default function Projects() {
             </div>
           ))}
         </div>
+
+        {/* Closing note */}
+        <motion.div
+          className="mt-12 flex flex-col items-center gap-3 text-center"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6 }}
+        >
+          <p className="text-4xl md:text-5xl font-black tracking-tight">
+            <span className="text-[#FF5C39]">10+</span> Full Stack Projects Completed
+          </p>
+          <p className="max-w-md text-sm text-[var(--muted)] leading-relaxed">
+            And more built for clients along the way. Have an idea in mind?
+          </p>
+          <button
+            type="button"
+            onClick={() => scrollToId('contact')}
+            className="mt-1 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--card)] px-5 py-2.5 font-mono text-xs font-bold text-[var(--fg)] transition-colors hover:border-[#FF5C39] hover:text-[#FF5C39] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF5C39]"
+          >
+            Let&apos;s build yours <FiArrowUpRight size={14} aria-hidden />
+          </button>
+        </motion.div>
       </div>
     </section>
   )
