@@ -8,6 +8,7 @@ Key facts: Location: Mumbai, Maharashtra, India. Email: khwajashaikh703@gmail.co
 
 ## Profile
 
+- [Khwaja Shaikh — official profile](https://khwajashaikh.vercel.app/khwaja-shaikh): the official page for the name Khwaja Shaikh / Khwaja Hussain Shaikh
 - [About Khwaja Shaikh](https://khwajashaikh.vercel.app/about): who he is, current role, education, availability
 - [Skills](https://khwajashaikh.vercel.app/skills): languages, frameworks, databases, tools
 - [Experience](https://khwajashaikh.vercel.app/experience): ZAR Luxury Pvt. Ltd. (Full Stack Developer) and SK Children Foundation (Frontend Developer Intern / Web Domain Mentor)

@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()
   const pages: [string, Entry['changeFrequency'], number][] = [
     ['', 'weekly', 1.0],
+    ['/khwaja-shaikh', 'monthly', 0.9],
     ['/about', 'monthly', 0.8],
     ['/projects', 'weekly', 0.9],
     ['/skills', 'monthly', 0.7],

@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 
   /* ── Primary identity ── */
   title: {
-    default: `${PERSON.name} — Full Stack Developer in Mumbai | MERN & Next.js`,
+    default: `${PERSON.shortName} — Full Stack Developer in Mumbai | MERN & Next.js`,
     template: `%s | ${PERSON.name}`,
   },
   description: PERSON.description,

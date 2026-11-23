@@ -5,6 +5,7 @@ import { breadcrumbSchema } from '@/lib/seo-page'
 import { PERSON } from '@/lib/seo-config'
 
 export const SEO_NAV = [
+  { label: 'Khwaja Shaikh', href: '/khwaja-shaikh' },
   { label: 'About', href: '/about' },
   { label: 'Projects', href: '/projects' },
   { label: 'Skills', href: '/skills' },
